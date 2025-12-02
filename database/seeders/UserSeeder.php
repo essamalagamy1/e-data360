@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
-            'email' => 'team@e-data-360.com',
-            'password' => Hash::make('E-data-360'),
+            'email' => 'superadmin@admin.com',
+            'password' => 12345678,
             'is_admin' => true,
         ]);
     }

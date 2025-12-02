@@ -52,10 +52,9 @@ class ProjectResource extends Resource
                 ->image()
                 ->directory('projects')
                 ->required(),
-            Forms\Components\TextInput::make('video_url')
+            Forms\Components\FileUpload::make('video_url')
                 ->label('رابط الفيديو (اختياري)')
-                ->url()
-                ->maxLength(255),
+                ->directory('projects'),
             Forms\Components\Toggle::make('is_featured')
                 ->label('عرض في الصفحة الرئيسية؟'),
             Forms\Components\Select::make('status')
