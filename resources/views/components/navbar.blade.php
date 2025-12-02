@@ -1,103 +1,126 @@
 @props(['companySettings', 'socialLinks'])
 
-<nav class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300" id="navbar">
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-lg" id="navbar">
     <div class="container mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
             {{-- Logo --}}
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 space-x-reverse group">
                     @if(isset($companySettings) && $companySettings->logo_path)
-                        <img class="h-12 transition-transform duration-300 group-hover:scale-110" 
-                             src="{{ Storage::url($companySettings->logo_path) }}" 
+		                <img class="h-14 transition-all duration-300 group-hover:scale-110"
+                             src="{{ Storage::url($companySettings->logo_path) }}"
                              alt="{{ $companySettings->company_name ?? 'EDATA 360' }}">
                     @else
-                        <div class="flex items-center">
-                            <span class="text-3xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">EDATA</span>
-                            <span class="text-3xl font-black text-gray-800 ml-1">360</span>
+		                <div class="flex items-center gap-2">
+			                <div class="relative">
+				                <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
+				                <div class="relative bg-gradient-to-r from-blue-600 to-cyan-500 p-2 rounded-lg">
+					                <i class="fas fa-chart-line text-white text-2xl"></i>
+				                </div>
+			                </div>
+			                <div class="flex items-center">
+				                <span class="text-3xl font-black bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">EDATA</span>
+				                <span class="text-3xl font-black text-slate-800 ml-1">360</span>
+			                </div>
                         </div>
                     @endif
                 </a>
             </div>
             
             {{-- Desktop Navigation --}}
-            <div class="hidden lg:flex lg:items-center lg:space-x-8 lg:space-x-reverse">
-                <a href="{{ route('home') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 relative group px-3 py-2">
-                    <i class="fas fa-home ml-2"></i>
-                    الرئيسية
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+	        <div class="hidden lg:flex lg:items-center lg:gap-2">
+                <a href="{{ route('home') }}"
+                   class="group relative text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-2 rounded-xl hover:bg-blue-50">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-home group-hover:scale-110 transition-transform"></i>
+                        <span>الرئيسية</span>
+                    </span>
+	                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
                 </a>
-                <a href="{{ route('about') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 relative group px-3 py-2">
-                    <i class="fas fa-info-circle ml-2"></i>
-                    من نحن
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+                <a href="{{ route('about') }}"
+                   class="group relative text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-2 rounded-xl hover:bg-blue-50">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-users group-hover:scale-110 transition-transform"></i>
+                        <span>من نحن</span>
+                    </span>
+	                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
                 </a>
-                <a href="{{ route('services') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 relative group px-3 py-2">
-                    <i class="fas fa-briefcase ml-2"></i>
-                    خدماتنا
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+                <a href="{{ route('services') }}"
+                   class="group relative text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-2 rounded-xl hover:bg-blue-50">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-briefcase group-hover:scale-110 transition-transform"></i>
+                        <span>خدماتنا</span>
+                    </span>
+	                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
                 </a>
-                <a href="{{ route('portfolio') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 relative group px-3 py-2">
-                    <i class="fas fa-folder-open ml-2"></i>
-                    المعرض
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+                <a href="{{ route('portfolio') }}"
+                   class="group relative text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-2 rounded-xl hover:bg-blue-50">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-th-large group-hover:scale-110 transition-transform"></i>
+                        <span>المعرض</span>
+                    </span>
+	                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
                 </a>
-                <a href="{{ route('contact') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 relative group px-3 py-2">
-                    <i class="fas fa-envelope ml-2"></i>
-                    تواصل معنا
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+                <a href="{{ route('contact') }}"
+                   class="group relative text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-2 rounded-xl hover:bg-blue-50">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-envelope group-hover:scale-110 transition-transform"></i>
+                        <span>تواصل معنا</span>
+                    </span>
+	                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
                 </a>
                 
                 {{-- CTA Button --}}
-                <a href="{{ route('request-design.create') }}" 
-                   class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-3 px-6 rounded-full hover:shadow-xl hover:scale-105 transform transition duration-300 inline-flex items-center">
-                    <i class="fas fa-rocket ml-2"></i>
-                    اطلب تصميمك
+                <a href="{{ route('request-design.create') }}"
+                   class="group relative mr-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-black py-3 px-8 rounded-xl hover:shadow-2xl hover:shadow-cyan-500/50 hover:scale-105 transform transition-all duration-300 inline-flex items-center gap-2 overflow-hidden">
+	                <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-600 via-cyan-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+	                <i class="fas fa-rocket relative z-10 group-hover:rotate-12 transition-transform"></i>
+	                <span class="relative z-10">ابدأ الآن</span>
                 </a>
             </div>
             
             {{-- Mobile Menu Button --}}
-            <button id="mobile-menu-button" class="lg:hidden text-gray-700 hover:text-blue-600 focus:outline-none transition-colors duration-300">
+	        <button id="mobile-menu-button" class="lg:hidden text-gray-700 hover:text-blue-600 focus:outline-none transition-all duration-300 p-2 rounded-lg hover:bg-blue-50">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
         
         {{-- Mobile Navigation --}}
-        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4">
-            <div class="flex flex-col space-y-3">
-                <a href="{{ route('home') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 px-4 py-3 rounded-lg hover:bg-blue-50 flex items-center">
-                    <i class="fas fa-home ml-2"></i>
-                    الرئيسية
+	    <div id="mobile-menu" class="hidden lg:hidden mt-6 pb-4">
+		    <div class="flex flex-col gap-2 bg-white/95 backdrop-blur-lg rounded-2xl p-4 shadow-xl border border-gray-100">
+                <a href="{{ route('home') }}"
+                   class="group text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">
+	                <i class="fas fa-home text-lg group-hover:scale-110 transition-transform"></i>
+	                <span>الرئيسية</span>
                 </a>
-                <a href="{{ route('about') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 px-4 py-3 rounded-lg hover:bg-blue-50 flex items-center">
-                    <i class="fas fa-info-circle ml-2"></i>
-                    من نحن
+                <a href="{{ route('about') }}"
+                   class="group text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">
+	                <i class="fas fa-users text-lg group-hover:scale-110 transition-transform"></i>
+	                <span>من نحن</span>
                 </a>
-                <a href="{{ route('services') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 px-4 py-3 rounded-lg hover:bg-blue-50 flex items-center">
-                    <i class="fas fa-briefcase ml-2"></i>
-                    خدماتنا
+                <a href="{{ route('services') }}"
+                   class="group text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">
+	                <i class="fas fa-briefcase text-lg group-hover:scale-110 transition-transform"></i>
+	                <span>خدماتنا</span>
                 </a>
-                <a href="{{ route('portfolio') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 px-4 py-3 rounded-lg hover:bg-blue-50 flex items-center">
-                    <i class="fas fa-folder-open ml-2"></i>
-                    المعرض
+                <a href="{{ route('portfolio') }}"
+                   class="group text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">
+	                <i class="fas fa-th-large text-lg group-hover:scale-110 transition-transform"></i>
+	                <span>المعرض</span>
                 </a>
-                <a href="{{ route('contact') }}" 
-                   class="text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 px-4 py-3 rounded-lg hover:bg-blue-50 flex items-center">
-                    <i class="fas fa-envelope ml-2"></i>
-                    تواصل معنا
+                <a href="{{ route('contact') }}"
+                   class="group text-gray-700 hover:text-blue-600 font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">
+	                <i class="fas fa-envelope text-lg group-hover:scale-110 transition-transform"></i>
+	                <span>تواصل معنا</span>
                 </a>
-                <a href="{{ route('request-design.create') }}" 
-                   class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-3 px-6 rounded-full text-center hover:shadow-xl transition duration-300 flex items-center justify-center">
-                    <i class="fas fa-rocket ml-2"></i>
-                    اطلب تصميمك
+
+			    <div class="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-2"></div>
+
+			    <a href="{{ route('request-design.create') }}"
+			       class="group bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-black py-4 px-6 rounded-xl text-center hover:shadow-xl hover:shadow-cyan-500/50 transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden relative">
+				    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-600 via-cyan-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+				    <i class="fas fa-rocket relative z-10 group-hover:rotate-12 transition-transform"></i>
+				    <span class="relative z-10">ابدأ مشروعك الآن</span>
                 </a>
             </div>
         </div>

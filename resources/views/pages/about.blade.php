@@ -1,230 +1,300 @@
 <x-layouts.app>
-    {{-- Hero Section --}}
-    <section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 py-24 overflow-hidden">
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-            <div class="absolute top-0 -right-4 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 2s;"></div>
+    {{-- Hero Section - من نحن --}}
+    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 min-h-[70vh] flex items-center justify-center overflow-hidden">
+        {{-- Grid Pattern Background --}}
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+
+        {{-- Animated Gradient Orbs --}}
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
         </div>
-        
-        <div class="container mx-auto px-6 relative z-10 text-center text-white">
-            <h1 class="text-5xl md:text-6xl font-black mb-6">
-                من <span class="bg-gradient-to-r from-cyan-400 to-blue-300 bg-clip-text text-transparent">نحن</span>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            {{-- Badge --}}
+            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8">
+                <i class="fas fa-users text-cyan-400"></i>
+                <span class="text-sm font-medium text-cyan-300">تعرف علينا أكثر</span>
+            </div>
+
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
+                <span class="block mb-4">نحن</span>
+                <span class="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    EDATA 360
+                </span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto">
-                شريكك الموثوق في رحلة تحويل البيانات إلى قرارات استراتيجية
+
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
+                شريكك الموثوق في تحويل البيانات إلى رؤى استراتيجية قابلة للتنفيذ
             </p>
         </div>
     </section>
 
-    {{-- Company Story --}}
-    <section class="py-24 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">
-                        قصة <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">EDATA 360</span>
-                    </h2>
-                </div>
-                
-                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-8 md:p-12 shadow-xl">
-                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                        <span class="text-4xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">EDATA 360</span> هي شركة سعودية متخصصة في تحليل البيانات وإنشاء لوحات التحكم الاحترافية. 
-                        تأسست الشركة بهدف مساعدة الشركات والمؤسسات على اتخاذ قرارات أفضل من خلال تحويل بياناتها إلى رؤى واضحة وقابلة للتنفيذ.
-                    </p>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                        نؤمن بأن البيانات هي النفط الجديد، ولكن قيمتها الحقيقية تكمن في كيفية تحليلها واستخدامها. لذلك، نقدم حلولاً متكاملة 
-                        تجمع بين الخبرة التقنية والفهم العميق لاحتياجات الأعمال في السوق السعودي.
-                    </p>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        مع فريق من الخبراء المتخصصين في Excel و Power BI وتحليل البيانات، نفخر بتقديم خدمات عالية الجودة ساعدت أكثر من 
-                        <span class="font-bold text-blue-600">150 عميل</span> على تحسين أدائهم وزيادة كفاءتهم التشغيلية.
-                    </p>
+    {{-- Our Story Section --}}
+    <section class="py-32 bg-white relative overflow-hidden">
+        {{-- Background Decoration --}}
+        <div class="absolute top-0 left-0 w-full h-full opacity-30">
+            <div class="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <div class="inline-block mb-4">
+                            <span class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold px-4 py-2 rounded-full">قصتنا</span>
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+                            رحلتنا نحو
+                            <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">التميز</span>
+                        </h2>
+                        <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                            <p>
+                                بدأنا رحلتنا في عام <span class="font-bold text-blue-600">2019</span> بهدف واضح: مساعدة الشركات السعودية على فهم بياناتها واتخاذ قرارات أفضل.
+                            </p>
+                            <p>
+                                نؤمن بأن البيانات هي الذهب الجديد، ولكن القيمة الحقيقية تكمن في كيفية تحليلها وعرضها بطريقة واضحة وقابلة للتنفيذ.
+                            </p>
+                            <p>
+                                اليوم، نفخر بخدمة <span class="font-bold text-purple-600">+250 عميل</span> في مختلف القطاعات، ونواصل الابتكار لتقديم أفضل الحلول.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-blue-600 via-cyan-500 to-purple-600 rounded-3xl p-8 text-white">
+                            <div class="space-y-6">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                        <i class="fas fa-bullseye text-3xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-black">رؤيتنا</h3>
+                                        <p class="text-blue-100">أن نكون الخيار الأول لتحليل البيانات في المنطقة</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                        <i class="fas fa-rocket text-3xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-black">رسالتنا</h3>
+                                        <p class="text-blue-100">تمكين الشركات من اتخاذ قرارات مبنية على البيانات</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                        <i class="fas fa-heart text-3xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-black">قيمنا</h3>
+                                        <p class="text-blue-100">الاحترافية، الابتكار، والجودة العالية</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Achievements --}}
-    <section class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div class="container mx-auto px-6">
+    {{-- Stats Section --}}
+    <section class="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(-45deg,rgba(255,255,255,.1)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-                    إنجازاتنا <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">بالأرقام</span>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4">
+                    إنجازاتنا
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">بالأرقام</span>
+                </h2>
+                <p class="text-xl text-gray-300">أرقام حقيقية تعكس جودة خدماتنا</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
+                    <i class="fas fa-users text-5xl text-cyan-400 mb-4"></i>
+                    <div class="text-5xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">+250</div>
+                    <p class="text-gray-300 mt-2 font-medium">عميل سعيد</p>
+                </div>
+
+                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
+                    <i class="fas fa-chart-pie text-5xl text-purple-400 mb-4"></i>
+                    <div class="text-5xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">+350</div>
+                    <p class="text-gray-300 mt-2 font-medium">لوحة تحكم</p>
+                </div>
+
+                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-green-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
+                    <i class="fas fa-trophy text-5xl text-green-400 mb-4"></i>
+                    <div class="text-5xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">5+</div>
+                    <p class="text-gray-300 mt-2 font-medium">سنوات خبرة</p>
+                </div>
+
+                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-orange-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
+                    <i class="fas fa-smile text-5xl text-orange-400 mb-4"></i>
+                    <div class="text-5xl font-black bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">99%</div>
+                    <p class="text-gray-300 mt-2 font-medium">رضا العملاء</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Core Values Section --}}
+    <section class="py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="inline-block mb-4">
+                    <span class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold px-4 py-2 rounded-full">قيمنا الأساسية</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6">
+                    ما يميزنا عن
+                    <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">الآخرين</span>
                 </h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    أرقام تعكس التزامنا بالتميز ورضا عملائنا
+                    القيم التي نعمل بها يومياً لضمان تقديم أفضل خدمة لعملائنا
                 </p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-center">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 flex items-center justify-center">
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {{-- Value 1 --}}
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-star text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">الاحترافية</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        نلتزم بأعلى معايير الجودة والاحترافية في كل مشروع نعمل عليه، مهما كان حجمه.
+                    </p>
+                </div>
+
+                {{-- Value 2 --}}
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-lightbulb text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">الابتكار</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        نسعى دائماً لاستخدام أحدث التقنيات والأساليب لتقديم حلول مبتكرة ومتطورة.
+                    </p>
+                </div>
+
+                {{-- Value 3 --}}
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-alt text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">الموثوقية</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        نبني علاقات طويلة الأمد مع عملائنا من خلال الشفافية والالتزام بوعودنا.
+                    </p>
+                </div>
+
+                {{-- Value 4 --}}
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-clock text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">الالتزام بالمواعيد</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        نحترم وقتك ونلتزم بتسليم المشاريع في المواعيد المحددة دون تأخير.
+                    </p>
+                </div>
+
+                {{-- Value 5 --}}
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-headset text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">الدعم المستمر</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        نقدم دعماً فنياً متواصلاً حتى بعد تسليم المشروع لضمان نجاحك.
+                    </p>
+                </div>
+
+                {{-- Value 6 --}}
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <i class="fas fa-users text-white text-3xl"></i>
                     </div>
-                    <div class="text-5xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">+150</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">عميل راضٍ</h3>
-                    <p class="text-gray-600">من مختلف القطاعات</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-center">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-purple-600 to-pink-400 flex items-center justify-center">
-                        <i class="fas fa-chart-line text-white text-3xl"></i>
-                    </div>
-                    <div class="text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">+200</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">لوحة تحكم</h3>
-                    <p class="text-gray-600">تم تصميمها وتسليمها</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-center">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-green-600 to-teal-400 flex items-center justify-center">
-                        <i class="fas fa-calendar-alt text-white text-3xl"></i>
-                    </div>
-                    <div class="text-5xl font-black bg-gradient-to-r from-green-600 to-teal-500 bg-clip-text text-transparent mb-2">3+</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">سنوات خبرة</h3>
-                    <p class="text-gray-600">في السوق السعودي</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-center">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-orange-600 to-red-400 flex items-center justify-center">
-                        <i class="fas fa-smile text-white text-3xl"></i>
-                    </div>
-                    <div class="text-5xl font-black bg-gradient-to-r from-orange-600 to-red-500 bg-clip-text text-transparent mb-2">98%</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">رضا العملاء</h3>
-                    <p class="text-gray-600">معدل الرضا العام</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- Mission & Vision --}}
-    <section class="py-24 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                    <div class="w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 flex items-center justify-center">
-                        <i class="fas fa-bullseye text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-black text-gray-900 mb-4">رؤيتنا</h3>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        أن نكون الشريك الأول والأكثر موثوقية في مجال تحليل البيانات ولوحات التحكم في المملكة العربية السعودية، 
-                        ونساهم في تمكين الشركات من اتخاذ قرارات مبنية على البيانات لتحقيق النمو المستدام.
-                    </p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                    <div class="w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-purple-600 to-pink-400 flex items-center justify-center">
-                        <i class="fas fa-rocket text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-black text-gray-900 mb-4">رسالتنا</h3>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        نلتزم بتقديم حلول تحليل بيانات عالية الجودة ولوحات تحكم احترافية تساعد عملاءنا على فهم بياناتهم بشكل أفضل، 
-                        واتخاذ قرارات استراتيجية مدروسة، وتحقيق أهدافهم بكفاءة وفعالية.
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">التركيز على العميل</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        نضع احتياجات عملائنا في المقام الأول ونعمل على تحقيق أهدافهم.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Our Values --}}
-    <section class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+    {{-- Team Section (Optional - can be populated with real team members later) --}}
+    <section class="py-32 bg-white">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-                    قيمنا <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">الأساسية</span>
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+                    فريق من
+                    <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">الخبراء</span>
                 </h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    المبادئ التي نؤمن بها ونعمل وفقاً لها
+                    نجمع أفضل المواهب في مجال تحليل البيانات وتصميم لوحات التحكم
                 </p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 flex items-center justify-center transform hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-award text-white text-2xl"></i>
+
+            <div class="max-w-4xl mx-auto bg-gradient-to-r from-blue-50 via-cyan-50 to-purple-50 rounded-3xl p-12 border border-blue-100 text-center">
+                <i class="fas fa-users text-6xl text-blue-600 mb-6"></i>
+                <h3 class="text-3xl font-black text-gray-900 mb-4">فريق متخصص ومتفاني</h3>
+                <p class="text-xl text-gray-700 mb-6">
+                    يضم فريقنا خبراء في:
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl p-6">
+                        <i class="fas fa-chart-bar text-3xl text-blue-600 mb-3"></i>
+                        <h4 class="font-bold text-gray-900">تحليل البيانات</h4>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">الجودة</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نضع الجودة في صميم كل ما نقوم به، ونسعى دائماً لتقديم أفضل الحلول لعملائنا
-                    </p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-purple-600 to-pink-400 flex items-center justify-center transform hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-handshake text-white text-2xl"></i>
+                    <div class="bg-white rounded-xl p-6">
+                        <i class="fas fa-paint-brush text-3xl text-purple-600 mb-3"></i>
+                        <h4 class="font-bold text-gray-900">تصميم UI/UX</h4>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">الأمانة</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نتعامل مع بيانات عملائنا بأقصى درجات السرية والمسؤولية
-                    </p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-green-600 to-teal-400 flex items-center justify-center transform hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-lightbulb text-white text-2xl"></i>
+                    <div class="bg-white rounded-xl p-6">
+                        <i class="fas fa-code text-3xl text-cyan-600 mb-3"></i>
+                        <h4 class="font-bold text-gray-900">تطوير التقنيات</h4>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">الابتكار</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نواكب أحدث التقنيات والأساليب في مجال تحليل البيانات
-                    </p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-orange-600 to-red-400 flex items-center justify-center transform hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-user-friends text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">التركيز على العميل</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        رضا عملائنا هو أولويتنا القصوى ونسعى لتجاوز توقعاتهم
-                    </p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-indigo-600 to-purple-400 flex items-center justify-center transform hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-clock text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">الالتزام بالمواعيد</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نحترم وقت عملائنا ونلتزم بتسليم المشاريع في المواعيد المحددة
-                    </p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-pink-600 to-rose-400 flex items-center justify-center transform hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">التطوير المستمر</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نستثمر في تطوير مهارات فريقنا ومواكبة كل جديد في المجال
-                    </p>
-                </div>
+                <a href="{{ route('contact') }}" class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-bold py-4 px-8 rounded-xl hover:shadow-2xl hover:shadow-cyan-500/50 transform hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-envelope"></i>
+                    <span>تواصل معنا</span>
+                </a>
             </div>
         </div>
     </section>
 
     {{-- CTA Section --}}
-    <section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 py-24 overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-0 -right-4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 py-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-screen filter blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mix-blend-screen filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
         </div>
-        
+
         <div class="container mx-auto px-6 relative z-10 text-center text-white">
             <h2 class="text-4xl md:text-5xl font-black mb-6">
-                هل أنت مستعد للعمل معنا؟
+                جاهز للعمل معنا؟
             </h2>
             <p class="text-xl mb-10 text-gray-200 max-w-2xl mx-auto">
-                دعنا نساعدك في تحويل بياناتك إلى قرارات استراتيجية
+                دعنا نحول بياناتك إلى قرارات استراتيجية ناجحة
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="{{ route('request-design.create') }}" class="inline-block bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-4 px-8 rounded-full hover:shadow-2xl hover:scale-105 transform transition duration-300">
-                    <i class="fas fa-rocket ml-2"></i>
-                    ابدأ مشروعك الآن
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="{{ route('request-design.create') }}" class="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black py-5 px-10 rounded-2xl hover:shadow-2xl hover:shadow-cyan-500/50 transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-3">
+                    <i class="fas fa-rocket group-hover:rotate-12 transition-transform"></i>
+                    <span>ابدأ مشروعك الآن</span>
                 </a>
-                <a href="{{ route('contact') }}" class="inline-block bg-transparent border-2 border-white text-white font-bold py-4 px-8 rounded-full hover:bg-white hover:text-blue-900 transition duration-300">
-                    <i class="fas fa-phone ml-2"></i>
-                    تواصل معنا
+                <a href="{{ route('contact') }}" class="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white font-bold py-5 px-10 rounded-2xl hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center gap-3">
+                    <i class="fas fa-phone"></i>
+                    <span>تواصل معنا</span>
                 </a>
             </div>
         </div>
     </section>
 </x-layouts.app>
+

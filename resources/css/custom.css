@@ -1,0 +1,184 @@
+/* EDATA 360 - Custom Styles */
+
+/* Root Variables */
+:root {
+    --color-primary: #092635;
+    --color-secondary: #eb9a28;
+    --color-accent: #09d257;
+    --color-primary-light: #0a3d52;
+    --color-secondary-light: #f5b454;
+    --color-accent-light: #33ef87;
+}
+
+/* Custom Gradient Backgrounds */
+.bg-gradient-primary-dark {
+    background: linear-gradient(135deg, #092635 0%, #041419 100%);
+}
+
+.bg-gradient-primary-light {
+    background: linear-gradient(135deg, #0a3d52 0%, #092635 100%);
+}
+
+.bg-gradient-secondary-warm {
+    background: linear-gradient(135deg, #eb9a28 0%, #d68820 100%);
+}
+
+.bg-gradient-accent-fresh {
+    background: linear-gradient(135deg, #09d257 0%, #07a846 100%);
+}
+
+.bg-gradient-hero-main {
+    background: linear-gradient(135deg, #092635 0%, #0a3d52 40%, #09d257 100%);
+}
+
+.bg-gradient-hero-alt {
+    background: linear-gradient(135deg, #092635 0%, #eb9a28 50%, #09d257 100%);
+}
+
+/* Text Gradients */
+.text-gradient-primary {
+    background: linear-gradient(135deg, #092635 0%, #0a3d52 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-secondary {
+    background: linear-gradient(135deg, #eb9a28 0%, #f5b454 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-accent {
+    background: linear-gradient(135deg, #09d257 0%, #33ef87 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-hero {
+    background: linear-gradient(135deg, #eb9a28 0%, #09d257 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Glassmorphism Effects */
+.glass-primary {
+    background: rgba(9, 38, 53, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-secondary {
+    background: rgba(235, 154, 40, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(235, 154, 40, 0.2);
+}
+
+.glass-accent {
+    background: rgba(9, 210, 87, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(9, 210, 87, 0.2);
+}
+
+/* Custom Shadows */
+.shadow-primary {
+    box-shadow: 0 10px 40px rgba(9, 38, 53, 0.3);
+}
+
+.shadow-secondary {
+    box-shadow: 0 10px 40px rgba(235, 154, 40, 0.3);
+}
+
+.shadow-accent {
+    box-shadow: 0 10px 40px rgba(9, 210, 87, 0.3);
+}
+
+.shadow-glow-primary {
+    box-shadow: 0 0 30px rgba(9, 38, 53, 0.5);
+}
+
+.shadow-glow-secondary {
+    box-shadow: 0 0 30px rgba(235, 154, 40, 0.5);
+}
+
+.shadow-glow-accent {
+    box-shadow: 0 0 30px rgba(9, 210, 87, 0.5);
+}
+
+/* Hover Effects */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.hover-glow-secondary:hover {
+    box-shadow: 0 0 40px rgba(235, 154, 40, 0.6);
+}
+
+.hover-glow-accent:hover {
+    box-shadow: 0 0 40px rgba(9, 210, 87, 0.6);
+}
+
+/* Animated Backgrounds */
+.animated-gradient {
+    background: linear-gradient(135deg, #092635, #eb9a28, #09d257, #092635);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Custom Borders */
+.border-gradient-primary {
+    border-image: linear-gradient(135deg, #092635, #0a3d52) 1;
+}
+
+.border-gradient-secondary {
+    border-image: linear-gradient(135deg, #eb9a28, #f5b454) 1;
+}
+
+.border-gradient-accent {
+    border-image: linear-gradient(135deg, #09d257, #33ef87) 1;
+}
+
+/* Utility Classes */
+.rtl-support {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection Color */
+::selection {
+    background-color: #eb9a28;
+    color: white;
+}
+
+::-moz-selection {
+    background-color: #eb9a28;
+    color: white;
+}
