@@ -14,22 +14,29 @@ class PageContentForm
         return $schema
             ->components([
                 TextInput::make('page')
+                    ->label('الصفحة')
                     ->required(),
                 TextInput::make('section')
+                    ->label('القسم')
                     ->required(),
                 TextInput::make('key')
+                    ->label('المفتاح')
                     ->required(),
                 Textarea::make('value')
+                    ->label('القيمة')
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('type')
+                    ->label('النوع')
                     ->required()
                     ->default('text'),
                 TextInput::make('order')
+                    ->label('الترتيب')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
+                    ->label('نشط')
                     ->required(),
             ]);
     }

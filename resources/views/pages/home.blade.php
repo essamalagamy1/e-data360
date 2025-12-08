@@ -128,8 +128,8 @@
                 {{-- Service Card --}}
                 <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
                     {{-- Animated Background Gradient --}}
-                    <div class="absolute inset-0 bg-gradient-to-br from-{{ $service->color_from }} to-{{ $service->color_to }} opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+<div class="absolute inset-0 bg-gradient-to-br from-{{ $service->color_from }} to-{{ $service->color_to }} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"></div>
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left pointer-events-none"></div>
 
                     {{-- Icon --}}
                     <div class="relative mb-6 inline-block">
@@ -172,7 +172,7 @@
                             <span class="text-xl font-black bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} bg-clip-text text-transparent">{{ $service->price_label }}</span>
                             @endif
                         </div> --}}
-                        <a href="{{ $service->cta_link ?? route('services') }}"
+                        <a href="https://wa.me/{{ $companySettings->whatsapp_number }}"
                            class="group/btn bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
                             <span>{{ $service->cta_text }}</span>
                             <i class="fas fa-arrow-left mr-2 transform group-hover/btn:-translate-x-1 transition-transform"></i>
@@ -390,57 +390,98 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                @foreach($testimonials as $testimonial)
-                {{-- Testimonial Card --}}
-                <div class="group relative bg-gradient-to-br from-white to-blue-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-blue-100 overflow-hidden">
-                    {{-- Quote Mark Background --}}
-                    <div class="absolute -top-6 -right-6 text-[120px] text-blue-100 font-serif leading-none opacity-50">"</div>
+            {{-- Testimonials Carousel --}}
+            <div class="relative max-w-7xl mx-auto px-12">
+                <!-- Swiper Container -->
+                <div class="swiper testimonials-swiper">
+                    <div class="swiper-wrapper pb-12">
+                        @foreach($testimonials as $testimonial)
+                        <div class="swiper-slide">
+                            {{-- Testimonial Card --}}
+                            <div class="group relative bg-gradient-to-br from-white to-blue-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-blue-100 overflow-hidden h-full">
+                                {{-- Quote Mark Background --}}
+                                <div class="absolute -top-6 -right-6 text-[120px] text-blue-100 font-serif leading-none opacity-50 pointer-events-none">"</div>
 
-                    {{-- Rating Stars --}}
-                    <div class="flex gap-1 mb-4 relative z-10">
-                        @for($i = 1; $i <= 5; $i++)
-                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xl"></i>
-                        @endfor
-                    </div>
+                                {{-- Rating Stars --}}
+                                <div class="flex gap-1 mb-4 relative z-10">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xl"></i>
+                                    @endfor
+                                </div>
 
-                    {{-- Review Text --}}
-                    <p class="text-gray-700 text-lg leading-relaxed mb-6 relative z-10">
-                        {{ $testimonial->testimonial }}
-                    </p>
+                                {{-- Review Text --}}
+                                <p class="text-gray-700 text-lg leading-relaxed mb-6 relative z-10">
+                                    {{ $testimonial->testimonial }}
+                                </p>
 
-                    {{-- Reviewer Info --}}
-                    <div class="flex items-center gap-4 relative z-10">
-                        @if($testimonial->client_avatar)
-                        <img src="{{ Storage::url($testimonial->client_avatar) }}" alt="{{ $testimonial->client_name }}" class="w-16 h-16 rounded-full object-cover shadow-lg ring-4 ring-blue-100">
-                        @else
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-2xl shadow-lg ring-4 ring-blue-100">
-                            {{ substr($testimonial->client_name, 0, 1) }}
-                        </div>
-                        @endif
-                        <div>
-                            <h4 class="font-black text-gray-900 text-lg">{{ $testimonial->client_name }}</h4>
-                            <p class="text-sm text-gray-600 font-medium">{{ $testimonial->client_position }}</p>
-                            @if($testimonial->client_company)
-                            <p class="text-xs text-gray-500">{{ $testimonial->client_company }}</p>
-                            @endif
-                            @if($testimonial->is_verified)
-                            <div class="flex items-center gap-1 mt-1">
-                                <i class="fas fa-check-circle text-blue-500 text-xs"></i>
-                                <span class="text-xs text-blue-600 font-semibold">عميل موثق</span>
+                                {{-- Reviewer Info --}}
+                                <div class="flex items-center gap-4 relative z-10">
+                                    {{-- @if($testimonial->client_avatar)
+                                    <img src="{{ Storage::url($testimonial->client_avatar) }}" alt="{{ $testimonial->client_name }}" class="w-16 h-16 rounded-full object-cover shadow-lg ring-4 ring-blue-100">
+                                    @else
+                                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-2xl shadow-lg ring-4 ring-blue-100">
+                                        {{ substr($testimonial->client_name, 0, 1) }}
+                                    </div>
+                                    @endif --}}
+                                    <div>
+                                        <h4 class="font-black text-gray-900 text-lg">{{ $testimonial->client_name }}</h4>
+                                        <p class="text-sm text-gray-600 font-medium">{{ $testimonial->client_position }}</p>
+                                        @if($testimonial->client_company)
+                                        <p class="text-xs text-gray-500">{{ $testimonial->client_company }}</p>
+                                        @endif
+                                        @if($testimonial->is_verified)
+                                        <div class="flex items-center gap-1 mt-1">
+                                            <i class="fas fa-check-circle text-blue-500 text-xs"></i>
+                                            <span class="text-xs text-blue-600 font-semibold">عميل موثق</span>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                {{-- Badge --}}
+                                @if($testimonial->badge_text)
+                                <div class="absolute top-6 left-6 text-white text-xs font-bold px-3 py-1 rounded-full pointer-events-none"
+                                     style="background: linear-gradient(to right, {{ $testimonial->badge_color_from ?? '#2563eb' }}, {{ $testimonial->badge_color_to ?? '#06b6d4' }});">
+                                    {{ $testimonial->badge_text }}
+                                </div>
+                                @endif
                             </div>
-                            @endif
                         </div>
+                        @endforeach
                     </div>
-
-                    {{-- Badge --}}
-                    @if($testimonial->badge_text)
-                    <div class="absolute top-6 left-6 bg-gradient-to-r from-{{ $testimonial->badge_color_from ?? 'blue-600' }} to-{{ $testimonial->badge_color_to ?? 'cyan-500' }} text-white text-xs font-bold px-3 py-1 rounded-full">
-                        {{ $testimonial->badge_text }}
-                    </div>
-                    @endif
+                    
+                    {{-- Pagination --}}
+                    <div class="swiper-pagination"></div>
                 </div>
-                @endforeach
+                
+                {{-- Navigation Buttons - Outside Swiper --}}
+                <button type="button" class="testimonials-swiper-button-next" 
+                        style="position: absolute !important; top: 50% !important; left: 0 !important; transform: translateY(-50%) !important; width: 56px !important; height: 56px !important; border-radius: 50% !important; background: linear-gradient(to right, #2563eb, #06b6d4) !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; z-index: 100 !important; border: none !important; outline: none !important; transition: transform 0.3s !important; opacity: 1 !important; visibility: visible !important;"
+                        onmouseover="this.style.transform='translateY(-50%) scale(1.1)'"
+                        onmouseout="this.style.transform='translateY(-50%) scale(1)'">
+                    <i class="fas fa-chevron-left text-white text-xl"></i>
+                </button>
+                <button type="button" class="testimonials-swiper-button-prev"
+                        style="position: absolute !important; top: 50% !important; right: 0 !important; transform: translateY(-50%) !important; width: 56px !important; height: 56px !important; border-radius: 50% !important; background: linear-gradient(to right, #2563eb, #06b6d4) !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; z-index: 100 !important; border: none !important; outline: none !important; transition: transform 0.3s !important; opacity: 1 !important; visibility: visible !important;"
+                        onmouseover="this.style.transform='translateY(-50%) scale(1.1)'"
+                        onmouseout="this.style.transform='translateY(-50%) scale(1)'">
+                    <i class="fas fa-chevron-right text-white text-xl"></i>
+                </button>
+            </div>
+
+            {{-- Add Review Button --}}
+            <div class="text-center mt-12">
+                <a href="{{ route('testimonial.create') }}"
+                   class="group inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-white font-black py-5 px-12 rounded-2xl hover:shadow-2xl hover:shadow-orange-500/50 transform hover:scale-105 transition-all duration-300 relative overflow-hidden">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    <i class="fas fa-star relative z-10 text-2xl"></i>
+                    <span class="relative z-10 text-lg">شاركنا تجربتك - أضف تقييمك</span>
+                    <i class="fas fa-arrow-left relative z-10 transform group-hover:-translate-x-2 transition-transform"></i>
+                </a>
+                <p class="text-gray-600 mt-4 text-sm">
+                    <i class="fas fa-info-circle ml-1"></i>
+                    رأيك يساعدنا على التحسين ويساعد الآخرين في اتخاذ القرار
+                </p>
             </div>
 
             {{-- Trust Indicators --}}

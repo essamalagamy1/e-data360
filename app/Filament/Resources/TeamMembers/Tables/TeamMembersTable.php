@@ -16,30 +16,31 @@ class TeamMembersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('الاسم')
                     ->searchable(),
                 TextColumn::make('position')
-                    ->searchable(),
-                TextColumn::make('avatar')
+                    ->label('المنصب')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('البريد الإلكتروني')
                     ->searchable(),
                 TextColumn::make('phone')
-                    ->searchable(),
-                TextColumn::make('linkedin')
-                    ->searchable(),
-                TextColumn::make('twitter')
+                    ->label('الهاتف')
                     ->searchable(),
                 TextColumn::make('order')
+                    ->label('الترتيب')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('نشط')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('تاريخ التحديث')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

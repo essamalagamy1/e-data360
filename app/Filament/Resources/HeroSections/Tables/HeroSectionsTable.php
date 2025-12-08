@@ -17,31 +17,31 @@ class HeroSectionsTable
         return $table
             ->columns([
                 TextColumn::make('page')
-                    ->searchable(),
-                TextColumn::make('badge_icon')
-                    ->searchable(),
-                TextColumn::make('badge_text')
+                    ->label('الصفحة')
                     ->searchable(),
                 TextColumn::make('title_line1')
+                    ->label('سطر العنوان 1')
                     ->searchable(),
                 TextColumn::make('title_line2')
+                    ->label('سطر العنوان 2')
+                    ->searchable(),
+                TextColumn::make('subtitle')
+                    ->label('العنوان الفرعي')
+                    ->limit(50)
                     ->searchable(),
                 TextColumn::make('cta_primary_text')
+                    ->label('نص الزر الأساسي')
                     ->searchable(),
-                TextColumn::make('cta_primary_link')
-                    ->searchable(),
-                TextColumn::make('cta_secondary_text')
-                    ->searchable(),
-                TextColumn::make('cta_secondary_link')
-                    ->searchable(),
-                ImageColumn::make('background_image'),
                 IconColumn::make('is_active')
+                    ->label('نشط')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('تاريخ التحديث')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

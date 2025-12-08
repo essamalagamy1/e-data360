@@ -16,29 +16,34 @@ class StatsTable
         return $table
             ->columns([
                 TextColumn::make('page')
+                    ->label('الصفحة')
                     ->searchable(),
                 TextColumn::make('icon')
+                    ->label('الأيقونة')
                     ->searchable(),
                 TextColumn::make('number')
+                    ->label('الرقم')
                     ->searchable(),
                 TextColumn::make('label')
+                    ->label('العنوان')
                     ->searchable(),
                 TextColumn::make('description')
-                    ->searchable(),
-                TextColumn::make('color_from')
-                    ->searchable(),
-                TextColumn::make('color_to')
+                    ->label('الوصف')
                     ->searchable(),
                 TextColumn::make('order')
+                    ->label('الترتيب')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('نشط')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('تاريخ التحديث')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

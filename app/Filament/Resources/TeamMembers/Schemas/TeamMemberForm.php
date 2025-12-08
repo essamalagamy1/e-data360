@@ -14,24 +14,33 @@ class TeamMemberForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('الاسم')
                     ->required(),
                 TextInput::make('position')
+                    ->label('المنصب')
                     ->required(),
                 Textarea::make('bio')
+                    ->label('السيرة الذاتية')
                     ->columnSpanFull(),
-                TextInput::make('avatar'),
+                TextInput::make('avatar')
+                    ->label('الصورة الشخصية'),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('البريد الإلكتروني')
                     ->email(),
                 TextInput::make('phone')
+                    ->label('الهاتف')
                     ->tel(),
-                TextInput::make('linkedin'),
-                TextInput::make('twitter'),
+                TextInput::make('linkedin')
+                    ->label('لينكد إن'),
+                TextInput::make('twitter')
+                    ->label('تويتر'),
                 TextInput::make('order')
+                    ->label('الترتيب')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
+                    ->label('نشط')
                     ->required(),
             ]);
     }

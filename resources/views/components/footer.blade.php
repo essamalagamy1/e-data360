@@ -181,7 +181,7 @@
                             </a>
                         </li>
                         @endif
-                        @if($companySettings->phone_primary)
+                        {{-- @if($companySettings->phone_primary)
                         <li class="group">
                             <a href="tel:{{ $companySettings->phone_primary }}" class="flex items-start gap-4 text-gray-300 hover:text-cyan-400 transition-all duration-300">
                                 <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -193,7 +193,7 @@
                                 </div>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
                         @if($companySettings->whatsapp_number)
                         <li class="group">
                             <a href="https://wa.me/{{ $companySettings->whatsapp_number }}" class="flex items-start gap-4 text-gray-300 hover:text-green-400 transition-all duration-300">
@@ -219,17 +219,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="group">
-                            <div class="flex items-start gap-4 text-gray-300">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-phone text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">الهاتف</p>
-                                    <p class="font-bold text-lg">+966 XX XXX XXXX</p>
-                                </div>
-                            </div>
-                        </li>
+                
                     @endif
                 </ul>
                 
@@ -316,18 +306,20 @@
                     <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
                     <p class="text-gray-400 text-center md:text-right">
                         © {{ date('Y') }}
-                        <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-black text-lg">EDATA 360</span>
+                        <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-black text-lg">
+                            {{ $companySettings->company_name }}
+                        </span>
                         - جميع الحقوق محفوظة
                     </p>
                 </div>
 
                 <div class="flex items-center gap-6 text-gray-400 text-sm">
-                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
+                    <a href="{{ route('privacy') }}" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
                         <i class="fas fa-shield-alt text-cyan-400"></i>
                         سياسة الخصوصية
                     </a>
                     <div class="w-px h-4 bg-white/20"></div>
-                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
+                    <a href="{{ route('terms') }}" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
                         <i class="fas fa-file-contract text-cyan-400"></i>
                         الشروط والأحكام
                     </a>
@@ -336,7 +328,7 @@
                         <i class="fas fa-code text-cyan-400"></i>
                         <span>صنع بـ</span>
                         <i class="fas fa-heart text-red-500 animate-pulse"></i>
-                        <span>في السعودية</span>
+                        <span>{{ $companySettings->company_name }}</span>
                     </div>
                 </div>
             </div>

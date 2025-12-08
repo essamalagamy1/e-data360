@@ -29,10 +29,50 @@
 {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         /* Additional inline styles for immediate rendering */
         body {
             font-family: 'Cairo', 'Inter', sans-serif;
+        }
+        
+        /* Swiper RTL customization */
+        .swiper-button-next, .swiper-button-prev {
+            color: white !important;
+            z-index: 50 !important;
+        }
+        
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 18px !important;
+            font-weight: 900 !important;
+        }
+        
+        .swiper-pagination {
+            z-index: 50 !important;
+        }
+        
+        .swiper-pagination-bullet {
+            background: #06b6d4 !important;
+            opacity: 0.5;
+        }
+        
+        .swiper-pagination-bullet-active {
+            opacity: 1 !important;
+            background: linear-gradient(to right, #2563eb, #06b6d4) !important;
+        }
+        
+        /* Equal height for testimonial cards */
+        .testimonials-swiper .swiper-slide {
+            height: auto !important;
+            display: flex !important;
+        }
+        
+        .testimonials-swiper .swiper-slide > div {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
@@ -47,6 +87,9 @@
 
         <x-footer />
     </div>
+    
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <!-- Scroll Reveal Script -->
     <script>
@@ -78,6 +121,78 @@
         
         window.addEventListener('scroll', reveal);
         reveal(); // Initial check
+        
+        // Initialize Swiper for Testimonials
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (document.querySelector('.testimonials-swiper')) {
+                    // Count number of slides
+                    const slidesCount = document.querySelectorAll('.testimonials-swiper .swiper-slide').length;
+                    
+                    const swiper = new Swiper('.testimonials-swiper', {
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        loop: slidesCount > 3, // Only enable loop if we have more than 3 slides
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.testimonials-swiper-button-next',
+                            prevEl: '.testimonials-swiper-button-prev',
+                        },
+                        breakpoints: {
+                            640: {
+                                slidesPerView: 1,
+                                spaceBetween: 20,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 30,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                                spaceBetween: 30,
+                            },
+                        },
+                        // RTL support
+                        rtl: true,
+                        dir: 'rtl',
+                        // Observer to update on DOM changes
+                        observer: true,
+                        observeParents: true,
+                        observeSlideChildren: true,
+                    });
+                    
+                    // Manual event listeners for navigation buttons
+                    const nextButton = document.querySelector('.testimonials-swiper-button-next');
+                    const prevButton = document.querySelector('.testimonials-swiper-button-prev');
+                    
+                    if (nextButton) {
+                        nextButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            swiper.slideNext();
+                        });
+                    }
+                    
+                    if (prevButton) {
+                        prevButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            swiper.slidePrev();
+                        });
+                    }
+                    
+                    // Force update after initialization
+                    setTimeout(() => {
+                        swiper.update();
+                    }, 100);
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>

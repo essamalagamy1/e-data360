@@ -16,27 +16,32 @@ class FeaturesTable
         return $table
             ->columns([
                 TextColumn::make('section')
+                    ->label('القسم')
                     ->searchable(),
                 TextColumn::make('icon')
+                    ->label('الأيقونة')
                     ->searchable(),
                 TextColumn::make('title')
+                    ->label('العنوان')
                     ->searchable(),
-                TextColumn::make('color_from')
-                    ->searchable(),
-                TextColumn::make('color_to')
-                    ->searchable(),
-                TextColumn::make('badge_text')
+                TextColumn::make('description')
+                    ->label('الوصف')
+                    ->limit(50)
                     ->searchable(),
                 TextColumn::make('order')
+                    ->label('الترتيب')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('نشط')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('تاريخ التحديث')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

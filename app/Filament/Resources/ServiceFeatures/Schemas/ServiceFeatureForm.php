@@ -13,12 +13,16 @@ class ServiceFeatureForm
         return $schema
             ->components([
                 Select::make('service_id')
+                    ->label('الخدمة')
                     ->relationship('service', 'title')
                     ->required(),
                 TextInput::make('feature_text')
+                    ->label('نص الميزة')
                     ->required(),
-                TextInput::make('icon'),
+                TextInput::make('icon')
+                    ->label('الأيقونة'),
                 TextInput::make('order')
+                    ->label('الترتيب')
                     ->required()
                     ->numeric()
                     ->default(0),

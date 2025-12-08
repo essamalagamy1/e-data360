@@ -16,23 +16,31 @@ class PageContentsTable
         return $table
             ->columns([
                 TextColumn::make('page')
+                    ->label('الصفحة')
                     ->searchable(),
                 TextColumn::make('section')
+                    ->label('القسم')
                     ->searchable(),
                 TextColumn::make('key')
+                    ->label('المفتاح')
                     ->searchable(),
                 TextColumn::make('type')
+                    ->label('النوع')
                     ->searchable(),
                 TextColumn::make('order')
+                    ->label('الترتيب')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('نشط')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('تاريخ التحديث')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
