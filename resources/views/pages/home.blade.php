@@ -148,7 +148,7 @@
                     </h3>
 
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        {{ $service->description }}
+                        {!! $service->description !!}
                     </p>
 
                     {{-- Features List --}}
