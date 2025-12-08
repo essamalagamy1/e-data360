@@ -33,7 +33,7 @@
             <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
                 {{ $heroSection->subtitle }}
             </p>
-            @endif
+                @endif
             @endif
 
             {{-- Quick Stats --}}
@@ -59,7 +59,7 @@
         </div>
 
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-20">
+            <div class="text-center mb-10">
                 <div class="inline-block mb-4">
                     <span class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold px-4 py-2 rounded-full">خدماتنا المميزة</span>
                 </div>
@@ -112,14 +112,14 @@
 
                     <div class="pt-6 border-t border-gray-100">
                         <div class="flex items-center justify-between mb-4">
-                            <div>
+                            {{-- <div>
                                 <p class="text-sm text-gray-500 mb-1">{{ $service->price_label }}</p>
                                 @if($service->price_starting)
                                 <span class="text-3xl font-black bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} bg-clip-text text-transparent">{{ $service->price_starting }}</span>
                                 @else
                                 <span class="text-xl font-black bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} bg-clip-text text-transparent">{{ $service->price_label }}</span>
                                 @endif
-                            </div>
+                            </div> --}}
                             @if($service->duration)
                             <div class="text-right">
                                 <p class="text-sm text-gray-500">مدة التنفيذ</p>
@@ -145,7 +145,7 @@
         </div>
 
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-20">
+            <div class="text-center mb-10">
                 <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
                     كيف
                     <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">نعمل؟</span>
