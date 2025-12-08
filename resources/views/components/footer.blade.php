@@ -189,7 +189,7 @@
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-500 mb-1">الهاتف</p>
-                                    <p class="font-bold text-lg">{{ $companySettings->phone_primary }}</p>
+                                    <p class="font-bold text-lg" dir="ltr">{{ $companySettings->phone_primary }}</p>
                                 </div>
                             </a>
                         </li>

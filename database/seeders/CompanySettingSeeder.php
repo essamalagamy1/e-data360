@@ -13,13 +13,15 @@ class CompanySettingSeeder extends Seeder
     public function run(): void
     {
         CompanySetting::create([
-            'company_name' => 'E-Data360',
-            'main_email' => 'info@e-data360.com',
-            'phone_primary' => '+1234567890',
-            'whatsapp_number' => '+1234567890',
-            'location_text' => 'Riyadh, Saudi Arabia',
-            'about_short' => 'E-Data360 is a company specialized in data analysis, Excel, Power BI, and PowerPoint dashboards & reports.',
-            'logo_path' => 'path/to/your/logo.png', // Default placeholder
+            'company_name' => 'EDATA 360',
+            'main_email' => 'info@edata360.com',
+            'secondary_email' => 'support@edata360.com',
+            'phone_primary' => '+966 50 123 4567',
+            'phone_secondary' => '+966 50 765 4321',
+            'whatsapp_number' => '+966 50 123 4567',
+            'location_text' => 'الرياض، المملكة العربية السعودية',
+            'about_short' => 'شريكك الموثوق في تحويل البيانات إلى رؤى استراتيجية قابلة للتنفيذ. نقدم حلول تحليل البيانات ولوحات التحكم الاحترافية.',
+            'logo_path' => null,
         ]);
     }
 }

@@ -10,9 +10,10 @@ class SocialLinkSeeder extends Seeder
     public function run(): void
     {
         $links = [
-            ['platform' => 'linkedin', 'url' => 'https://linkedin.com/company/e-data360'],
-            ['platform' => 'x', 'url' => 'https://x.com/e-data360'],
-            ['platform' => 'whatsapp', 'url' => 'https://wa.me/1234567890'],
+            ['platform' => 'Twitter', 'url' => 'https://twitter.com/edata360', 'is_active' => true],
+            ['platform' => 'LinkedIn', 'url' => 'https://linkedin.com/company/edata360', 'is_active' => true],
+            ['platform' => 'Instagram', 'url' => 'https://instagram.com/edata360', 'is_active' => true],
+            ['platform' => 'Facebook', 'url' => 'https://facebook.com/edata360', 'is_active' => true],
         ];
 
         foreach ($links as $link) {

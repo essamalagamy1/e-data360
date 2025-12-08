@@ -14,80 +14,69 @@
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center text-white max-w-6xl mx-auto">
                 {{-- Badge --}}
+                @if($heroSection && $heroSection->badge_text)
                 <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                     </span>
-                    <span class="text-sm font-medium text-cyan-300">رائدون في تحليل البيانات والذكاء الاصطناعي</span>
+                    @if($heroSection->badge_icon)
+                    <i class="{{ $heroSection->badge_icon }} text-cyan-400"></i>
+                    @endif
+                    <span class="text-sm font-medium text-cyan-300">{{ $heroSection->badge_text }}</span>
                 </div>
+                @endif
 
+                @if($heroSection)
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
                     <span class="block mb-4 bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent animate-fade-in-up">
-                        حوّل بياناتك إلى
+                        {{ $heroSection->title_line1 }}
                     </span>
                     <span class="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-fade-in-up" style="animation-delay: 0.2s;">
-                        قرارات استراتيجية
+                        {{ $heroSection->title_line2 }}
                     </span>
                 </h1>
+                @endif
 
+                @if($heroSection && $heroSection->subtitle)
                 <p class="text-xl md:text-2xl lg:text-3xl mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
-                    نساعدك على اتخاذ قرارات مبنية على البيانات من خلال
-                    <span class="font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text">لوحات تحكم تفاعلية</span> و
-                    <span class="font-bold text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">تقارير احترافية</span>
-                    باستخدام أحدث تقنيات Excel و Power BI
+                    {{ $heroSection->subtitle }}
                 </p>
+                @endif
 
+                @if($heroSection)
                 <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-                    <a href="{{ route('request-design.create') }}"
+                    @if($heroSection->cta_primary_text)
+                    <a href="{{ $heroSection->cta_primary_link ?? route('request-design.create') }}"
                        class="group relative bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-bold py-5 px-10 rounded-2xl hover:shadow-2xl hover:shadow-cyan-500/50 hover:scale-105 transform transition-all duration-300 inline-flex items-center overflow-hidden">
                         <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                         <i class="fas fa-rocket ml-3 text-xl relative z-10"></i>
-                        <span class="relative z-10">ابدأ مشروعك الآن</span>
+                        <span class="relative z-10">{{ $heroSection->cta_primary_text }}</span>
                     </a>
-                    <a href="{{ route('portfolio') }}"
+                    @endif
+                    @if($heroSection->cta_secondary_text)
+                    <a href="{{ $heroSection->cta_secondary_link ?? route('portfolio') }}"
                        class="group bg-white/10 backdrop-blur-md border-2 border-white/30 text-white font-bold py-5 px-10 rounded-2xl hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center">
                         <i class="fas fa-chart-line ml-3 text-xl"></i>
-                        استكشف معرض الأعمال
+                        <span>{{ $heroSection->cta_secondary_text }}</span>
                     </a>
+                    @endif
                 </div>
+                @endif
 
                 {{-- Enhanced Stats --}}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
-                    <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
-                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <i class="fas fa-users text-4xl text-cyan-400 mb-4 relative z-10"></i>
-                        <div class="text-5xl md:text-6xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent relative z-10">+250</div>
-                        <p class="text-gray-300 mt-3 text-lg font-medium relative z-10">عميل سعيد</p>
-                        <div class="flex justify-center mt-2 relative z-10">
-                            <i class="fas fa-star text-yellow-400 text-xs"></i>
-                            <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
-                            <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
-                            <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
-                            <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
-                        </div>
+                    @foreach($stats as $stat)
+                    <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
+                        <div class="absolute inset-0 bg-gradient-to-br from-{{ $stat->color_from }}/20 to-{{ $stat->color_to }}/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <i class="{{ $stat->icon }} text-4xl text-{{ $stat->color_from }} mb-4 relative z-10"></i>
+                        <div class="text-5xl md:text-6xl font-black bg-gradient-to-r from-{{ $stat->color_from }} to-{{ $stat->color_to }} bg-clip-text text-transparent relative z-10">{{ $stat->number }}</div>
+                        <p class="text-gray-300 mt-3 text-lg font-medium relative z-10">{{ $stat->label }}</p>
+                        @if($stat->description)
+                        <p class="text-{{ $stat->color_from }} text-sm mt-1 relative z-10">{{ $stat->description }}</p>
+                        @endif
                     </div>
-                    <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
-                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <i class="fas fa-chart-pie text-4xl text-purple-400 mb-4 relative z-10"></i>
-                        <div class="text-5xl md:text-6xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent relative z-10">+350</div>
-                        <p class="text-gray-300 mt-3 text-lg font-medium relative z-10">لوحة تحكم</p>
-                        <p class="text-cyan-400 text-sm mt-1 relative z-10">تفاعلية ومتقدمة</p>
-                    </div>
-                    <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-blue-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <i class="fas fa-trophy text-4xl text-blue-400 mb-4 relative z-10"></i>
-                        <div class="text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent relative z-10">5+</div>
-                        <p class="text-gray-300 mt-3 text-lg font-medium relative z-10">سنوات خبرة</p>
-                        <p class="text-blue-400 text-sm mt-1 relative z-10">في تحليل البيانات</p>
-                    </div>
-                    <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-green-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <i class="fas fa-smile text-4xl text-green-400 mb-4 relative z-10"></i>
-                        <div class="text-5xl md:text-6xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent relative z-10">99%</div>
-                        <p class="text-gray-300 mt-3 text-lg font-medium relative z-10">رضا العملاء</p>
-                        <p class="text-green-400 text-sm mt-1 relative z-10">تقييم 5 نجوم</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -135,308 +124,62 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {{-- Service 1: Excel Dashboards --}}
+                @foreach($services as $service)
+                {{-- Service Card --}}
                 <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
                     {{-- Animated Background Gradient --}}
-                    <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-500 to-emerald-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-{{ $service->color_from }} to-{{ $service->color_to }} opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
 
                     {{-- Icon --}}
                     <div class="relative mb-6 inline-block">
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                            <i class="fas fa-file-excel text-white text-4xl"></i>
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-{{ $service->color_from }} to-{{ $service->color_to }} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                            <i class="{{ $service->icon }} text-white text-4xl"></i>
                         </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center transform group-hover:scale-125 transition-transform">
-                            <i class="fas fa-star text-white text-xs"></i>
+                        @if($service->badge_icon)
+                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-{{ $service->badge_color }} rounded-full flex items-center justify-center transform group-hover:scale-125 transition-transform">
+                            <i class="{{ $service->badge_icon }} text-white text-xs"></i>
                         </div>
+                        @endif
                     </div>
 
-                    <h3 class="text-2xl font-black mb-4 text-gray-900 group-hover:text-green-600 transition-colors">
-                        لوحات تحكم Excel
+                    <h3 class="text-2xl font-black mb-4 text-gray-900 group-hover:text-{{ $service->color_from }} transition-colors">
+                        {{ $service->title }}
                     </h3>
 
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        لوحات تحكم تفاعلية فائقة التطور باستخدام Excel مع معادلات ذكية، جداول محورية ديناميكية، ورسوم بيانية احترافية تفاعلية
+                        {{ $service->description }}
                     </p>
 
                     {{-- Features List --}}
+                    @if($service->features->count() > 0)
                     <ul class="space-y-3 mb-6">
+                        @foreach($service->features->take(3) as $feature)
                         <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                            تصميم احترافي وجذاب
+                            <i class="{{ $feature->icon ?? 'fas fa-check-circle' }} text-{{ $service->color_from }} ml-2"></i>
+                            {{ $feature->feature_text }}
                         </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                            معادلات متقدمة وديناميكية
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                            سهولة في التحديث والاستخدام
-                        </li>
+                        @endforeach
                     </ul>
+                    @endif
 
                     <div class="flex items-center justify-between pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">يبدأ من</p>
-                            <span class="text-3xl font-black bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">320 ر.س</span>
-                        </div>
-                        <a href="{{ route('services') }}"
-                           class="group/btn bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
-                            <span>اطلب الآن</span>
+                        {{-- <div>
+                            <p class="text-sm text-gray-500 mb-1">{{ $service->price_label }}</p>
+                            @if($service->price_starting)
+                            <span class="text-3xl font-black bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} bg-clip-text text-transparent">{{ $service->price_starting }}</span>
+                            @else
+                            <span class="text-xl font-black bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} bg-clip-text text-transparent">{{ $service->price_label }}</span>
+                            @endif
+                        </div> --}}
+                        <a href="{{ $service->cta_link ?? route('services') }}"
+                           class="group/btn bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
+                            <span>{{ $service->cta_text }}</span>
                             <i class="fas fa-arrow-left mr-2 transform group-hover/btn:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
-
-                {{-- Service 2: Power BI Dashboards --}}
-                <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-yellow-500 to-orange-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-500 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                    <div class="relative mb-6 inline-block">
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                            <i class="fas fa-chart-line text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center transform group-hover:scale-125 transition-transform">
-                            <i class="fas fa-fire text-white text-xs"></i>
-                        </div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-gray-900 group-hover:text-yellow-600 transition-colors">
-                        لوحات تحكم Power BI
-                    </h3>
-
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        تقارير تفاعلية متطورة للغاية مع تحديثات آلية فورية، تصورات بيانية مذهلة، وإمكانية الوصول من أي مكان في العالم
-                    </p>
-
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-yellow-500 ml-2"></i>
-                            تحديثات تلقائية للبيانات
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-yellow-500 ml-2"></i>
-                            تفاعلية متقدمة جداً
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-yellow-500 ml-2"></i>
-                            وصول من أي جهاز
-                        </li>
-                    </ul>
-
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">يبدأ من</p>
-                            <span class="text-3xl font-black bg-gradient-to-r from-yellow-600 to-orange-500 bg-clip-text text-transparent">350 ر.س</span>
-                        </div>
-                        <a href="{{ route('services') }}"
-                           class="group/btn bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
-                            <span>اطلب الآن</span>
-                            <i class="fas fa-arrow-left mr-2 transform group-hover/btn:-translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                {{-- Service 3: Data Analysis --}}
-                <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                    <div class="relative mb-6 inline-block">
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                            <i class="fas fa-database text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center transform group-hover:scale-125 transition-transform">
-                            <i class="fas fa-bolt text-white text-xs"></i>
-                        </div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-gray-900 group-hover:text-blue-600 transition-colors">
-                        تحليل البيانات المتقدم
-                    </h3>
-
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        تحليل شامل ومتعمق للبيانات باستخدام أحدث الأدوات والتقنيات لاستخراج رؤى قيمة ومؤثرة تدعم قراراتك الاستراتيجية
-                    </p>
-
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-blue-500 ml-2"></i>
-                            تحليل إحصائي متقدم
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-blue-500 ml-2"></i>
-                            استخراج رؤى قابلة للتنفيذ
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-blue-500 ml-2"></i>
-                            تقارير تفصيلية شاملة
-                        </li>
-                    </ul>
-
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">السعر</p>
-                            <span class="text-xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">حسب المشروع</span>
-                        </div>
-                        <a href="{{ route('services') }}"
-                           class="group/btn bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
-                            <span>استشارة</span>
-                            <i class="fas fa-arrow-left mr-2 transform group-hover/btn:-translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-
-                {{-- Service 4: KPI Tracking --}}
-                <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-pink-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                    <div class="relative mb-6 inline-block">
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                            <i class="fas fa-tachometer-alt text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center transform group-hover:scale-125 transition-transform">
-                            <i class="fas fa-chart-bar text-white text-xs"></i>
-                        </div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-gray-900 group-hover:text-purple-600 transition-colors">
-                        تتبع مؤشرات الأداء KPIs
-                    </h3>
-
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        نظام متكامل وذكي لتتبع ومراقبة مؤشرات الأداء الرئيسية (KPIs) بشكل لحظي ودقيق مع تنبيهات آلية
-                    </p>
-
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-purple-500 ml-2"></i>
-                            مراقبة لحظية للأداء
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-purple-500 ml-2"></i>
-                            تنبيهات ذكية تلقائية
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-purple-500 ml-2"></i>
-                            تقارير دورية مفصلة
-                        </li>
-                    </ul>
-
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">السعر</p>
-                            <span class="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">حسب المشروع</span>
-                        </div>
-                        <a href="{{ route('services') }}"
-                           class="group/btn bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
-                            <span>استشارة</span>
-                            <i class="fas fa-arrow-left mr-2 transform group-hover/btn:-translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-
-                {{-- Service 5: Business Intelligence --}}
-                <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                    <div class="relative mb-6 inline-block">
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                            <i class="fas fa-lightbulb text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center transform group-hover:scale-125 transition-transform">
-                            <i class="fas fa-brain text-white text-xs"></i>
-                        </div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-gray-900 group-hover:text-orange-600 transition-colors">
-                        ذكاء الأعمال BI
-                    </h3>
-
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        تحويل البيانات المعقدة إلى رؤى واضحة وقابلة للتنفيذ تساعدك على اتخاذ قرارات استراتيجية مبنية على الحقائق
-                    </p>
-
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-orange-500 ml-2"></i>
-                            رؤى استراتيجية عميقة
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-orange-500 ml-2"></i>
-                            تحليل تنبؤي متقدم
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-orange-500 ml-2"></i>
-                            توصيات قابلة للتطبيق
-                        </li>
-                    </ul>
-
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">السعر</p>
-                            <span class="text-xl font-black bg-gradient-to-r from-orange-600 to-red-500 bg-clip-text text-transparent">حسب المشروع</span>
-                        </div>
-                        <a href="{{ route('services') }}"
-                           class="group/btn bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
-                            <span>استشارة</span>
-                            <i class="fas fa-arrow-left mr-2 transform group-hover/btn:-translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                {{-- Service 6: Custom Solutions --}}
-                <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-teal-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-500 to-teal-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                    <div class="relative mb-6 inline-block">
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                            <i class="fas fa-cogs text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center transform group-hover:scale-125 transition-transform">
-                            <i class="fas fa-magic text-white text-xs"></i>
-                        </div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-gray-900 group-hover:text-cyan-600 transition-colors">
-                        حلول مخصصة بالكامل
-                    </h3>
-
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        نصمم ونطور حلول مخصصة بنسبة 100% لتلبية احتياجات عملك الفريدة مهما كانت معقدة أو متطلبة
-                    </p>
-
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-cyan-500 ml-2"></i>
-                            تصميم حسب احتياجك
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-cyan-500 ml-2"></i>
-                            مرونة كاملة في التنفيذ
-                        </li>
-                        <li class="flex items-center text-sm text-gray-700">
-                            <i class="fas fa-check-circle text-cyan-500 ml-2"></i>
-                            دعم فني مستمر
-                        </li>
-                    </ul>
-
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">السعر</p>
-                            <span class="text-xl font-black bg-gradient-to-r from-cyan-600 to-teal-500 bg-clip-text text-transparent">حسب المشروع</span>
-                        </div>
-                        <a href="{{ route('services') }}"
-                           class="group/btn bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
-                            <span>استشارة</span>
-                            <i class="fas fa-arrow-left mr-2 transform group-hover/btn:-translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             {{-- View All Services Button --}}
@@ -571,90 +314,32 @@
                 </p>
             </div>
             
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {{-- Feature 1 --}}
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-cyan-400/50 transition-all duration-500 transform hover:-translate-y-4 hover:scale-105 text-center overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                @foreach($features as $feature)
+                {{-- Feature Card --}}
+                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-{{ $feature->color_from }}/50 transition-all duration-500 transform hover:-translate-y-4 hover:scale-105 text-center overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-{{ $feature->color_from }}/20 to-{{ $feature->color_to }}/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     <div class="relative z-10 mb-6">
-                        <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-2xl">
-                            <i class="fas fa-bolt text-white text-4xl"></i>
+                        <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-{{ $feature->color_from }} to-{{ $feature->color_to }} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-2xl">
+                            <i class="{{ $feature->icon }} text-white text-4xl"></i>
                         </div>
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-cyan-400 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-{{ $feature->color_from }} rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
                     </div>
 
-                    <h3 class="text-2xl font-black mb-4 text-white relative z-10">سرعة فائقة</h3>
+                    <h3 class="text-2xl font-black mb-4 text-white relative z-10">{{ $feature->title }}</h3>
                     <p class="text-gray-300 leading-relaxed relative z-10 mb-4">
-                        نلتزم بتسليم مشاريعك في الوقت المحدد بدقة 100% دون أي تأخير أو تنازل عن الجودة
+                        {{ $feature->description }}
                     </p>
-                    <div class="flex items-center justify-center gap-2 text-cyan-400 font-bold relative z-10">
-                        <i class="fas fa-clock"></i>
-                        <span>تسليم في الموعد</span>
-                    </div>
-                </div>
-
-                {{-- Feature 2 --}}
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-purple-400/50 transition-all duration-500 transform hover:-translate-y-4 hover:scale-105 text-center overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    <div class="relative z-10 mb-6">
-                        <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-2xl">
-                            <i class="fas fa-bullseye text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-purple-400 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-white relative z-10">دقة مطلقة</h3>
-                    <p class="text-gray-300 leading-relaxed relative z-10 mb-4">
-                        نضمن دقة البيانات والتحليلات بنسبة 100% مع مراجعة شاملة ومتعددة المراحل من فريق الخبراء
-                    </p>
-                    <div class="flex items-center justify-center gap-2 text-purple-400 font-bold relative z-10">
+                    @if($feature->badge_text)
+                    <div class="flex items-center justify-center gap-2 text-{{ $feature->color_from }} font-bold relative z-10">
                         <i class="fas fa-check-circle"></i>
-                        <span>دقة 100%</span>
+                        <span>{{ $feature->badge_text }}</span>
                     </div>
+                    @endif
                 </div>
-
-                {{-- Feature 3 --}}
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-green-400/50 transition-all duration-500 transform hover:-translate-y-4 hover:scale-105 text-center overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    <div class="relative z-10 mb-6">
-                        <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-2xl">
-                            <i class="fas fa-paint-brush text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-green-400 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-white relative z-10">تصاميم مبتكرة</h3>
-                    <p class="text-gray-300 leading-relaxed relative z-10 mb-4">
-                        لوحات تحكم جذابة وعصرية وسهلة الاستخدام مع تصورات بيانية إبداعية تجعل البيانات تنطق
-                    </p>
-                    <div class="flex items-center justify-center gap-2 text-green-400 font-bold relative z-10">
-                        <i class="fas fa-palette"></i>
-                        <span>تصاميم احترافية</span>
-                    </div>
-                </div>
-
-                {{-- Feature 4 --}}
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-orange-400/50 transition-all duration-500 transform hover:-translate-y-4 hover:scale-105 text-center overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    <div class="relative z-10 mb-6">
-                        <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-2xl">
-                            <i class="fas fa-map-marked-alt text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 bg-orange-400 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-
-                    <h3 class="text-2xl font-black mb-4 text-white relative z-10">خبرة سعودية</h3>
-                    <p class="text-gray-300 leading-relaxed relative z-10 mb-4">
-                        فهم عميق للسوق السعودي ومتطلبات الأعمال المحلية مع التزام تام بالمعايير والأنظمة
-                    </p>
-                    <div class="flex items-center justify-center gap-2 text-orange-400 font-bold relative z-10">
-                        <i class="fas fa-flag"></i>
-                        <span>صنع في السعودية</span>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             {{-- Additional Benefits --}}
@@ -706,120 +391,56 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                {{-- Testimonial 1 --}}
+                @foreach($testimonials as $testimonial)
+                {{-- Testimonial Card --}}
                 <div class="group relative bg-gradient-to-br from-white to-blue-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-blue-100 overflow-hidden">
                     {{-- Quote Mark Background --}}
                     <div class="absolute -top-6 -right-6 text-[120px] text-blue-100 font-serif leading-none opacity-50">"</div>
 
                     {{-- Rating Stars --}}
                     <div class="flex gap-1 mb-4 relative z-10">
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
+                        @for($i = 1; $i <= 5; $i++)
+                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xl"></i>
+                        @endfor
                     </div>
 
                     {{-- Review Text --}}
                     <p class="text-gray-700 text-lg leading-relaxed mb-6 relative z-10">
-                        خدمة ممتازة واحترافية لا مثيل لها. لوحة التحكم التي صمموها لنا ساعدتنا في اتخاذ قرارات أفضل وزيادة المبيعات بنسبة
-                        <span class="font-bold text-blue-600">35%</span> في 3 أشهر فقط!
+                        {{ $testimonial->testimonial }}
                     </p>
 
                     {{-- Reviewer Info --}}
                     <div class="flex items-center gap-4 relative z-10">
+                        @if($testimonial->client_avatar)
+                        <img src="{{ Storage::url($testimonial->client_avatar) }}" alt="{{ $testimonial->client_name }}" class="w-16 h-16 rounded-full object-cover shadow-lg ring-4 ring-blue-100">
+                        @else
                         <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-2xl shadow-lg ring-4 ring-blue-100">
-                            م
+                            {{ substr($testimonial->client_name, 0, 1) }}
                         </div>
+                        @endif
                         <div>
-                            <h4 class="font-black text-gray-900 text-lg">محمد العتيبي</h4>
-                            <p class="text-sm text-gray-600 font-medium">مدير عام - شركة تجارية رائدة</p>
+                            <h4 class="font-black text-gray-900 text-lg">{{ $testimonial->client_name }}</h4>
+                            <p class="text-sm text-gray-600 font-medium">{{ $testimonial->client_position }}</p>
+                            @if($testimonial->client_company)
+                            <p class="text-xs text-gray-500">{{ $testimonial->client_company }}</p>
+                            @endif
+                            @if($testimonial->is_verified)
                             <div class="flex items-center gap-1 mt-1">
                                 <i class="fas fa-check-circle text-blue-500 text-xs"></i>
                                 <span class="text-xs text-blue-600 font-semibold">عميل موثق</span>
                             </div>
+                            @endif
                         </div>
                     </div>
 
                     {{-- Badge --}}
-                    <div class="absolute top-6 left-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                        عميل VIP
+                    @if($testimonial->badge_text)
+                    <div class="absolute top-6 left-6 bg-gradient-to-r from-{{ $testimonial->badge_color_from ?? 'blue-600' }} to-{{ $testimonial->badge_color_to ?? 'cyan-500' }} text-white text-xs font-bold px-3 py-1 rounded-full">
+                        {{ $testimonial->badge_text }}
                     </div>
+                    @endif
                 </div>
-
-                {{-- Testimonial 2 --}}
-                <div class="group relative bg-gradient-to-br from-white to-purple-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-purple-100 overflow-hidden">
-                    <div class="absolute -top-6 -right-6 text-[120px] text-purple-100 font-serif leading-none opacity-50">"</div>
-
-                    <div class="flex gap-1 mb-4 relative z-10">
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                    </div>
-
-                    <p class="text-gray-700 text-lg leading-relaxed mb-6 relative z-10">
-                        فريق محترف جداً وسريع في التنفيذ. التقارير أصبحت
-                        <span class="font-bold text-purple-600">أسهل وأوضح بكثير</span>.
-                        وفرنا ساعات عمل كثيرة! أنصح بهم بشدة لكل من يبحث عن الاحترافية.
-                    </p>
-
-                    <div class="flex items-center gap-4 relative z-10">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center text-white font-black text-2xl shadow-lg ring-4 ring-purple-100">
-                            س
-                        </div>
-                        <div>
-                            <h4 class="font-black text-gray-900 text-lg">سارة القحطاني</h4>
-                            <p class="text-sm text-gray-600 font-medium">مديرة الموارد البشرية</p>
-                            <div class="flex items-center gap-1 mt-1">
-                                <i class="fas fa-check-circle text-purple-500 text-xs"></i>
-                                <span class="text-xs text-purple-600 font-semibold">عميل موثق</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="absolute top-6 left-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                        شريك نجاح
-                    </div>
-                </div>
-
-                {{-- Testimonial 3 --}}
-                <div class="group relative bg-gradient-to-br from-white to-green-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-green-100 overflow-hidden">
-                    <div class="absolute -top-6 -right-6 text-[120px] text-green-100 font-serif leading-none opacity-50">"</div>
-
-                    <div class="flex gap-1 mb-4 relative z-10">
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                        <i class="fas fa-star text-yellow-400 text-xl"></i>
-                    </div>
-
-                    <p class="text-gray-700 text-lg leading-relaxed mb-6 relative z-10">
-                        تجربة رائعة من البداية للنهاية. الفريق متعاون جداً وفاهم احتياجاتنا بشكل
-                        <span class="font-bold text-green-600">ممتاز</span>.
-                        النتائج فاقت توقعاتنا!
-                    </p>
-
-                    <div class="flex items-center gap-4 relative z-10">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-600 to-emerald-500 flex items-center justify-center text-white font-black text-2xl shadow-lg ring-4 ring-green-100">
-                            ع
-                        </div>
-                        <div>
-                            <h4 class="font-black text-gray-900 text-lg">عبدالله الشمري</h4>
-                            <p class="text-sm text-gray-600 font-medium">صاحب مؤسسة ناشئة</p>
-                            <div class="flex items-center gap-1 mt-1">
-                                <i class="fas fa-check-circle text-green-500 text-xs"></i>
-                                <span class="text-xs text-green-600 font-semibold">عميل موثق</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="absolute top-6 left-6 bg-gradient-to-r from-green-600 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                        عميل سعيد
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             {{-- Trust Indicators --}}
@@ -899,38 +520,44 @@
 
                 {{-- Contact Cards --}}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    @if($companySettings && $companySettings->main_email)
                     <div class="group relative bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 hover:border-cyan-400/50 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2">
                         <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <i class="fas fa-envelope text-5xl text-cyan-400 mb-4 transform group-hover:scale-110 transition-transform relative z-10"></i>
                         <h4 class="font-black text-white mb-2 text-lg relative z-10">راسلنا عبر البريد</h4>
                         <p class="text-gray-300 mb-3 relative z-10">نرد خلال ساعة</p>
-                        <a href="mailto:info@edata360.com" class="text-cyan-400 font-bold hover:text-cyan-300 transition-colors relative z-10 flex items-center justify-center gap-2">
-                            <span>info@edata360.com</span>
+                        <a href="mailto:{{ $companySettings->main_email }}" class="text-cyan-400 font-bold hover:text-cyan-300 transition-colors relative z-10 flex items-center justify-center gap-2">
+                            <span>{{ $companySettings->main_email }}</span>
                             <i class="fas fa-arrow-left text-sm transform group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
+                    @endif
 
+                    @if($companySettings && $companySettings->whatsapp_number)
                     <div class="group relative bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 hover:border-green-400/50 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2">
                         <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <i class="fab fa-whatsapp text-5xl text-green-400 mb-4 transform group-hover:scale-110 transition-transform relative z-10"></i>
                         <h4 class="font-black text-white mb-2 text-lg relative z-10">واتساب مباشر</h4>
                         <p class="text-gray-300 mb-3 relative z-10">متاحون 24/7</p>
-                        <a href="https://wa.me/966XXXXXXXXX" class="text-green-400 font-bold hover:text-green-300 transition-colors relative z-10 flex items-center justify-center gap-2">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}" class="text-green-400 font-bold hover:text-green-300 transition-colors relative z-10 flex items-center justify-center gap-2">
                             <span>تواصل فوري</span>
                             <i class="fas fa-arrow-left text-sm transform group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
+                    @endif
 
+                    @if($companySettings && $companySettings->phone_primary)
                     <div class="group relative bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 hover:border-purple-400/50 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2">
                         <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <i class="fas fa-phone text-5xl text-purple-400 mb-4 transform group-hover:scale-110 transition-transform relative z-10"></i>
                         <h4 class="font-black text-white mb-2 text-lg relative z-10">اتصل بنا الآن</h4>
                         <p class="text-gray-300 mb-3 relative z-10">استشارة مجانية</p>
-                        <a href="tel:+966XXXXXXXXX" class="text-purple-400 font-bold hover:text-purple-300 transition-colors relative z-10 flex items-center justify-center gap-2">
-                            <span>+966 XX XXX XXXX</span>
+                        <a href="tel:{{ $companySettings->phone_primary }}" class="text-purple-400 font-bold hover:text-purple-300 transition-colors relative z-10 flex items-center justify-center gap-2">
+                            <span dir="ltr">{{ $companySettings->phone_primary }}</span>
                             <i class="fas fa-arrow-left text-sm transform group-hover:-translate-x-1 transition-transform"></i>
                         </a>
                     </div>
+                    @endif
                 </div>
 
                 {{-- Special Offer Banner --}}

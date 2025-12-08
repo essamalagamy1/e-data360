@@ -12,21 +12,29 @@
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             {{-- Badge --}}
+            @if($heroSection && $heroSection->badge_text)
             <div class="inline-flex items-center gap-2 bg-gradient-to-r from-green-600/20 to-emerald-600/20 backdrop-blur-sm border border-green-500/30 rounded-full px-6 py-2 mb-8">
-                <i class="fas fa-envelope text-green-400"></i>
-                <span class="text-sm font-medium text-green-300">نحن بانتظارك</span>
+                @if($heroSection->badge_icon)
+                <i class="{{ $heroSection->badge_icon }} text-green-400"></i>
+                @endif
+                <span class="text-sm font-medium text-green-300">{{ $heroSection->badge_text }}</span>
             </div>
+            @endif
 
+            @if($heroSection)
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
-                <span class="block mb-4">تواصل</span>
+                <span class="block mb-4">{{ $heroSection->title_line1 }}</span>
                 <span class="block bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                    معنا
+                    {{ $heroSection->title_line2 }}
                 </span>
             </h1>
 
+            @if($heroSection->subtitle)
             <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
-                نحن هنا لمساعدتك. تواصل معنا الآن وسنكون سعداء بالرد على استفساراتك
+                {{ $heroSection->subtitle }}
             </p>
+            @endif
+            @endif
         </div>
     </section>
 
@@ -122,6 +130,7 @@
                     </div>
 
                     {{-- Contact Cards --}}
+                    @if($companySettings && $companySettings->main_email)
                     <div class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                         <div class="flex items-start gap-5">
                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
@@ -129,14 +138,16 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-black text-gray-900 mb-2">البريد الإلكتروني</h3>
-                                <a href="mailto:info@edata360.com" class="text-blue-600 hover:text-cyan-500 transition-colors text-lg font-semibold">
-                                    info@edata360.com
+                                <a href="mailto:{{ $companySettings->main_email }}" class="text-blue-600 hover:text-cyan-500 transition-colors text-lg font-semibold">
+                                    {{ $companySettings->main_email }}
                                 </a>
                                 <p class="text-gray-600 text-sm mt-2">نرد خلال 24 ساعة</p>
                             </div>
                         </div>
                     </div>
+                    @endif
 
+                    @if($companySettings && $companySettings->whatsapp_number)
                     <div class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                         <div class="flex items-start gap-5">
                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-600 to-emerald-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
@@ -144,14 +155,16 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-black text-gray-900 mb-2">واتساب</h3>
-                                <a href="https://wa.me/966XXXXXXXXX" target="_blank" class="text-green-600 hover:text-emerald-500 transition-colors text-lg font-semibold">
-                                    +966 XX XXX XXXX
+                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}" target="_blank" class="text-green-600 hover:text-emerald-500 transition-colors text-lg font-semibold" dir="ltr">
+                                    {{ $companySettings->whatsapp_number }}
                                 </a>
                                 <p class="text-gray-600 text-sm mt-2">تواصل فوري ومباشر</p>
                             </div>
                         </div>
                     </div>
+                    @endif
 
+                    @if($companySettings && $companySettings->phone_primary)
                     <div class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                         <div class="flex items-start gap-5">
                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
@@ -159,14 +172,16 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-black text-gray-900 mb-2">الهاتف</h3>
-                                <a href="tel:+966XXXXXXXXX" class="text-purple-600 hover:text-pink-500 transition-colors text-lg font-semibold">
-                                    +966 XX XXX XXXX
+                                <a href="tel:{{ $companySettings->phone_primary }}" class="text-purple-600 hover:text-pink-500 transition-colors text-lg font-semibold" dir="ltr">
+                                    {{ $companySettings->phone_primary }}
                                 </a>
                                 <p class="text-gray-600 text-sm mt-2">السبت - الخميس: 9ص - 6م</p>
                             </div>
                         </div>
                     </div>
+                    @endif
 
+                    @if($companySettings && $companySettings->location_text)
                     <div class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                         <div class="flex items-start gap-5">
                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-600 to-red-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
@@ -175,34 +190,30 @@
                             <div>
                                 <h3 class="text-xl font-black text-gray-900 mb-2">الموقع</h3>
                                 <p class="text-gray-700 text-lg font-semibold">
-                                    المملكة العربية السعودية
+                                    {{ $companySettings->location_text }}
                                 </p>
                                 <p class="text-gray-600 text-sm mt-2">نخدم جميع مناطق المملكة</p>
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     {{-- Social Media --}}
+                    @if($socialLinks && $socialLinks->count() > 0)
                     <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-8 shadow-xl border border-blue-100">
                         <h3 class="text-2xl font-black text-gray-900 mb-4 flex items-center gap-3">
                             <i class="fas fa-share-alt text-blue-600"></i>
                             تابعنا على
                         </h3>
                         <div class="flex gap-4">
-                            <a href="#" class="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center hover:scale-110 hover:rotate-6 transform transition-all duration-300 shadow-lg">
-                                <i class="fab fa-x-twitter text-white text-xl"></i>
+                            @foreach($socialLinks as $social)
+                            <a href="{{ $social->url }}" target="_blank" class="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center hover:scale-110 hover:rotate-6 transform transition-all duration-300 shadow-lg">
+                                <i class="fab fa-{{ strtolower($social->platform) }} text-white text-xl"></i>
                             </a>
-                            <a href="#" class="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center hover:scale-110 hover:rotate-6 transform transition-all duration-300 shadow-lg">
-                                <i class="fab fa-linkedin-in text-white text-xl"></i>
-                            </a>
-                            <a href="#" class="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center hover:scale-110 hover:rotate-6 transform transition-all duration-300 shadow-lg">
-                                <i class="fab fa-instagram text-white text-xl"></i>
-                            </a>
-                            <a href="#" class="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center hover:scale-110 hover:rotate-6 transform transition-all duration-300 shadow-lg">
-                                <i class="fab fa-facebook-f text-white text-xl"></i>
-                            </a>
+                            @endforeach
                         </div>
                     </div>
+                    @endif
 
                     {{-- Quick Response Time --}}
                     <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-8 border border-green-200">
@@ -215,32 +226,6 @@
                         <p class="text-gray-700 leading-relaxed">
                             نلتزم بالرد على جميع الاستفسارات خلال <span class="font-bold text-green-600">24 ساعة</span> أو أقل
                         </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- Map Section --}}
-    <section class="py-24 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl font-black text-gray-900 mb-4">
-                        موقعنا على
-                        <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">الخريطة</span>
-                    </h2>
-                    <p class="text-lg text-gray-600">نخدم جميع مناطق المملكة العربية السعودية</p>
-                </div>
-
-                <div class="bg-gradient-to-br from-gray-100 to-blue-50 rounded-3xl h-96 flex items-center justify-center shadow-2xl border border-gray-200 overflow-hidden">
-                    <div class="text-center">
-                        <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center">
-                            <i class="fas fa-map-marked-alt text-white text-4xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">خريطة الموقع</h3>
-                        <p class="text-gray-600 text-lg">يمكنك إضافة خريطة Google Maps هنا</p>
-                        <p class="text-sm text-gray-500 mt-2">لتسهيل الوصول إلينا</p>
                     </div>
                 </div>
             </div>

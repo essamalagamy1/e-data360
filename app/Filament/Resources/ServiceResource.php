@@ -14,14 +14,25 @@ use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use UnitEnum;
 
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
     protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-cog';
+    
+    protected static ?string $navigationLabel = 'الخدمات';
+    
     protected static ?string $modelLabel = 'خدمة';
+    
     protected static ?string $pluralModelLabel = 'الخدمات';
+    
+    protected static ?string $recordTitleAttribute = 'title';
+    
+    protected static UnitEnum|string|null $navigationGroup = 'الخدمات';
+    
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

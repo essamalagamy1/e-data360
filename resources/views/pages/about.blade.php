@@ -12,21 +12,29 @@
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             {{-- Badge --}}
+            @if($heroSection && $heroSection->badge_text)
             <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8">
-                <i class="fas fa-users text-cyan-400"></i>
-                <span class="text-sm font-medium text-cyan-300">تعرف علينا أكثر</span>
+                @if($heroSection->badge_icon)
+                <i class="{{ $heroSection->badge_icon }} text-cyan-400"></i>
+                @endif
+                <span class="text-sm font-medium text-cyan-300">{{ $heroSection->badge_text }}</span>
             </div>
+            @endif
 
+            @if($heroSection)
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
-                <span class="block mb-4">نحن</span>
+                <span class="block mb-4">{{ $heroSection->title_line1 }}</span>
                 <span class="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                    EDATA 360
+                    {{ $heroSection->title_line2 }}
                 </span>
             </h1>
 
+            @if($heroSection->subtitle)
             <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
-                شريكك الموثوق في تحويل البيانات إلى رؤى استراتيجية قابلة للتنفيذ
+                {{ $heroSection->subtitle }}
             </p>
+            @endif
+            @endif
         </div>
     </section>
 
@@ -116,29 +124,13 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <i class="fas fa-users text-5xl text-cyan-400 mb-4"></i>
-                    <div class="text-5xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">+250</div>
-                    <p class="text-gray-300 mt-2 font-medium">عميل سعيد</p>
+                @foreach($stats as $stat)
+                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
+                    <i class="{{ $stat->icon }} text-5xl text-{{ $stat->color_from }} mb-4"></i>
+                    <div class="text-5xl font-black bg-gradient-to-r from-{{ $stat->color_from }} to-{{ $stat->color_to }} bg-clip-text text-transparent">{{ $stat->number }}</div>
+                    <p class="text-gray-300 mt-2 font-medium">{{ $stat->label }}</p>
                 </div>
-
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <i class="fas fa-chart-pie text-5xl text-purple-400 mb-4"></i>
-                    <div class="text-5xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">+350</div>
-                    <p class="text-gray-300 mt-2 font-medium">لوحة تحكم</p>
-                </div>
-
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-green-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <i class="fas fa-trophy text-5xl text-green-400 mb-4"></i>
-                    <div class="text-5xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">5+</div>
-                    <p class="text-gray-300 mt-2 font-medium">سنوات خبرة</p>
-                </div>
-
-                <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-orange-400/50 transition-all duration-300 transform hover:-translate-y-2 text-center">
-                    <i class="fas fa-smile text-5xl text-orange-400 mb-4"></i>
-                    <div class="text-5xl font-black bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">99%</div>
-                    <p class="text-gray-300 mt-2 font-medium">رضا العملاء</p>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

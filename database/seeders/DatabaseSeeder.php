@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Call all seeders
         $this->call([
             UserSeeder::class,
             CompanySettingSeeder::class,
@@ -18,6 +19,11 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             ProjectSeeder::class,
             SocialLinkSeeder::class,
+            HeroSectionSeeder::class,
+            StatSeeder::class,
+            FeatureSeeder::class,
+            TestimonialSeeder::class,
+            ServiceUpdateSeeder::class,
         ]);
     }
 }
