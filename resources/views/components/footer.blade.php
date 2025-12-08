@@ -196,7 +196,7 @@
                         @endif --}}
                         @if($companySettings->whatsapp_number)
                         <li class="group">
-                            <a href="https://wa.me/{{ $companySettings->whatsapp_number }}" class="flex items-start gap-4 text-gray-300 hover:text-green-400 transition-all duration-300">
+                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}" class="flex items-start gap-4 text-gray-300 hover:text-green-400 transition-all duration-300">
                                 <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                                     <i class="fab fa-whatsapp text-white text-lg"></i>
                                 </div>
