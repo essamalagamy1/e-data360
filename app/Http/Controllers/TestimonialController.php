@@ -43,7 +43,7 @@ class TestimonialController extends Controller
             'testimonial' => $validated['testimonial'],
             'rating' => $validated['rating'],
             'is_active' => true, // Requires admin approval
-            'is_featured' => false,
+            'is_featured' => true,
             'is_verified' => false,
             'order' => 0,
         ]);
