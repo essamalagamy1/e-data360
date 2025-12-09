@@ -210,7 +210,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($featuredProjects as $project)
                         <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                            <img src="{{ asset($project->main_image) }}" alt="{{ $project->title }}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ Storage::url($project->main_image) }}" alt="{{ $project->title }}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center p-6">
                                 <div class="text-center text-white transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
                                     <h3 class="text-2xl font-bold mb-2">{{ $project->title }}</h3>
