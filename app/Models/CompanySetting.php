@@ -19,5 +19,7 @@ class CompanySetting extends Model
         'location_text',
         'about_short',
         'logo_path',
+        'logo_2_path',
+        'favicon_path',
     ];
 }

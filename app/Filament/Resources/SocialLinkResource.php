@@ -34,6 +34,7 @@ class SocialLinkResource extends Resource
                     'instagram' => 'Instagram',
                     'youtube' => 'YouTube',
                     'whatsapp' => 'WhatsApp',
+                    'behance'=> 'Behance',
                     'other' => 'Other',
                 ])
                 ->required(),

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('location_text')->nullable();
             $table->text('about_short')->nullable();
             $table->string('logo_path')->nullable();
+            $table->string('logo_2_path')->nullable();
+            $table->string('favicon_path')->nullable();
             $table->timestamps();
         });
     }

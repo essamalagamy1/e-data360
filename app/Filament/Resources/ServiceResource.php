@@ -59,9 +59,12 @@ class ServiceResource extends Resource
                 ->columnSpanFull(),
             Forms\Components\TextInput::make('icon')
                 ->label('أيقونة (Heroicon)'),
+            Forms\Components\TextInput::make('duration')
+                ->label('المدة'),
             Forms\Components\Toggle::make('is_active')
                 ->label('فعّالة؟')
                 ->default(true),
+                
         ]);
     }
 

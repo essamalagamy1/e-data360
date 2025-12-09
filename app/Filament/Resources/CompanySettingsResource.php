@@ -32,6 +32,8 @@ class CompanySettingsResource extends Resource
             Forms\Components\TextInput::make('location_text')->label('الموقع')->maxLength(255),
             Forms\Components\Textarea::make('about_short')->label('وصف مختصر')->columnSpanFull(),
             Forms\Components\FileUpload::make('logo_path')->label('شعار الشركة')->image()->directory('logos'),
+            Forms\Components\FileUpload::make('favicon_path')->label('فونو بون')->image()->directory('logos'),
+            Forms\Components\FileUpload::make('logo_2_path')->label('شعار 2')->image()->directory('logos'),
         ]);
     }
 

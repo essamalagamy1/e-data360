@@ -207,7 +207,7 @@
                         </a>
                         <a href="{{ route('contact') }}" class="bg-white/20 backdrop-blur-sm border-2 border-white text-white font-bold py-5 px-10 rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 inline-flex items-center justify-center gap-3">
                             <i class="fas fa-headset"></i>
-                            <span>تحدث مع خبير</span>
+                            <span>تحدث معنا الآن </span>
                         </a>
                     </div>
                 </div>

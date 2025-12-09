@@ -152,71 +152,23 @@
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {{-- Value 1 --}}
+                @forelse($features as $feature)
                 <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-star text-white text-3xl"></i>
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-{{ $feature->color_from }}-500 to-{{ $feature->color_to }}-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="{{ $feature->icon }} text-white text-3xl"></i>
                     </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-4">الاحترافية</h3>
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">{{ $feature->title }}</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        نلتزم بأعلى معايير الجودة والاحترافية في كل مشروع نعمل عليه، مهما كان حجمه.
+                        {{ $feature->description }}
                     </p>
                 </div>
-
-                {{-- Value 2 --}}
-                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-lightbulb text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-4">الابتكار</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نسعى دائماً لاستخدام أحدث التقنيات والأساليب لتقديم حلول مبتكرة ومتطورة.
-                    </p>
+                @empty
+                {{-- Fallback if no features are found --}}
+                <div class="col-span-full text-center py-12">
+                    <i class="fas fa-info-circle text-6xl text-gray-300 mb-4"></i>
+                    <p class="text-xl text-gray-500">لا توجد قيم أساسية متاحة حالياً</p>
                 </div>
-
-                {{-- Value 3 --}}
-                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-shield-alt text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-4">الموثوقية</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نبني علاقات طويلة الأمد مع عملائنا من خلال الشفافية والالتزام بوعودنا.
-                    </p>
-                </div>
-
-                {{-- Value 4 --}}
-                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-clock text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-4">الالتزام بالمواعيد</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نحترم وقتك ونلتزم بتسليم المشاريع في المواعيد المحددة دون تأخير.
-                    </p>
-                </div>
-
-                {{-- Value 5 --}}
-                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-headset text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-4">الدعم المستمر</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نقدم دعماً فنياً متواصلاً حتى بعد تسليم المشروع لضمان نجاحك.
-                    </p>
-                </div>
-
-                {{-- Value 6 --}}
-                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-users text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-4">التركيز على العميل</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        نضع احتياجات عملائنا في المقام الأول ونعمل على تحقيق أهدافهم.
-                    </p>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

@@ -164,7 +164,7 @@
                     </div>
                     @endif
 
-                    @if($companySettings && $companySettings->phone_primary)
+                    {{-- @if($companySettings && $companySettings->phone_primary)
                     <div class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                         <div class="flex items-start gap-5">
                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
@@ -179,7 +179,7 @@
                             </div>
                         </div>
                     </div>
-                    @endif
+                    @endif --}}
 
                     @if($companySettings && $companySettings->location_text)
                     <div class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">

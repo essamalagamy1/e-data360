@@ -17,6 +17,15 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     
+    <!-- Favicon -->
+    @if(isset($companySettings) && $companySettings->favicon_path)
+        <link rel="icon" type="image/x-icon" href="{{ Storage::url($companySettings->favicon_path) }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ Storage::url($companySettings->favicon_path) }}">
+        <link rel="apple-touch-icon" href="{{ Storage::url($companySettings->favicon_path) }}">
+    @else
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    @endif
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,6 +82,34 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+        }
+        
+        /* Custom Scrollbar Styling */
+        /* For Webkit browsers (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #06b6d4, #2563eb);
+            border-radius: 10px;
+            border: 2px solid #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #0891b2, #1d4ed8);
+        }
+        
+        /* For Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #06b6d4 #f1f5f9;
         }
     </style>
 </head>

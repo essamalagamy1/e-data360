@@ -20,7 +20,11 @@
             {{-- Company Info --}}
             <div class="space-y-6">
                 <div class="flex items-center mb-6">
-                    @if(isset($companySettings) && $companySettings->logo_path)
+                    @if(isset($companySettings) && $companySettings->logo_2_path)
+                        <img class="h-14 hover:scale-110 transition-transform duration-300"
+                             src="{{ Storage::url($companySettings->logo_2_path) }}"
+                             alt="{{ $companySettings->company_name ?? 'EDATA 360' }}">
+                    @elseif(isset($companySettings) && $companySettings->logo_path)
                         <img class="h-14 hover:scale-110 transition-transform duration-300"
                              src="{{ Storage::url($companySettings->logo_path) }}"
                              alt="{{ $companySettings->company_name ?? 'EDATA 360' }}">
@@ -33,7 +37,7 @@
                                 </div>
                             </div>
                             <div>
-                                <span class="text-3xl font-black text-white block">EDATA</span>
+                                <span class="text-3xl font-black text-white block">E-DATA360</span>
                                 <span class="text-xl font-black bg-gradient-to-r from-cyan-400 to-blue-300 bg-clip-text text-transparent">360</span>
                             </div>
                         </div>
@@ -245,6 +249,8 @@
                                         <i class="fab fa-linkedin-in text-white text-lg relative z-10"></i>
                                     @elseif(str_contains(strtolower($link->platform), 'youtube'))
                                         <i class="fab fa-youtube text-white text-lg relative z-10"></i>
+                                    @elseif(str_contains(strtolower($link->platform), 'behance'))
+                                        <i class="fab fa-behance text-white text-lg relative z-10"></i>
                                     @else
                                         <i class="fas fa-link text-white text-lg relative z-10"></i>
                                     @endif

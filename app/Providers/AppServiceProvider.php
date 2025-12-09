@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['components.navbar', 'components.footer'], AppComposer::class);
+        View::composer(['components.navbar', 'components.footer', 'components.layouts.app'], AppComposer::class);
     }
 }

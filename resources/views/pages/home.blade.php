@@ -15,7 +15,7 @@
             <div class="text-center text-white max-w-6xl mx-auto">
                 {{-- Badge --}}
                 @if($heroSection && $heroSection->badge_text)
-                <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
+                <div class="mt-12 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -128,8 +128,8 @@
                 {{-- Service Card --}}
                 <div class="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden">
                     {{-- Animated Background Gradient --}}
-<div class="absolute inset-0 bg-gradient-to-br from-{{ $service->color_from }} to-{{ $service->color_to }} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"></div>
-<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-{{ $service->color_from }} to-{{ $service->color_to }} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"></div>
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left pointer-events-none"></div>
 
                     {{-- Icon --}}
                     <div class="relative mb-6 inline-block">
