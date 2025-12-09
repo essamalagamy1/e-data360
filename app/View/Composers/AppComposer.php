@@ -4,6 +4,7 @@ namespace App\View\Composers;
 
 use App\Models\CompanySetting;
 use App\Models\SocialLink;
+use App\Models\Service;
 use Illuminate\View\View;
 
 class AppComposer
@@ -19,6 +20,7 @@ class AppComposer
         $view->with([
             'companySettings' => CompanySetting::first(),
             'socialLinks' => SocialLink::where('is_active', true)->get(),
+            'footerServices' => Service::where('is_active', true)->inRandomOrder()->take(4)->get(),
         ]);
     }
 }

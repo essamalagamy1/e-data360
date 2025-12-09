@@ -54,7 +54,14 @@ class ProjectResource extends Resource
                 ->required(),
             Forms\Components\FileUpload::make('video_url')
                 ->label('رابط الفيديو (اختياري)')
-                ->directory('projects'),
+                ->disk('public')
+                ->directory('projects/videos')
+                ->visibility('public')
+                ->maxSize(102400)
+                ->acceptedFileTypes(['video/*'])
+                ->downloadable()
+                ->openable()
+                ->helperText('الحد الأقصى: 100 ميجابايت'),
             Forms\Components\Toggle::make('is_featured')
                 ->label('عرض في الصفحة الرئيسية؟'),
             Forms\Components\Select::make('status')

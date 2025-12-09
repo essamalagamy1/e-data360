@@ -12,37 +12,41 @@
         
         <div class="container mx-auto px-6 relative z-10 text-center">
             {{-- Badge --}}
+            @if($heroSection && $heroSection->badge_text)
             <div class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-sm border border-purple-500/30 rounded-full px-6 py-2 mb-8">
-                <i class="fas fa-th-large text-purple-400"></i>
-                <span class="text-sm font-medium text-purple-300">استكشف إبداعاتنا</span>
+                @if($heroSection->badge_icon)
+                <i class="{{ $heroSection->badge_icon }} text-purple-400"></i>
+                @endif
+                <span class="text-sm font-medium text-purple-300">{{ $heroSection->badge_text }}</span>
             </div>
+            @endif
 
+            @if($heroSection)
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
-                <span class="block mb-4">معرض</span>
+                <span class="block mb-4">{{ $heroSection->title_line1 }}</span>
                 <span class="block bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-                    أعمالنا المميزة
+                    {{ $heroSection->title_line2 }}
                 </span>
             </h1>
 
+            @if($heroSection->subtitle)
             <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light mb-12">
-                استعرض مجموعة من أفضل لوحات التحكم والتقارير التفاعلية التي صممناها لعملائنا
+                {{ $heroSection->subtitle }}
             </p>
+            @endif
+            @endif
 
             {{-- Stats --}}
-            <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
-                    <div class="text-3xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">350+</div>
-                    <p class="text-gray-300 text-sm mt-1">مشروع منجز</p>
+            @if($stats && $stats->count() > 0)
+            <div class="grid grid-cols-2 md:grid-cols-{{ min($stats->count(), 4) }} gap-6 max-w-4xl mx-auto">
+                @foreach($stats as $stat)
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all">
+                    <div class="text-3xl font-black bg-gradient-to-r from-{{ $stat->color_from }} to-{{ $stat->color_to }} bg-clip-text text-transparent">{{ $stat->number }}</div>
+                    <p class="text-gray-300 text-sm mt-1">{{ $stat->label }}</p>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
-                    <div class="text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">250+</div>
-                    <p class="text-gray-300 text-sm mt-1">عميل سعيد</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
-                    <div class="text-3xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">99%</div>
-                    <p class="text-gray-300 text-sm mt-1">رضا العملاء</p>
-                </div>
+                @endforeach
             </div>
+            @endif
         </div>
     </section>
 

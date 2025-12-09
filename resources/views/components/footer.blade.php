@@ -55,7 +55,7 @@
                                 <i class="fas fa-users text-white text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-white font-black text-2xl">250+</p>
+                                <p class="text-white font-black text-2xl">170+</p>
                                 <p class="text-gray-400 text-xs">عميل</p>
                             </div>
                         </div>
@@ -124,6 +124,7 @@
                 </ul>
             </div>
             
+            
             {{-- Services --}}
             <div>
                 <h3 class="text-2xl font-black text-white mb-8 relative inline-block">
@@ -131,38 +132,27 @@
                     <div class="absolute -bottom-2 left-0 w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
                 </h3>
                 <ul class="space-y-4">
-                    <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fas fa-file-excel text-white"></i>
-                        </div>
-                        <span>لوحات Excel</span>
-                    </li>
-                    <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fas fa-chart-bar text-white"></i>
-                        </div>
-                        <span>لوحات Power BI</span>
-                    </li>
-                    <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fas fa-database text-white"></i>
-                        </div>
-                        <span>تحليل البيانات</span>
-                    </li>
-                    <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fas fa-tachometer-alt text-white"></i>
-                        </div>
-                        <span>مؤشرات KPI</span>
-                    </li>
-                    <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fas fa-lightbulb text-white"></i>
-                        </div>
-                        <span>ذكاء الأعمال</span>
-                    </li>
+                    @if(isset($footerServices) && $footerServices->count() > 0)
+                        @foreach($footerServices as $service)
+                        <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
+                            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="{{ $service->icon }} text-white"></i>
+                            </div>
+                            <span>{{ $service->title }}</span>
+                        </li>
+                        @endforeach
+                    @else
+                        {{-- Fallback if no services --}}
+                        <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
+                            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-chart-bar text-white"></i>
+                            </div>
+                            <span>خدماتنا المميزة</span>
+                        </li>
+                    @endif
                 </ul>
             </div>
+            
             
             {{-- Contact Info --}}
             <div>

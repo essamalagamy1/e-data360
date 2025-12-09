@@ -12,7 +12,15 @@ class ProjectController extends Controller
     {
         $projects = Project::where('status', 'published')->paginate(9);
         $seo = SeoSetting::where('page', 'portfolio')->first();
-        return view('pages.portfolio', compact('projects', 'seo'));
+        
+        return view('pages.portfolio', [
+            'projects' => $projects,
+            'seo' => $seo,
+            'heroSection' => \App\Models\HeroSection::where('page', 'portfolio')->where('is_active', true)->first(),
+            'stats' => \App\Models\Stat::where('page', 'portfolio')->where('is_active', true)->orderBy('order')->get(),
+            'companySettings' => \App\Models\CompanySetting::first(),
+            'socialLinks' => \App\Models\SocialLink::where('is_active', true)->get(),
+        ]);
     }
 
     public function show(Project $project)

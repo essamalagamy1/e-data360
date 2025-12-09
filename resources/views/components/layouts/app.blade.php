@@ -118,7 +118,7 @@
         <x-navbar />
 
         <!-- Page Content -->
-        <main>
+        <main class="mt-12">
             {{ $slot }}
         </main>
 

@@ -15,7 +15,7 @@
             <div class="text-center text-white max-w-6xl mx-auto">
                 {{-- Badge --}}
                 @if($heroSection && $heroSection->badge_text)
-                <div class="mt-12 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
+                <div class="mt-24 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -65,7 +65,7 @@
                 @endif
 
                 {{-- Enhanced Stats --}}
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 my-10">
                     @foreach($stats as $stat)
                     <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
                         <div class="absolute inset-0 bg-gradient-to-br from-{{ $stat->color_from }}/20 to-{{ $stat->color_to }}/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -310,7 +310,7 @@
                     </span>
                 </h2>
                 <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                    نحن الخيار الأمثل للشركات الطموحة التي تسعى للتميز والريادة في عالم البيانات
+                   نحن الخيار الأمثل لكل من يسعى للتميز والريادة في عالم البيانات
                 </p>
             </div>
             
@@ -353,13 +353,13 @@
                     <p class="text-gray-300 font-medium">ضمان الجودة</p>
                 </div>
                 <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-2">5+</div>
+                    <div class="text-4xl md:text-5xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-2">3+</div>
                     <p class="text-gray-300 font-medium">سنوات خبرة</p>
                 </div>
-                <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-black bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-2">∞</div>
-                    <p class="text-gray-300 font-medium">مراجعات مجانية</p>
-                </div>
+               <div class="text-center">
+    <div class="text-4xl md:text-5xl font-black bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-2">∞</div>
+    <p class="text-gray-300 font-medium">إمكانات لا تنتهي</p>
+</div>
             </div>
         </div>
     </section>
@@ -489,11 +489,11 @@
                 <div class="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-3xl p-8 border border-blue-100">
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                         <div>
-                            <div class="text-4xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">99%</div>
+                            <div class="text-4xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">95%</div>
                             <p class="text-gray-700 font-semibold">رضا العملاء</p>
                         </div>
                         <div>
-                            <div class="text-4xl font-black bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">250+</div>
+                            <div class="text-4xl font-black bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">170+</div>
                             <p class="text-gray-700 font-semibold">عميل سعيد</p>
                         </div>
                         <div>

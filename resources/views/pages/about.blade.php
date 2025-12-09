@@ -154,7 +154,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 @forelse($features as $feature)
                 <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-{{ $feature->color_from }}-500 to-{{ $feature->color_to }}-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-{{ $feature->color_from }} to-{{ $feature->color_to }} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <i class="{{ $feature->icon }} text-white text-3xl"></i>
                     </div>
                     <h3 class="text-2xl font-black text-gray-900 mb-4">{{ $feature->title }}</h3>
@@ -199,7 +199,7 @@
                     </div>
                     <div class="bg-white rounded-xl p-6">
                         <i class="fas fa-paint-brush text-3xl text-purple-600 mb-3"></i>
-                        <h4 class="font-bold text-gray-900">تصميم UI/UX</h4>
+                        <h4 class="font-bold text-gray-900">تصميم داشبوردات</h4>
                     </div>
                     <div class="bg-white rounded-xl p-6">
                         <i class="fas fa-code text-3xl text-cyan-600 mb-3"></i>
