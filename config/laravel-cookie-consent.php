@@ -228,11 +228,11 @@ return [
     'policy_links' => [
         [
             'text' => 'سياسة الخصوصية',
-            'link' => url('/privacy-policy')
+            'link' => '/privacy-policy'
         ],
         [
             'text' => 'الشروط والأحكام',
-            'link' => url('/terms-conditions')
+            'link' => '/terms-conditions'
         ],
     ],
 ];
