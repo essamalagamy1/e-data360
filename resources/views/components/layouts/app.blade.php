@@ -87,6 +87,18 @@
             flex-direction: column;
         }
         
+        /* Equal height for project cards */
+        .projects-swiper .swiper-slide {
+            height: auto !important;
+            display: flex !important;
+        }
+        
+        .projects-swiper .swiper-slide > div {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
         /* Custom Scrollbar Styling */
         /* For Webkit browsers (Chrome, Safari, Edge) */
         ::-webkit-scrollbar {
@@ -232,6 +244,74 @@
                     // Force update after initialization
                     setTimeout(() => {
                         swiper.update();
+                    }, 100);
+                }
+                
+                // Initialize Swiper for Projects
+                if (document.querySelector('.projects-swiper')) {
+                    // Count number of slides
+                    const projectSlidesCount = document.querySelectorAll('.projects-swiper .swiper-slide').length;
+                    
+                    const projectsSwiper = new Swiper('.projects-swiper', {
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        loop: projectSlidesCount > 3, // Only enable loop if we have more than 3 slides
+                        autoplay: {
+                            delay: 4000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.projects-swiper .swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.projects-swiper-button-next',
+                            prevEl: '.projects-swiper-button-prev',
+                        },
+                        breakpoints: {
+                            640: {
+                                slidesPerView: 1,
+                                spaceBetween: 20,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 30,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                                spaceBetween: 30,
+                            },
+                        },
+                        // RTL support
+                        rtl: true,
+                        dir: 'rtl',
+                        // Observer to update on DOM changes
+                        observer: true,
+                        observeParents: true,
+                        observeSlideChildren: true,
+                    });
+                    
+                    // Manual event listeners for navigation buttons
+                    const projectNextButton = document.querySelector('.projects-swiper-button-next');
+                    const projectPrevButton = document.querySelector('.projects-swiper-button-prev');
+                    
+                    if (projectNextButton) {
+                        projectNextButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            projectsSwiper.slideNext();
+                        });
+                    }
+                    
+                    if (projectPrevButton) {
+                        projectPrevButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            projectsSwiper.slidePrev();
+                        });
+                    }
+                    
+                    // Force update after initialization
+                    setTimeout(() => {
+                        projectsSwiper.update();
                     }, 100);
                 }
             }, 100);

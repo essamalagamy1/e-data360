@@ -33,7 +33,6 @@ Route::get('/robots.txt', function() {
     $content .= "Disallow: /admin\n";
     $content .= "Disallow: /api\n\n";
     $content .= "Sitemap: " . route('sitemap.index') . "\n";
-    
     return response($content)->header('Content-Type', 'text/plain');
 })->name('robots');
 

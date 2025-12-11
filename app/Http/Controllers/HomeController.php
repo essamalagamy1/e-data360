@@ -22,7 +22,7 @@ class HomeController extends Controller
             'services' => Service::where('is_active', true)->with('features')->orderBy('order')->take(6)->get(),
             'features' => Feature::where('section', 'why_choose_us')->where('is_active', true)->orderBy('order')->get(),
             'testimonials' => Testimonial::where('is_featured', true)->where('is_active', true)->orderBy('order')->get(),
-            'featuredProjects' => Project::where('is_featured', true)->where('status', 'published')->take(3)->get(),
+            'featuredProjects' => Project::where('is_featured', true)->where('status', 'published')->with('types')->inRandomOrder()->get(),
             'companySettings' => CompanySetting::first(),
             'socialLinks' => SocialLink::where('is_active', true)->get(),
         ]);

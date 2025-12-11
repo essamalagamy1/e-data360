@@ -1,6 +1,6 @@
 <x-layouts.app>
     {{-- Hero Section - تصميم عصري مع تأثيرات متقدمة --}}
-    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 min-h-screen flex items-center justify-center overflow-hidden">
+    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 h-screen flex items-center justify-center overflow-hidden">
         {{-- Grid Pattern Background --}}
         <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
 
@@ -15,7 +15,7 @@
             <div class="text-center text-white max-w-6xl mx-auto">
                 {{-- Badge --}}
                 @if($heroSection && $heroSection->badge_text)
-                <div class="mt-24 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
+                <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -28,7 +28,7 @@
                 @endif
 
                 @if($heroSection)
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight">
                     <span class="block mb-4 bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent animate-fade-in-up">
                         {{ $heroSection->title_line1 }}
                     </span>
@@ -65,7 +65,7 @@
                 @endif
 
                 {{-- Enhanced Stats --}}
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 my-10">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 ">
                     @foreach($stats as $stat)
                     <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
                         <div class="absolute inset-0 bg-gradient-to-br from-{{ $stat->color_from }}/20 to-{{ $stat->color_to }}/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -207,62 +207,66 @@
             </div>
             
             @if(isset($featuredProjects) && count($featuredProjects) > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach($featuredProjects as $project)
-                        <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                            <img src="{{ Storage::url($project->main_image) }}" alt="{{ $project->title }}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center p-6">
-                                <div class="text-center text-white transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                                    <h3 class="text-2xl font-bold mb-2">{{ $project->title }}</h3>
-                                    <p class="mb-4">{{ $project->short_description }}</p>
-                                    <a href="{{ route('projects.show', $project) }}" class="inline-block bg-white text-blue-900 font-bold py-2 px-6 rounded-full hover:bg-cyan-400 hover:text-white transition-colors">
-                                        عرض التفاصيل
-                                    </a>
+                {{-- Projects Carousel --}}
+                <div class="relative max-w-7xl mx-auto px-12">
+                    <!-- Swiper Container -->
+                    <div class="swiper projects-swiper">
+                        <div class="swiper-wrapper pb-12">
+                            @foreach($featuredProjects as $project)
+                            <div class="swiper-slide">
+                                <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full">
+                                    <img src="{{ Storage::url($project->main_image) }}" alt="{{ $project->title }}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                                    
+                                    {{-- Project Types Badges - Top Right --}}
+                                    @if($project->types && $project->types->count() > 0)
+                                    <div class="absolute top-4 right-4 flex flex-wrap gap-2 z-10">
+                                        @foreach($project->types as $type)
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold text-white backdrop-blur-sm shadow-lg"
+                                              style="background-color: {{ $type->color }};">
+                                            @if($type->icon)
+                                            <i class="{{ $type->icon }} ml-1 text-xs"></i>
+                                            @endif
+                                            {{ $type->name }}
+                                        </span>
+                                        @endforeach
+                                    </div>
+                                    @endif
+                                    
+                                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center p-6">
+                                        <div class="text-center text-white transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                                            <h3 class="text-2xl font-bold mb-2">{{ $project->title }}</h3>
+                                            <p class="mb-4">{{ $project->short_description }}</p>
+                                            <a href="{{ route('projects.show', $project) }}" class="inline-block bg-white text-blue-900 font-bold py-2 px-6 rounded-full hover:bg-cyan-400 hover:text-white transition-colors">
+                                                عرض التفاصيل
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                    @endforeach
+                        
+                        {{-- Pagination --}}
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    
+                    {{-- Navigation Buttons - Outside Swiper --}}
+                    <button type="button" class="projects-swiper-button-next" 
+                            style="position: absolute !important; top: 50% !important; left: 0 !important; transform: translateY(-50%) !important; width: 56px !important; height: 56px !important; border-radius: 50% !important; background: linear-gradient(to right, #2563eb, #06b6d4) !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; z-index: 100 !important; border: none !important; outline: none !important; transition: transform 0.3s !important; opacity: 1 !important; visibility: visible !important;"
+                            onmouseover="this.style.transform='translateY(-50%) scale(1.1)'"
+                            onmouseout="this.style.transform='translateY(-50%) scale(1)'">
+                        <i class="fas fa-chevron-left text-white text-xl"></i>
+                    </button>
+                    <button type="button" class="projects-swiper-button-prev"
+                            style="position: absolute !important; top: 50% !important; right: 0 !important; transform: translateY(-50%) !important; width: 56px !important; height: 56px !important; border-radius: 50% !important; background: linear-gradient(to right, #2563eb, #06b6d4) !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; z-index: 100 !important; border: none !important; outline: none !important; transition: transform 0.3s !important; opacity: 1 !important; visibility: visible !important;"
+                            onmouseover="this.style.transform='translateY(-50%) scale(1.1)'"
+                            onmouseout="this.style.transform='translateY(-50%) scale(1)'">
+                        <i class="fas fa-chevron-right text-white text-xl"></i>
+                    </button>
                 </div>
             @else
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-                        <div class="h-48 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                            <i class="fas fa-chart-pie text-white text-6xl opacity-50"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">لوحة تحكم المبيعات</h3>
-                            <p class="text-gray-600 mb-4">تحليل شامل لأداء المبيعات مع مؤشرات الأداء الرئيسية</p>
-                            <a href="{{ route('portfolio') }}" class="text-blue-600 hover:text-cyan-500 font-semibold">
-                                عرض المزيد <i class="fas fa-arrow-left mr-2"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-                        <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                            <i class="fas fa-users text-white text-6xl opacity-50"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">لوحة الموارد البشرية</h3>
-                            <p class="text-gray-600 mb-4">متابعة شاملة لبيانات الموظفين والأداء الوظيفي</p>
-                            <a href="{{ route('portfolio') }}" class="text-blue-600 hover:text-cyan-500 font-semibold">
-                                عرض المزيد <i class="fas fa-arrow-left mr-2"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-                        <div class="h-48 bg-gradient-to-br from-green-500 to-teal-400 flex items-center justify-center">
-                            <i class="fas fa-dollar-sign text-white text-6xl opacity-50"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">لوحة التحليل المالي</h3>
-                            <p class="text-gray-600 mb-4">تقارير مالية تفصيلية مع تحليل الربحية والتكاليف</p>
-                            <a href="{{ route('portfolio') }}" class="text-blue-600 hover:text-cyan-500 font-semibold">
-                                عرض المزيد <i class="fas fa-arrow-left mr-2"></i>
-                            </a>
-                        </div>
-                    </div>
+                <div class="text-center">
+                        <p>لا يوجد مشاريع حاليا</p>
                 </div>
             @endif
             
