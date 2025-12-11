@@ -23,6 +23,8 @@ class ProjectResource extends Resource
     protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $modelLabel = 'مشروع';
     protected static ?string $pluralModelLabel = 'المشاريع';
+    protected static string|\UnitEnum|null $navigationGroup = 'المشاريع';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
@@ -64,6 +66,13 @@ class ProjectResource extends Resource
                 ->helperText('الحد الأقصى: 100 ميجابايت'),
             Forms\Components\Toggle::make('is_featured')
                 ->label('عرض في الصفحة الرئيسية؟'),
+            Forms\Components\Select::make('types')
+                ->label('أنواع المشروع')
+                ->multiple()
+                ->relationship('types', 'name_ar')
+                ->preload()
+                ->searchable()
+                ->helperText('يمكن اختيار أكثر من نوع'),
             Forms\Components\Select::make('status')
                 ->label('الحالة')
                 ->options([

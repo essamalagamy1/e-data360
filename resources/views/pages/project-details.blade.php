@@ -79,8 +79,22 @@
                         <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center">
                             <i class="fas fa-layer-group text-white text-2xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">نوع المشروع</h3>
-                        <p class="text-gray-600">{{ $project->category ?? 'لوحة تحكم' }}</p>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">أنواع المشروع</h3>
+                        @if($project->types && $project->types->count() > 0)
+                            <div class="flex flex-wrap gap-2 justify-center">
+                                @foreach($project->types as $type)
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white"
+                                      style="background-color: {{ $type->color }};">
+                                    @if($type->icon)
+                                    <i class="{{ $type->icon }} ml-1 text-xs"></i>
+                                    @endif
+                                    {{ $type->name }}
+                                </span>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-gray-600">لا توجد أنواع محددة</p>
+                        @endif
                     </div>
 
                     <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 border border-green-100 text-center">
@@ -91,6 +105,48 @@
                         <p class="text-gray-600">مكتمل بنجاح</p>
                     </div>
                 </div>
+
+                {{-- Project Types Showcase --}}
+                @if($project->types && $project->types->count() > 0)
+                <div class="mb-16">
+                    <h2 class="text-4xl font-black text-gray-900 mb-8 flex items-center gap-4">
+                        <span class="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">تصنيفات المشروع</span>
+                        <div class="flex-1 h-1 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full"></div>
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-{{ min($project->types->count(), 4) }} gap-6">
+                        @foreach($project->types as $type)
+                        <a href="{{ route('portfolio', ['type' => $type->slug]) }}" 
+                           class="group bg-white rounded-2xl p-6 border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                           style="border-color: {{ $type->color }}20; background: linear-gradient(135deg, {{ $type->color }}05 0%, white 100%);">
+                            <div class="flex flex-col items-center text-center">
+                                @if($type->icon)
+                                <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
+                                     style="background: linear-gradient(135deg, {{ $type->color }} 0%, {{ $type->color }}dd 100%);">
+                                    <i class="{{ $type->icon }} text-white text-3xl"></i>
+                                </div>
+                                @endif
+                                
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-opacity-80 transition-colors"
+                                    style="color: {{ $type->color }};">
+                                    {{ $type->name }}
+                                </h3>
+                                
+                                <p class="text-sm text-gray-600 mb-4">
+                                    عرض جميع مشاريع {{ $type->name }}
+                                </p>
+                                
+                                <div class="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3"
+                                     style="color: {{ $type->color }};">
+                                    <span>استكشف المزيد</span>
+                                    <i class="fas fa-arrow-left"></i>
+                                </div>
+                            </div>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
 
                 {{-- Description --}}
                 <div class="mb-16">

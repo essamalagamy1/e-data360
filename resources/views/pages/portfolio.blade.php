@@ -50,6 +50,34 @@
         </div>
     </section>
 
+    {{-- Filter Section --}}
+    @if(isset($projectTypes) && $projectTypes->count() > 0)
+    <section class="py-8 bg-white border-b border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                {{-- All Projects Button --}}
+                <a href="{{ route('portfolio') }}" 
+                   class="group px-6 py-3 rounded-full font-semibold transition-all duration-300 {{ !$selectedType ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                    <i class="fas fa-th-large {{ !$selectedType ? 'ml-2' : 'ml-1 opacity-50' }}"></i>
+                    جميع المشاريع
+                </a>
+                
+                {{-- Type Filter Buttons --}}
+                @foreach($projectTypes as $type)
+                <a href="{{ route('portfolio', ['type' => $type->slug]) }}" 
+                   class="group px-6 py-3 rounded-full font-semibold transition-all duration-300 {{ $selectedType === $type->slug ? 'text-white shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
+                   style="{{ $selectedType === $type->slug ? 'background: ' . $type->color . '; box-shadow: 0 10px 25px -5px ' . $type->color . '40;' : '' }}">
+                    @if($type->icon)
+                    <i class="{{ $type->icon }} {{ $selectedType === $type->slug ? 'ml-2' : 'ml-1 opacity-50' }}"></i>
+                    @endif
+                    {{ $type->name }}
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     {{-- Portfolio Grid --}}
     <section class="py-24 bg-gray-50">
         <div class="container mx-auto px-6">
@@ -74,6 +102,22 @@
                                         {{ $project->title }}
                                     </h3>
                                     <p class="text-gray-600 mb-4">{{ $project->short_description }}</p>
+                                    
+                                    {{-- Project Types Badges --}}
+                                    @if($project->types && $project->types->count() > 0)
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        @foreach($project->types as $type)
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white"
+                                              style="background-color: {{ $type->color }};">
+                                            @if($type->icon)
+                                            <i class="{{ $type->icon }} ml-1 text-xs"></i>
+                                            @endif
+                                            {{ $type->name }}
+                                        </span>
+                                        @endforeach
+                                    </div>
+                                    @endif
+                                    
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm text-gray-500">
                                             <i class="fas fa-calendar-alt ml-1"></i>
