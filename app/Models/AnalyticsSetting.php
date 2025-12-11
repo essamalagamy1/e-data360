@@ -9,6 +9,7 @@ class AnalyticsSetting extends Model
     protected $fillable = [
         'ga_enabled',
         'ga_measurement_id',
+        'ga_property_id',
         'gtm_enabled',
         'gtm_container_id',
         'fb_pixel_enabled',

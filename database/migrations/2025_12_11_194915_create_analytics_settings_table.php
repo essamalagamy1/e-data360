@@ -16,8 +16,9 @@ return new class extends Migration
             
             // Google Analytics
             $table->boolean('ga_enabled')->default(false);
-            $table->string('ga_measurement_id')->nullable();
-            
+            $table->string('ga_measurement_id')->nullable()->comment('G-XXXXXXXXX for gtag.js tracking');
+            $table->string('ga_property_id')->nullable()->comment('Numeric Property ID for Data API');
+
             // Google Tag Manager
             $table->boolean('gtm_enabled')->default(false);
             $table->string('gtm_container_id')->nullable();

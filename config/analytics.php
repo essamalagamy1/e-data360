@@ -4,6 +4,8 @@ return [
 
     /*
      * The property id of which you want to display data.
+     * This should be a numeric Property ID (not G-XXXXXXXXX)
+     * Get it from: Google Analytics > Admin > Property Settings > Property ID
      */
     'property_id' => env('ANALYTICS_PROPERTY_ID'),
 
