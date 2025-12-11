@@ -11,7 +11,6 @@ use Spatie\Analytics\Period;
 class EventsTable extends BaseWidget
 {
     protected static ?int $sort = 8;
-    protected int | string | array $columnSpan = 'full';
     
     public ?string $filter = '7days';
 

@@ -11,7 +11,6 @@ use Spatie\Analytics\Period;
 class LocationsTable extends BaseWidget
 {
     protected static ?int $sort = 7;
-    protected int | string | array $columnSpan = 'full';
     
     public ?string $filter = '7days';
 

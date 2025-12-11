@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 class MonthlySubmissionsChart extends ChartWidget
 {
     protected ?string $heading = 'الطلبات الشهرية';
+    protected int | string | array $columnSpan = 1;
     
     protected static ?int $sort = 4;
 

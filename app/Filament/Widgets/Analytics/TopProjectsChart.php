@@ -10,6 +10,7 @@ class TopProjectsChart extends ChartWidget
 {
     protected ?string $heading = 'المشاريع الأكثر مشاهدة';
     protected static ?int $sort = 9;
+    protected int | string | array $columnSpan = 'full';
     
     public ?string $filter = '30days';
 

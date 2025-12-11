@@ -5,12 +5,13 @@ namespace App\Services;
 use Spatie\Analytics\Facades\Analytics;
 use Spatie\Analytics\Period;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Models\Project;
 
 class AnalyticsService
 {
-    protected int $cacheMinutes = 30;
+    protected int $cacheMinutes = 5; // تحديث كل 5 دقائق بدلاً من 30
 
     /**
      * Get overview statistics
