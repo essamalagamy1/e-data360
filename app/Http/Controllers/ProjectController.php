@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function fas fa-laptop-codeindex(Request $request)
+    public function index(Request $request)
     {
         // Get the selected type from query parameter
         $selectedType = $request->query('type');

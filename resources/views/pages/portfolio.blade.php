@@ -137,23 +137,6 @@
                 <div class="mt-12">
                     {{ $projects->links() }}
                 </div>
-            @else
-                {{-- Sample Projects if no data --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                        <div class="h-64 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-chart-pie text-white text-6xl opacity-50 group-hover:scale-110 transition-transform duration-500"></i>
-                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">لوحة تحكم المبيعات</h3>
-                            <p class="text-gray-600 mb-4">تحليل شامل لأداء المبيعات مع مؤشرات الأداء الرئيسية وتقارير تفصيلية</p>
-                            <span class="text-blue-600 font-semibold group-hover:text-cyan-500 transition-colors">
-                                عرض المزيد <i class="fas fa-arrow-left mr-1"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
             @endif
         </div>
     </section>
