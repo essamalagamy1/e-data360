@@ -8,8 +8,8 @@ use Spatie\Analytics\Period;
 
 class VisitorsChart extends ChartWidget
 {
-    protected static ?string $heading = 'الزوار خلال آخر 7 أيام';
-    
+    protected ?string $heading = 'الزوار خلال آخر 7 أيام';
+
     protected static ?int $sort = 2;
 
     protected function getData(): array
