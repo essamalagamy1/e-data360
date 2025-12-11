@@ -39,13 +39,13 @@
                 @endif
 
                 @if($heroSection && $heroSection->subtitle)
-                <p class="text-xl md:text-2xl lg:text-3xl mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+                <p class="text-xl md:text-2xl lg:text-3xl mb-10 text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
                     {{ $heroSection->subtitle }}
                 </p>
                 @endif
 
                 @if($heroSection)
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10">
                     @if($heroSection->cta_primary_text)
                     <a href="{{ $heroSection->cta_primary_link ?? route('request-design.create') }}"
                        class="group relative bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-bold py-5 px-10 rounded-2xl hover:shadow-2xl hover:shadow-cyan-500/50 hover:scale-105 transform transition-all duration-300 inline-flex items-center overflow-hidden">
