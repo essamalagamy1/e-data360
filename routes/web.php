@@ -23,6 +23,20 @@ Route::get('/terms-conditions', [PageController::class, 'terms'])->name('terms')
 Route::get('/add-testimonial', [TestimonialController::class, 'create'])->name('testimonial.create');
 Route::post('/add-testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
 
+// SEO Routes
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap-pages.xml', [App\Http\Controllers\SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('/sitemap-projects.xml', [App\Http\Controllers\SitemapController::class, 'projects'])->name('sitemap.projects');
+Route::get('/robots.txt', function() {
+    $content = "User-agent: *\n";
+    $content .= "Allow: /\n";
+    $content .= "Disallow: /admin\n";
+    $content .= "Disallow: /api\n\n";
+    $content .= "Sitemap: " . route('sitemap.index') . "\n";
+    
+    return response($content)->header('Content-Type', 'text/plain');
+})->name('robots');
+
 // The default welcome route can be removed or kept for testing
 // Route::get('/welcome', function () {
 //     return view('welcome');
