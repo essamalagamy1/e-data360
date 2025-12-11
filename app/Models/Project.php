@@ -18,10 +18,14 @@ class Project extends Model
         'video_url',
         'is_featured',
         'status',
+        'is_available_for_purchase',
+        'price',
     ];
 
     protected $casts = [
         'is_featured' => 'boolean',
+        'is_available_for_purchase' => 'boolean',
+        'price' => 'decimal:2',
     ];
 
     public function projectImages()

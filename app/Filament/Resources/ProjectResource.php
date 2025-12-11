@@ -73,6 +73,16 @@ class ProjectResource extends Resource
                 ->preload()
                 ->searchable()
                 ->helperText('يمكن اختيار أكثر من نوع'),
+            Forms\Components\Toggle::make('is_available_for_purchase')
+                ->label('متاح للشراء')
+                ->live()
+                ->helperText('هل هذا المشروع متاح للبيع؟'),
+            Forms\Components\TextInput::make('price')
+                ->label('السعر')
+                ->numeric()
+                ->prefix('ر.س')
+                ->visible(fn ($get) => $get('is_available_for_purchase'))
+                ->helperText('سعر المشروع بالريال السعودي'),
             Forms\Components\Select::make('status')
                 ->label('الحالة')
                 ->options([

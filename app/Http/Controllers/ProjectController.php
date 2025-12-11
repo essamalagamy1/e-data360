@@ -47,7 +47,10 @@ class ProjectController extends Controller
         // Load types relationship
         $project->load('types');
         
+        // Get company settings for WhatsApp
+        $companySettings = \App\Models\CompanySetting::first();
+        
         // SEO for project details page can be dynamic based on the project
-        return view('pages.project-details', compact('project'));
+        return view('pages.project-details', compact('project', 'companySettings'));
     }
 }
