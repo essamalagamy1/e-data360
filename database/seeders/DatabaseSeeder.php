@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CompanySettingSeeder::class,
             SeoSettingSeeder::class,
+            SeoSettingsSeeder::class, // New comprehensive SEO seeder
             ServiceSeeder::class,
             ProjectSeeder::class,
             SocialLinkSeeder::class,
