@@ -17,10 +17,19 @@ class AppComposer
      */
     public function compose(View $view)
     {
-        $view->with([
-            'companySettings' => CompanySetting::first(),
-            'socialLinks' => SocialLink::where('is_active', true)->get(),
-            'footerServices' => Service::where('is_active', true)->inRandomOrder()->take(4)->get(),
-        ]);
+        try {
+            $view->with([
+                'companySettings' => CompanySetting::first(),
+                'socialLinks' => SocialLink::where('is_active', true)->get(),
+                'footerServices' => Service::where('is_active', true)->inRandomOrder()->take(4)->get(),
+            ]);
+        } catch (\Exception $e) {
+            // Tables might not exist yet during migration or installation
+            $view->with([
+                'companySettings' => null,
+                'socialLinks' => collect(),
+                'footerServices' => collect(),
+            ]);
+        }
     }
 }
