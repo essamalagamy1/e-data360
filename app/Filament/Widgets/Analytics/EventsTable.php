@@ -17,42 +17,44 @@ class EventsTable extends BaseWidget
 
     public function table(Table $table): Table
     {
+        return $table
+            ->heading('الأحداث (Events)')
+            ->paginated(false)
+            ->columns([
+                Tables\Columns\TextColumn::make('rank')
+                    ->label('#')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('event_name')
+                    ->label('اسم الحدث')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('count')
+                    ->label('عدد المرات')
+                    ->numeric()
+                    ->sortable(),
+            ])
+            ->defaultSort('count', 'desc');
+    }
+
+    public function getTableRecords(): \Illuminate\Support\Collection
+    {
         try {
             if (!config('analytics.property_id')) {
-                return $this->getEmptyTable($table);
+                return collect([]);
             }
 
             $period = $this->getPeriod();
             $service = new AnalyticsService();
             $events = $service->getEvents($period, 15);
 
-            $records = collect($events)->map(function ($event, $index) {
+            return collect($events)->map(function ($event, $index) {
                 return [
                     'rank' => $index + 1,
                     'event_name' => $this->translateEventName($event['event_name']),
                     'count' => $event['count'],
                 ];
             });
-
-            return $table
-                ->heading('الأحداث (Events)')
-                ->query(fn () => $records)
-                ->columns([
-                    Tables\Columns\TextColumn::make('rank')
-                        ->label('#')
-                        ->sortable(),
-                    Tables\Columns\TextColumn::make('event_name')
-                        ->label('اسم الحدث')
-                        ->searchable(),
-                    Tables\Columns\TextColumn::make('count')
-                        ->label('عدد المرات')
-                        ->numeric()
-                        ->sortable(),
-                ])
-                ->defaultSort('count', 'desc');
-                
         } catch (\Exception $e) {
-            return $this->getErrorTable($table, $e->getMessage());
+            return collect([]);
         }
     }
 
@@ -78,23 +80,5 @@ class EventsTable extends BaseWidget
             'form_submit' => 'إرسال نموذج',
             default => $eventName,
         };
-    }
-
-    protected function getEmptyTable(Table $table): Table
-    {
-        return $table
-            ->heading('الأحداث (Events)')
-            ->emptyStateHeading('لا توجد بيانات')
-            ->emptyStateDescription('يرجى إضافة معرف الخاصية الرقمي (Property ID)')
-            ->emptyStateIcon('heroicon-o-exclamation-triangle');
-    }
-
-    protected function getErrorTable(Table $table, string $message): Table
-    {
-        return $table
-            ->heading('الأحداث (Events)')
-            ->emptyStateHeading('خطأ في جلب البيانات')
-            ->emptyStateDescription($message)
-            ->emptyStateIcon('heroicon-o-exclamation-circle');
     }
 }
