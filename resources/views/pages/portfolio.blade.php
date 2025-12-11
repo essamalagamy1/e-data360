@@ -135,7 +135,7 @@
                 
                 {{-- Pagination --}}
                 <div class="mt-12">
-                    {{ $projects->links() }}
+                    {{ $projects->appends(request()->query())->links() }}
                 </div>
                 @else
                 <div class="flex flex-col items-center justify-center h-64">
