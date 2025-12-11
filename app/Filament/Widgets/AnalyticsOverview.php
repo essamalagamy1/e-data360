@@ -17,8 +17,8 @@ class AnalyticsOverview extends BaseWidget
             // Check if Analytics is configured
             if (!config('analytics.property_id')) {
                 return [
-                    Stat::make('تنبيه', 'يرجى إضافة ANALYTICS_PROPERTY_ID في ملف .env')
-                        ->description('لعرض إحصائيات Google Analytics')
+                    Stat::make('تنبيه', 'يرجى إضافة معرف الخاصية الرقمي')
+                        ->description('احصل عليه من: Google Analytics > الإدارة > إعدادات الخاصية > Property ID')
                         ->descriptionIcon('heroicon-o-exclamation-triangle')
                         ->color('warning'),
                 ];

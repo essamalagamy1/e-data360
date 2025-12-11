@@ -23,7 +23,7 @@ class VisitorsChart extends ChartWidget
                             'data' => [0],
                         ],
                     ],
-                    'labels' => ['يرجى إضافة ANALYTICS_PROPERTY_ID'],
+                    'labels' => ['يرجى إضافة معرف الخاصية الرقمي (Property ID)'],
                 ];
             }
 
@@ -62,11 +62,11 @@ class VisitorsChart extends ChartWidget
             return [
                 'datasets' => [
                     [
-                        'label' => 'خطأ',
+                        'label' => 'خطأ: ' . $e->getMessage(),
                         'data' => [0],
                     ],
                 ],
-                'labels' => ['تعذر جلب البيانات'],
+                'labels' => ['تحقق من إعدادات Google Analytics'],
             ];
         }
     }
