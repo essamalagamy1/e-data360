@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
 <head>
+    <!-- Google tag (gtag.js) -->
+    @php
+        $analyticsSettings = \App\Models\AnalyticsSetting::first();
+    @endphp
+    @if($analyticsSettings && $analyticsSettings->ga_enabled && $analyticsSettings->ga_measurement_id)
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $analyticsSettings->ga_measurement_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ $analyticsSettings->ga_measurement_id }}');
+    </script>
+    @endif
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -324,24 +338,6 @@
         @php
             $analyticsSettings = \App\Models\AnalyticsSetting::first();
         @endphp
-        
-        // Load Google Analytics when user consents
-        function loadGoogleAnalytics() {
-            @if($analyticsSettings && $analyticsSettings->ga_enabled && $analyticsSettings->ga_measurement_id)
-            // Initialize dataLayer
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '{{ $analyticsSettings->ga_measurement_id }}');
-
-            // Load the GA script
-            const gaScript = document.createElement('script');
-            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id={{ $analyticsSettings->ga_measurement_id }}';
-            gaScript.async = true;
-            document.head.appendChild(gaScript);
-            console.log('Google Analytics loaded');
-            @endif
-        }
         
         // Load Facebook Pixel when user consents
         function loadFacebookPixel() {
