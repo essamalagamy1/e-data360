@@ -137,6 +137,10 @@
                 <div class="mt-12">
                     {{ $projects->links() }}
                 </div>
+                @else
+                <div class="flex flex-col items-center justify-center h-64">
+                    <p class="text-gray-600">لا يوجد مشاريع حاليا</p>
+                </div>
             @endif
         </div>
     </section>
