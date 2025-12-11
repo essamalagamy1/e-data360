@@ -28,10 +28,15 @@ class AnalyticsPage extends Page
     protected function getFooterWidgets(): array
     {
         return [
+            // Row 1: Charts
             \App\Filament\Widgets\Analytics\VisitorsTimeChart::class,
-            \App\Filament\Widgets\Analytics\TopProjectsChart::class,
             \App\Filament\Widgets\Analytics\TrafficSourcesChart::class,
             \App\Filament\Widgets\Analytics\DevicesChart::class,
+            
+            // Row 2: Special Charts
+            \App\Filament\Widgets\Analytics\TopProjectsChart::class,
+            
+            // Row 3: Tables
             \App\Filament\Widgets\Analytics\TopPagesTable::class,
             \App\Filament\Widgets\Analytics\BrowsersTable::class,
             \App\Filament\Widgets\Analytics\LocationsTable::class,

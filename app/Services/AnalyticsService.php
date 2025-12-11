@@ -19,26 +19,25 @@ class AnalyticsService
     {
         return Cache::remember("analytics.overview.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}", $this->cacheMinutes * 60, function () use ($period) {
             try {
-                $result = Analytics::get(
-                    $period,
-                    ['activeUsers', 'sessions', 'bounceRate', 'averageSessionDuration', 'screenPageViewsPerSession'],
-                    ['date']
-                );
-
-                $totalUsers = $result->sum('activeUsers');
-                $totalSessions = $result->sum('sessions');
-                $avgBounceRate = $result->avg('bounceRate') ?? 0;
-                $avgSessionDuration = $result->avg('averageSessionDuration') ?? 0;
-                $avgPagesPerSession = $result->avg('screenPageViewsPerSession') ?? 0;
+                // Use the simple methods that work with GA4
+                $visitorsData = Analytics::fetchTotalVisitorsAndPageViews($period);
+                
+                $totalVisitors = $visitorsData->sum('visitors');
+                $totalPageViews = $visitorsData->sum('pageViews');
+                
+                // Calculate average pages per session
+                $avgPagesPerSession = $totalVisitors > 0 ? round($totalPageViews / $totalVisitors, 2) : 0;
 
                 return [
-                    'total_users' => $totalUsers,
-                    'total_sessions' => $totalSessions,
-                    'bounce_rate' => round($avgBounceRate, 2),
-                    'avg_session_duration' => round($avgSessionDuration, 2),
-                    'pages_per_session' => round($avgPagesPerSession, 2),
+                    'total_users' => $totalVisitors,
+                    'total_page_views' => $totalPageViews,
+                    'total_sessions' => $totalVisitors, // GA4 uses activeUsers instead of sessions
+                    'bounce_rate' => 0, // Not easily available in GA4
+                    'avg_session_duration' => 0, // Not easily available in GA4
+                    'pages_per_session' => $avgPagesPerSession,
                 ];
             } catch (\Exception $e) {
+                \Log::error('Analytics getOverviewStats error: ' . $e->getMessage());
                 return $this->getEmptyOverviewStats();
             }
         });
@@ -303,6 +302,7 @@ class AnalyticsService
     {
         return [
             'total_users' => 0,
+            'total_page_views' => 0,
             'total_sessions' => 0,
             'bounce_rate' => 0,
             'avg_session_duration' => 0,

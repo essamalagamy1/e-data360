@@ -31,21 +31,11 @@ class OverviewStats extends BaseWidget
                     ->color('success')
                     ->chart($this->generateTrendChart($stats['total_users'])),
                 
-                Stat::make('إجمالي الجلسات', number_format($stats['total_sessions']))
+                Stat::make('مشاهدات الصفحات', number_format($stats['total_page_views']))
                     ->description($this->getPeriodDescription())
-                    ->descriptionIcon('heroicon-o-cursor-arrow-rays')
+                    ->descriptionIcon('heroicon-o-eye')
                     ->color('info')
-                    ->chart($this->generateTrendChart($stats['total_sessions'])),
-                
-                Stat::make('معدل الارتداد', round($stats['bounce_rate'], 1) . '%')
-                    ->description($this->getPeriodDescription())
-                    ->descriptionIcon('heroicon-o-arrow-path')
-                    ->color($stats['bounce_rate'] > 50 ? 'warning' : 'success'),
-                
-                Stat::make('متوسط مدة الجلسة', $this->formatDuration($stats['avg_session_duration']))
-                    ->description($this->getPeriodDescription())
-                    ->descriptionIcon('heroicon-o-clock')
-                    ->color('primary'),
+                    ->chart($this->generateTrendChart($stats['total_page_views'])),
                 
                 Stat::make('الصفحات لكل جلسة', round($stats['pages_per_session'], 1))
                     ->description($this->getPeriodDescription())
