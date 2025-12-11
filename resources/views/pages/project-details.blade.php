@@ -44,12 +44,19 @@
     <section class="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
         <div class="container mx-auto px-6">
             <div class="max-w-6xl mx-auto">
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
+                <a href="{{ Storage::url($project->main_image) }}" 
+                   data-fancybox="project-gallery" 
+                   data-caption="{{ $project->title }}"
+                   class="block relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white group cursor-pointer">
                     <img src="{{ Storage::url($project->main_image) }}"
                          alt="{{ $project->title }}"
                          class="w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-full p-4">
+                            <i class="fas fa-search-plus text-white text-3xl"></i>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -108,7 +115,10 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($project->projectImages as $image)
-                                <div class="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
+                                <a href="{{ Storage::url($image->image_path) }}" 
+                                   data-fancybox="project-gallery" 
+                                   data-caption="{{ $image->caption ?? $project->title }}"
+                                   class="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 block cursor-pointer">
                                     <img src="{{ Storage::url($image->image_path) }}"
                                          alt="{{ $image->caption }}"
                                          class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
@@ -120,13 +130,13 @@
                                     @endif
 
                                     {{-- Hover Overlay --}}
-                                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center p-6">
-                                        <button class="bg-white text-blue-600 font-bold px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition-colors transform translate-y-4 group-hover:translate-y-0 duration-500">
-                                            <i class="fas fa-search-plus ml-2"></i>
-                                            عرض بالحجم الكامل
-                                        </button>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                                        <div class="bg-white text-blue-600 font-bold px-6 py-3 rounded-lg transform translate-y-4 group-hover:translate-y-0 duration-500 flex items-center gap-2">
+                                            <i class="fas fa-search-plus"></i>
+                                            <span>عرض بالحجم الكامل</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             @endforeach
                         </div>
                     </div>
@@ -142,7 +152,7 @@
 
                         <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                             <div class="aspect-w-16 aspect-h-9">
-                                <iframe src="{{ $project->video_url }}"
+                                <iframe src="{{ Storage::url($project->video_url) }}"
                                         frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen
@@ -187,4 +197,47 @@
             </div>
         </div>
     </section>
+
+    {{-- Fancybox Initialization --}}
+    <script>
+        // Initialize Fancybox when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            Fancybox.bind('[data-fancybox="project-gallery"]', {
+                // RTL support
+                l10n: {
+                    CLOSE: 'إغلاق',
+                    NEXT: 'التالي',
+                    PREV: 'السابق',
+                    MODAL: 'يمكنك إغلاق هذا النموذج بالضغط على ESC',
+                    ERROR: 'حدث خطأ أثناء تحميل الصورة',
+                    IMAGE_ERROR: 'لم يتم العثور على الصورة',
+                    ELEMENT_NOT_FOUND: 'لم يتم العثور على العنصر',
+                    AJAX_NOT_FOUND: 'خطأ في تحميل المحتوى',
+                    AJAX_FORBIDDEN: 'غير مسموح بتحميل المحتوى',
+                    IFRAME_ERROR: 'خطأ في تحميل الصفحة',
+                    TOGGLE_ZOOM: 'تبديل مستوى التكبير',
+                    TOGGLE_THUMBS: 'تبديل الصور المصغرة',
+                    TOGGLE_SLIDESHOW: 'تبديل عرض الشرائح',
+                    TOGGLE_FULLSCREEN: 'تبديل ملء الشاشة',
+                    DOWNLOAD: 'تحميل'
+                },
+                // Animation settings
+                Carousel: {
+                    infinite: true,
+                },
+                // Toolbar buttons
+                Toolbar: {
+                    display: {
+                        left: ['infobar'],
+                        middle: [],
+                        right: ['slideshow', 'thumbs', 'close'],
+                    },
+                },
+                // Thumbnail settings
+                Thumbs: {
+                    autoStart: false,
+                },
+            });
+        });
+    </script>
 </x-layouts.app>
