@@ -21,8 +21,16 @@ class AnalyticsSettingForm
                 TextInput::make('ga_measurement_id')
                     ->label('معرف القياس (Measurement ID)')
                     ->placeholder('G-XXXXXXXXXX')
-                    ->helperText('معرف القياس من Google Analytics (مثال: G-XXXXXXXXXX)'),
-                
+                    ->helperText('معرف القياس من Google Analytics للتتبع (مثال: G-XXXXXXXXXX)')
+                    ->maxLength(20),
+
+                TextInput::make('ga_property_id')
+                    ->label('معرف الخاصية (Property ID)')
+                    ->placeholder('123456789')
+                    ->helperText('المعرف الرقمي للخاصية من Google Analytics (للتقارير والويدجتس) - احصل عليه من: الإدارة > إعدادات الخاصية')
+                    ->numeric()
+                    ->maxLength(20),
+
                 // Google Tag Manager
                 Toggle::make('gtm_enabled')
                     ->label('تفعيل Google Tag Manager')
