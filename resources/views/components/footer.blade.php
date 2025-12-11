@@ -309,17 +309,17 @@
                     </p>
                 </div>
 
-                <div class="flex items-center gap-6 text-gray-400 text-sm">
+                <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-gray-400 text-sm">
                     <a href="{{ route('privacy') }}" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
                         <i class="fas fa-shield-alt text-cyan-400"></i>
                         سياسة الخصوصية
                     </a>
-                    <div class="w-px h-4 bg-white/20"></div>
+                    <div class="hidden md:block w-px h-4 bg-white/20"></div>
                     <a href="{{ route('terms') }}" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
                         <i class="fas fa-file-contract text-cyan-400"></i>
                         الشروط والأحكام
                     </a>
-                    <div class="w-px h-4 bg-white/20"></div>
+                    <div class="hidden md:block w-px h-4 bg-white/20"></div>
                     <div class="flex items-center gap-2 text-gray-500">
                         <i class="fas fa-code text-cyan-400"></i>
                         <span>صنع بـ</span>
