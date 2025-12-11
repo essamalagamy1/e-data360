@@ -320,6 +320,11 @@
                         الشروط والأحكام
                     </a>
                     <div class="hidden md:block w-px h-4 bg-white/20"></div>
+                    <a onclick="showHideToggleCookiePreferencesModal()" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2 cursor-pointer">
+                        <i class="fas fa-cookie-bite text-cyan-400"></i>
+                        إعدادات الكوكيز
+                    </a>
+                    <div class="hidden md:block w-px h-4 bg-white/20"></div>
                     <div class="flex items-center gap-2 text-gray-500">
                         <i class="fas fa-code text-cyan-400"></i>
                         <span>صنع بـ</span>

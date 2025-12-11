@@ -127,8 +127,9 @@
             scrollbar-color: #06b6d4 #f1f5f9;
         }
     </style>
+    {!! CookieConsent::styles() !!}
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" dir="rtl">
     <div class="min-h-screen bg-gray-50">
         <x-navbar />
 
@@ -317,5 +318,59 @@
             }, 100);
         });
     </script>
+    
+    {{-- Google Analytics & Marketing Scripts --}}
+    <script>
+        @php
+            $analyticsSettings = \App\Models\AnalyticsSetting::first();
+        @endphp
+        
+        // Load Google Analytics when user consents
+        function loadGoogleAnalytics() {
+            @if($analyticsSettings && $analyticsSettings->ga_enabled && $analyticsSettings->ga_measurement_id)
+            // Initialize dataLayer
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ $analyticsSettings->ga_measurement_id }}');
+
+            // Load the GA script
+            const gaScript = document.createElement('script');
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id={{ $analyticsSettings->ga_measurement_id }}';
+            gaScript.async = true;
+            document.head.appendChild(gaScript);
+            console.log('Google Analytics loaded');
+            @endif
+        }
+        
+        // Load Facebook Pixel when user consents
+        function loadFacebookPixel() {
+            @if($analyticsSettings && $analyticsSettings->fb_pixel_enabled && $analyticsSettings->fb_pixel_id)
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '{{ $analyticsSettings->fb_pixel_id }}');
+            fbq('track', 'PageView');
+            
+            console.log('Facebook Pixel loaded');
+            @endif
+        }
+        
+        // Load Google Tag Manager when user consents
+        @if($analyticsSettings && $analyticsSettings->gtm_enabled && $analyticsSettings->gtm_container_id)
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','{{ $analyticsSettings->gtm_container_id }}');
+        @endif
+    </script>
+    
+    {!! CookieConsent::scripts() !!}
 </body>
 </html>
