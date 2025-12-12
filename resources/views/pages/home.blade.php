@@ -1,6 +1,6 @@
 <x-layouts.app>
     {{-- Hero Section - تصميم عصري مع تأثيرات متقدمة --}}
-    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 flex items-center justify-center overflow-hidden">
+    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 h-[100vh] to-indigo-950 flex items-center justify-center overflow-hidden">
         {{-- Grid Pattern Background --}}
         <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
 
@@ -11,11 +11,11 @@
             <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
         </div>
         
-        <div class="container mx-auto px-6 relative z-10 pt-12 md:pt-0 pb-2">
+        <div class="container mx-auto px-6 relative z-10 md:pt-0 pb-2">
             <div class="text-center text-white max-w-6xl mx-auto">
                 {{-- Badge --}}
                 @if($heroSection && $heroSection->badge_text)
-                <div class="flex justify-center mb-4">
+                <div class="flex justify-center mb-4 pt-12 md:pt-14">
                     <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-4 py-2 md:px-6 animate-fade-in-down">
                         <span class="relative flex h-2 w-2">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
