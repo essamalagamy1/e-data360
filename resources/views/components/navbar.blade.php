@@ -7,7 +7,7 @@
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 space-x-reverse group">
                     @if(isset($companySettings) && $companySettings->logo_path)
-		                <img class="h-14 transition-all duration-300 group-hover:scale-110"
+		                <img class="h-10 transition-all duration-300 group-hover:scale-110"
                              src="{{ Storage::url($companySettings->logo_path) }}"
                              alt="{{ $companySettings->company_name ?? 'EDATA 360' }}">
                     @else

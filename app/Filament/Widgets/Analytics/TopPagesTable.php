@@ -74,4 +74,9 @@ class TopPagesTable extends BaseWidget
             default => Period::days(7),
         };
     }
+
+    public function getTableRecordKey($record): string
+    {
+        return (string) $record['rank'];
+    }
 }

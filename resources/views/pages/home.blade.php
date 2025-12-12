@@ -1,6 +1,6 @@
 <x-layouts.app>
     {{-- Hero Section - تصميم عصري مع تأثيرات متقدمة --}}
-    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 h-screen flex items-center justify-center overflow-hidden">
+    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 flex items-center justify-center overflow-hidden">
         {{-- Grid Pattern Background --}}
         <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
 
@@ -11,24 +11,26 @@
             <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
         </div>
         
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-6 relative z-10 pt-12 md:pt-0 pb-2">
             <div class="text-center text-white max-w-6xl mx-auto">
                 {{-- Badge --}}
                 @if($heroSection && $heroSection->badge_text)
-                <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8 animate-fade-in-down">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                    </span>
-                    @if($heroSection->badge_icon)
-                    <i class="{{ $heroSection->badge_icon }} text-cyan-400"></i>
-                    @endif
-                    <span class="text-sm font-medium text-cyan-300">{{ $heroSection->badge_text }}</span>
+                <div class="flex justify-center mb-4">
+                    <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-4 py-2 md:px-6 animate-fade-in-down">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                        </span>
+                        @if($heroSection->badge_icon)
+                        <i class="{{ $heroSection->badge_icon }} text-cyan-400 text-xs md:text-sm"></i>
+                        @endif
+                        <span class="text-xs md:text-sm font-medium text-cyan-300">{{ $heroSection->badge_text }}</span>
+                    </div>
                 </div>
                 @endif
 
                 @if($heroSection)
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight">
                     <span class="block mb-4 bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent animate-fade-in-up">
                         {{ $heroSection->title_line1 }}
                     </span>
@@ -39,13 +41,13 @@
                 @endif
 
                 @if($heroSection && $heroSection->subtitle)
-                <p class="text-xl md:text-2xl lg:text-3xl mb-10 text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+                <p class="text-xl md:text-2xl lg:text-3xl mb-5 text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
                     {{ $heroSection->subtitle }}
                 </p>
                 @endif
 
                 @if($heroSection)
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10">
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-5">
                     @if($heroSection->cta_primary_text)
                     <a href="{{ $heroSection->cta_primary_link ?? route('request-design.create') }}"
                        class="group relative bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-bold py-5 px-10 rounded-2xl hover:shadow-2xl hover:shadow-cyan-500/50 hover:scale-105 transform transition-all duration-300 inline-flex items-center overflow-hidden">
@@ -65,15 +67,15 @@
                 @endif
 
                 {{-- Enhanced Stats --}}
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 ">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     @foreach($stats as $stat)
-                    <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
-                        <div class="absolute inset-0 bg-gradient-to-br from-{{ $stat->color_from }}/20 to-{{ $stat->color_to }}/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <i class="{{ $stat->icon }} text-4xl text-{{ $stat->color_from }} mb-4 relative z-10"></i>
-                        <div class="text-5xl md:text-6xl font-black bg-gradient-to-r from-{{ $stat->color_from }} to-{{ $stat->color_to }} bg-clip-text text-transparent relative z-10">{{ $stat->number }}</div>
-                        <p class="text-gray-300 mt-3 text-lg font-medium relative z-10">{{ $stat->label }}</p>
+                    <div class="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
+                        <div class="absolute inset-0 bg-gradient-to-br from-{{ $stat->color_from }}/20 to-{{ $stat->color_to }}/20 rounded-2xl md:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <i class="{{ $stat->icon }} text-2xl md:text-3xl lg:text-4xl text-{{ $stat->color_from }} mb-2 md:mb-3 lg:mb-4 relative z-10"></i>
+                        <div class="text-2xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-{{ $stat->color_from }} to-{{ $stat->color_to }} bg-clip-text text-transparent relative z-10">{{ $stat->number }}</div>
+                        <p class="text-gray-300 mt-2 md:mt-3 text-sm md:text-base lg:text-lg font-medium relative z-10">{{ $stat->label }}</p>
                         @if($stat->description)
-                        <p class="text-{{ $stat->color_from }} text-sm mt-1 relative z-10">{{ $stat->description }}</p>
+                        <p class="text-{{ $stat->color_from }} text-xs md:text-sm mt-1 relative z-10">{{ $stat->description }}</p>
                         @endif
                     </div>
                     @endforeach
@@ -82,9 +84,9 @@
         </div>
         
         {{-- Scroll Indicator --}}
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        {{-- <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
             <i class="fas fa-chevron-down text-white text-3xl opacity-50"></i>
-        </div>
+        </div> --}}
     </section>
 
     {{-- Services Section - تصميم عصري متطور --}}

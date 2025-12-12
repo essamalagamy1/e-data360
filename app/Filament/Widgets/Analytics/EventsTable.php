@@ -80,4 +80,9 @@ class EventsTable extends BaseWidget
             default => $eventName,
         };
     }
+
+    public function getTableRecordKey($record): string
+    {
+        return (string) $record['rank'];
+    }
 }
