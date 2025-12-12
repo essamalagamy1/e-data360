@@ -6,7 +6,6 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -34,14 +33,25 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
-                Dashboard::class,
+                \App\Filament\Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
+                // Dashboard widgets
                 \App\Filament\Widgets\StatsOverviewWidget::class,
                 \App\Filament\Widgets\LatestEntriesWidget::class,
                 \App\Filament\Widgets\ContentStatsChart::class,
                 \App\Filament\Widgets\MonthlySubmissionsChart::class,
+                
+                // Analytics widgets (registered for Livewire but won't show on Dashboard)
+                \App\Filament\Widgets\Analytics\OverviewStats::class,
+                \App\Filament\Widgets\Analytics\VisitorsTimeChart::class,
+                \App\Filament\Widgets\Analytics\TopPagesTable::class,
+                \App\Filament\Widgets\Analytics\TrafficSourcesChart::class,
+                \App\Filament\Widgets\Analytics\DevicesChart::class,
+                \App\Filament\Widgets\Analytics\BrowsersTable::class,
+                \App\Filament\Widgets\Analytics\LocationsTable::class,
+                \App\Filament\Widgets\Analytics\EventsTable::class,
+                \App\Filament\Widgets\Analytics\TopProjectsChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

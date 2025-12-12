@@ -20,14 +20,31 @@ class AnalyticsService
     {
         return Cache::remember("analytics.overview.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}", $this->cacheMinutes * 60, function () use ($period) {
             try {
+                Log::info('Fetching analytics overview stats', [
+                    'start_date' => $period->startDate->format('Y-m-d'),
+                    'end_date' => $period->endDate->format('Y-m-d'),
+                    'property_id' => config('analytics.property_id'),
+                ]);
+                
                 // Use the simple methods that work with GA4
                 $visitorsData = Analytics::fetchTotalVisitorsAndPageViews($period);
+                
+                Log::info('Analytics data received', [
+                    'count' => $visitorsData->count(),
+                    'data' => $visitorsData->toArray(),
+                ]);
                 
                 $totalVisitors = $visitorsData->sum('visitors');
                 $totalPageViews = $visitorsData->sum('pageViews');
                 
                 // Calculate average pages per session
                 $avgPagesPerSession = $totalVisitors > 0 ? round($totalPageViews / $totalVisitors, 2) : 0;
+
+                Log::info('Analytics stats calculated', [
+                    'total_visitors' => $totalVisitors,
+                    'total_page_views' => $totalPageViews,
+                    'avg_pages_per_session' => $avgPagesPerSession,
+                ]);
 
                 return [
                     'total_users' => $totalVisitors,
@@ -38,7 +55,10 @@ class AnalyticsService
                     'pages_per_session' => $avgPagesPerSession,
                 ];
             } catch (\Exception $e) {
-                \Log::error('Analytics getOverviewStats error: ' . $e->getMessage());
+                Log::error('Analytics getOverviewStats error', [
+                    'message' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
                 return $this->getEmptyOverviewStats();
             }
         });

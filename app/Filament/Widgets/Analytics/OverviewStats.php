@@ -6,6 +6,7 @@ use App\Services\AnalyticsService;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Spatie\Analytics\Period;
+use Illuminate\Support\Facades\Log;
 
 class OverviewStats extends BaseWidget
 {
@@ -44,9 +45,15 @@ class OverviewStats extends BaseWidget
             ];
             
         } catch (\Exception $e) {
+            \Log::error('OverviewStats widget error', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+            
             return [
                 Stat::make('خطأ', 'تعذر جلب البيانات')
-                    ->description($e->getMessage())
+                    ->description('الخطأ: ' . $e->getMessage())
                     ->descriptionIcon('heroicon-o-exclamation-circle')
                     ->color('danger'),
             ];
