@@ -6,16 +6,16 @@ use Filament\Pages\Page;
 
 class AnalyticsPage extends Page
 {
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-chart-bar';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chart-bar';
 
     protected string $view = 'filament.pages.analytics-page';
-    
+
     protected static ?string $navigationLabel = 'تحليلات الموقع';
-    
+
     protected static ?string $title = 'تحليلات Google Analytics';
-    
-    
+
     protected static string|\UnitEnum|null $navigationGroup = 'الإعدادات';
+
     protected static ?int $navigationSort = 3;
 
     protected function getHeaderActions(): array
@@ -30,7 +30,7 @@ class AnalyticsPage extends Page
                         // Test connection
                         $period = \Spatie\Analytics\Period::days(1);
                         $result = \Spatie\Analytics\Facades\Analytics::fetchTotalVisitorsAndPageViews($period);
-                        
+
                         \Filament\Notifications\Notification::make()
                             ->title('✅ الاتصال ناجح!')
                             ->body('الربط مع Google Analytics يعمل بشكل صحيح')
@@ -40,7 +40,7 @@ class AnalyticsPage extends Page
                     } catch (\Exception $e) {
                         \Filament\Notifications\Notification::make()
                             ->title('❌ فشل الاتصال')
-                            ->body('خطأ: ' . $e->getMessage())
+                            ->body('خطأ: '.$e->getMessage())
                             ->danger()
                             ->duration(10000)
                             ->send();
@@ -53,13 +53,13 @@ class AnalyticsPage extends Page
                 ->action(function () {
                     // Clear analytics cache
                     \Illuminate\Support\Facades\Cache::flush();
-                    
+
                     // Show success notification
                     \Filament\Notifications\Notification::make()
                         ->title('تم تحديث البيانات')
                         ->success()
                         ->send();
-                        
+
                     // Reload the page
                     redirect(request()->header('Referer'));
                 }),
@@ -80,10 +80,10 @@ class AnalyticsPage extends Page
             \App\Filament\Widgets\Analytics\VisitorsTimeChart::class,
             \App\Filament\Widgets\Analytics\TrafficSourcesChart::class,
             \App\Filament\Widgets\Analytics\DevicesChart::class,
-            
+
             // Row 2: Special Charts
             \App\Filament\Widgets\Analytics\TopProjectsChart::class,
-            
+
             // Row 3: Tables
             \App\Filament\Widgets\Analytics\TopPagesTable::class,
             \App\Filament\Widgets\Analytics\BrowsersTable::class,
@@ -92,12 +92,12 @@ class AnalyticsPage extends Page
         ];
     }
 
-    public function getHeaderWidgetsColumns(): int | array
+    public function getHeaderWidgetsColumns(): int|array
     {
         return 1;
     }
 
-    public function getFooterWidgetsColumns(): int | array
+    public function getFooterWidgetsColumns(): int|array
     {
         return [
             'sm' => 1,

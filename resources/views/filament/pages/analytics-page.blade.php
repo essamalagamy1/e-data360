@@ -17,7 +17,7 @@
             </x-filament::section>
         @endif
 
-        <x-filament-widgets::widgets
+        {{-- <x-filament-widgets::widgets
             :widgets="$this->getHeaderWidgets()"
             :columns="$this->getHeaderWidgetsColumns()"
         />
@@ -25,6 +25,6 @@
         <x-filament-widgets::widgets
             :widgets="$this->getFooterWidgets()"
             :columns="$this->getFooterWidgetsColumns()"
-        />
+        /> --}}
     </div>
 </x-filament-panels::page>
