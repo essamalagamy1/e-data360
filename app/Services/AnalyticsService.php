@@ -34,8 +34,9 @@ class AnalyticsService
                     'data' => $visitorsData->toArray(),
                 ]);
                 
-                $totalVisitors = $visitorsData->sum('visitors');
-                $totalPageViews = $visitorsData->sum('pageViews');
+                // GA4 uses activeUsers and screenPageViews
+                $totalVisitors = $visitorsData->sum('activeUsers');
+                $totalPageViews = $visitorsData->sum('screenPageViews');
                 
                 // Calculate average pages per session
                 $avgPagesPerSession = $totalVisitors > 0 ? round($totalPageViews / $totalVisitors, 2) : 0;
@@ -274,35 +275,82 @@ class AnalyticsService
                 // Get all pages
                 $pages = Analytics::fetchMostVisitedPages($period, 100);
                 
-                // Filter only project pages (URLs that start with /projects/)
+                Log::info('TopProjects: Fetched pages', [
+                    'total_pages' => $pages->count(),
+                    'sample_data' => $pages->take(3)->toArray(),
+                ]);
+                
+                // Filter only project pages (URLs that contain /projects/)
                 $projectPages = $pages->filter(function ($page) {
-                    $path = $page['pagePath'] ?? '';
-                    return str_starts_with($path, '/projects/');
+                    $url = $page['fullPageUrl'] ?? '';
+                    // Match various patterns: /projects/, domain.com/projects/
+                    return str_contains($url, '/projects/');
                 });
+
+                Log::info('TopProjects: Filtered project pages', [
+                    'project_pages_count' => $projectPages->count(),
+                    'project_urls' => $projectPages->pluck('fullPageUrl')->toArray(),
+                ]);
 
                 // Extract project slugs and get project details
                 $projectData = [];
                 foreach ($projectPages as $page) {
-                    $path = $page['pagePath'] ?? '';
-                    // Extract slug from path like /projects/project-slug
-                    $slug = str_replace('/projects/', '', $path);
-                    $slug = trim($slug, '/');
+                    $url = $page['fullPageUrl'] ?? '';
                     
-                    if (!empty($slug)) {
+                    // Extract slug from various URL patterns
+                    // Patterns: domain.com/projects/slug, domain.com/ar/projects/slug, etc.
+                    preg_match('/\/projects\/([^\/\?]+)/', $url, $matches);
+                    
+                    if (!empty($matches[1])) {
+                        $slug = $matches[1];
+                        
+                        Log::info('TopProjects: Extracted slug', [
+                            'url' => $url,
+                            'slug' => $slug,
+                        ]);
+                        
                         // Try to find the project
                         $project = Project::where('slug', $slug)->first();
                         
                         if ($project) {
-                            $projectData[] = [
+                            // Check if this project is already in the array
+                            $existingIndex = array_search($project->id, array_column($projectData, 'project_id'));
+                            
+                            if ($existingIndex !== false) {
+                                // Add views to existing project
+                                $projectData[$existingIndex]['views'] += $page['screenPageViews'] ?? 0;
+                            } else {
+                                // Add new project
+                                $projectData[] = [
+                                    'project_id' => $project->id,
+                                    'project_name' => $project->title,
+                                    'project_slug' => $project->slug,
+                                    'views' => $page['screenPageViews'] ?? 0,
+                                ];
+                            }
+                            
+                            Log::info('TopProjects: Found project', [
                                 'project_id' => $project->id,
-                                'project_name' => $project->title,
-                                'project_slug' => $project->slug,
+                                'project_title' => $project->title,
                                 'views' => $page['screenPageViews'] ?? 0,
-                                'visitors' => $page['activeUsers'] ?? 0,
-                            ];
+                            ]);
+                        } else {
+                            Log::warning('TopProjects: Project not found in database', [
+                                'slug' => $slug,
+                                'url' => $url,
+                            ]);
                         }
+                    } else {
+                        Log::warning('TopProjects: Could not extract slug from URL', [
+                            'url' => $url,
+                        ]);
                     }
                 }
+
+                Log::info('TopProjects: Final project data', [
+                    'count' => count($projectData),
+                    'projects' => $projectData,
+                ]);
 
                 // Sort by views and take top results
                 usort($projectData, function ($a, $b) {
@@ -311,6 +359,10 @@ class AnalyticsService
 
                 return array_slice($projectData, 0, $maxResults);
             } catch (\Exception $e) {
+                Log::error('TopProjects: Error', [
+                    'message' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
                 return [];
             }
         });
