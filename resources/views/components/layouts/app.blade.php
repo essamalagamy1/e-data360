@@ -141,7 +141,7 @@
             scrollbar-color: #06b6d4 #f1f5f9;
         }
     </style>
-    {!! CookieConsent::styles() !!}
+    {{-- {!! CookieConsent::styles() !!} --}}
 </head>
 <body class="font-sans antialiased" dir="rtl">
     <div class="min-h-screen bg-gray-50">
@@ -367,6 +367,6 @@
         @endif
     </script>
     
-    {!! CookieConsent::scripts() !!}
+    {{-- {!! CookieConsent::scripts() !!} --}}
 </body>
 </html>
