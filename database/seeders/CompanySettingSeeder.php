@@ -13,9 +13,9 @@ class CompanySettingSeeder extends Seeder
     public function run(): void
     {
         CompanySetting::create([
-            'company_name' => 'EDATA 360',
-            'main_email' => 'info@edata360.com',
-            'secondary_email' => 'support@edata360.com',
+            'company_name' => 'E-DATA360',
+            'main_email' => 'info@e-data360.com',
+            'secondary_email' => 'support@e-data360.com',
             'phone_primary' => '+966 50 123 4567',
             'phone_secondary' => '+966 50 765 4321',
             'whatsapp_number' => '+966 50 123 4567',

@@ -23,7 +23,7 @@
                     @if(isset($companySettings) && $companySettings->logo_2_path)
                         <img class="h-14 hover:scale-110 transition-transform duration-300"
                              src="{{ Storage::url($companySettings->logo_2_path) }}"
-                             alt="{{ $companySettings->company_name ?? 'EDATA 360' }}">
+                             alt="{{ $companySettings->company_name ?? 'E-DATA 360' }}">
                     @elseif(isset($companySettings) && $companySettings->logo_path)
                         <img class="h-14 hover:scale-110 transition-transform duration-300"
                              src="{{ Storage::url($companySettings->logo_path) }}"

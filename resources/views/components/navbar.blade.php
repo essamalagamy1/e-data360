@@ -9,7 +9,7 @@
                     @if(isset($companySettings) && $companySettings->logo_path)
 		                <img class="h-10 transition-all duration-300 group-hover:scale-110"
                              src="{{ Storage::url($companySettings->logo_path) }}"
-                             alt="{{ $companySettings->company_name ?? 'EDATA 360' }}">
+                             alt="{{ $companySettings->company_name ?? 'E-DATA 360' }}">
                     @else
 		                <div class="flex items-center gap-2">
 			                <div class="relative">
@@ -19,7 +19,7 @@
 				                </div>
 			                </div>
 			                <div class="flex items-center">
-				                <span class="text-3xl font-black bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">EDATA</span>
+				                <span class="text-3xl font-black bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">E-DATA</span>
 				                <span class="text-3xl font-black text-slate-800 ml-1">360</span>
 			                </div>
                         </div>

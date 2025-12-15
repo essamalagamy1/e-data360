@@ -20,13 +20,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- SEO Meta Tags -->
-    <title>{{ $seo->meta_title ?? 'EDATA 360 - تحليل البيانات الاحترافي | لوحات تحكم Excel و Power BI' }}</title>
-    <meta name="description" content="{{ $seo->meta_description ?? 'شركة EDATA 360 متخصصة في تحليل البيانات وإنشاء لوحات التحكم الاحترافية باستخدام Excel و Power BI. أكثر من 150 عميل و 200 لوحة تحكم تم تسليمها.' }}">
-    <meta name="keywords" content="تحليل البيانات, لوحات تحكم, Excel, Power BI, KPI, تقارير, السعودية, EDATA 360">
-    <meta name="author" content="EDATA 360">
+    <title>{{ $seo->meta_title ?? 'E-DATA 360 - تحليل البيانات الاحترافي | لوحات تحكم Excel و Power BI' }}</title>
+    <meta name="description" content="{{ $seo->meta_description ?? 'شركة E-DATA 360 متخصصة في تحليل البيانات وإنشاء لوحات التحكم الاحترافية باستخدام Excel و Power BI. أكثر من 150 عميل و 200 لوحة تحكم تم تسليمها.' }}">
+    <meta name="keywords" content="تحليل البيانات, لوحات تحكم, Excel, Power BI, KPI, تقارير, السعودية, E-DATA 360">
+    <meta name="author" content="E-DATA 360">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{ $seo->meta_title ?? 'EDATA 360 - تحليل البيانات الاحترافي' }}">
+    <meta property="og:title" content="{{ $seo->meta_title ?? 'E-DATA 360 - تحليل البيانات الاحترافي' }}">
     <meta property="og:description" content="{{ $seo->meta_description ?? 'شركة متخصصة في تحليل البيانات ولوحات التحكم الاحترافية' }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">

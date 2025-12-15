@@ -302,7 +302,7 @@
                 <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6">
                     لماذا تختار
                     <span class="relative inline-block">
-                        <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">EDATA 360</span>
+                        <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">{{$companySettings->name}}</span>
                         <svg class="absolute -bottom-3 left-0 w-full" height="12" viewBox="0 0 300 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 10C100 5 200 5 298 10" stroke="url(#gradient2)" stroke-width="4" stroke-linecap="round"/>
                             <defs>
