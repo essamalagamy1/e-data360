@@ -28,21 +28,29 @@ class FetchAnalyticsData implements ShouldQueue
         try {
             Log::info('FetchAnalyticsData: Starting analytics data fetch');
 
-            // Define period (last 7 days)
-            $period = Period::days(7);
+            // Define periods for different widgets
+            $periods = [
+                7 => Period::days(7),
+                30 => Period::days(30),
+                90 => Period::days(90),
+            ];
 
-            // Fetch all analytics data to populate cache
-            $service->getOverviewStats($period);
-            $service->getVisitorsByDate($period);
-            $service->getTrafficSources($period);
-            $service->getDeviceCategories($period);
-            $service->getBrowsers($period);
-            $service->getCountries($period);
-            $service->getCities($period);
-            $service->getEvents($period);
-            $service->getTopProjects($period);
-            $service->getMostVisitedPages($period);
-            $service->getTopReferrers($period);
+            // Fetch data for each period
+            foreach ($periods as $days => $period) {
+                Log::info("FetchAnalyticsData: Fetching data for {$days} days");
+
+                $service->getOverviewStats($period);
+                $service->getVisitorsByDate($period);
+                $service->getTrafficSources($period);
+                $service->getDeviceCategories($period);
+                $service->getBrowsers($period);
+                $service->getCountries($period);
+                $service->getCities($period);
+                $service->getEvents($period);
+                $service->getTopProjects($period);
+                $service->getMostVisitedPages($period);
+                $service->getTopReferrers($period);
+            }
 
             Log::info('FetchAnalyticsData: Successfully fetched all analytics data');
         } catch (\Exception $e) {
