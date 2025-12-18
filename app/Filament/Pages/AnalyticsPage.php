@@ -50,18 +50,33 @@ class AnalyticsPage extends Page
                 ->label('تحديث البيانات')
                 ->icon('heroicon-o-arrow-path')
                 ->color('primary')
+                ->requiresConfirmation()
+                ->modalHeading('تحديث بيانات Analytics')
+                ->modalDescription('سيتم جلب أحدث البيانات من Google Analytics. قد يستغرق هذا بضع ثوانٍ.')
+                ->modalSubmitActionLabel('تحديث الآن')
                 ->action(function () {
-                    // Clear analytics cache
-                    \Illuminate\Support\Facades\Cache::flush();
+                    try {
+                        // Dispatch the analytics fetch job
+                        \App\Jobs\FetchAnalyticsData::dispatch();
 
-                    // Show success notification
-                    \Filament\Notifications\Notification::make()
-                        ->title('تم تحديث البيانات')
-                        ->success()
-                        ->send();
+                        // Show success notification
+                        \Filament\Notifications\Notification::make()
+                            ->title('✅ تم إرسال طلب التحديث')
+                            ->body('جاري جلب البيانات من Google Analytics... سيتم تحديث الصفحة تلقائياً بعد قليل.')
+                            ->success()
+                            ->duration(8000)
+                            ->send();
 
-                    // Reload the page
-                    redirect(request()->header('Referer'));
+                        // Reload after a delay to allow job to complete
+                        redirect(request()->header('Referer'));
+                    } catch (\Exception $e) {
+                        \Filament\Notifications\Notification::make()
+                            ->title('❌ فشل التحديث')
+                            ->body('خطأ: '.$e->getMessage())
+                            ->danger()
+                            ->duration(10000)
+                            ->send();
+                    }
                 }),
         ];
     }
