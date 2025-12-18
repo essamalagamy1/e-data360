@@ -2,16 +2,16 @@
 
 namespace App\Filament\Widgets\Analytics;
 
-use App\Services\AnalyticsService;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Analytics\Period;
 
 class BrowsersTable extends BaseWidget
 {
     protected static ?int $sort = 6;
-    
+
     public ?string $filter = '7days';
 
     public function table(Table $table): Table
@@ -38,18 +38,21 @@ class BrowsersTable extends BaseWidget
     public function getTableRecords(): \Illuminate\Support\Collection
     {
         try {
-            if (!config('analytics.property_id')) {
+            if (! config('analytics.property_id')) {
                 return collect([]);
             }
 
             $period = $this->getPeriod();
-            $service = new AnalyticsService();
-            $browsers = $service->getBrowsers($period, 10);
+            $cacheKey = "analytics.browsers.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}.10";
+
+            // Use cache-only access, fallback to empty array if cache miss
+            $browsers = Cache::get($cacheKey, []);
 
             $totalUsers = array_sum(array_column($browsers, 'users'));
-            
+
             return collect($browsers)->map(function ($browser, $index) use ($totalUsers) {
                 $percentage = $totalUsers > 0 ? ($browser['users'] / $totalUsers) * 100 : 0;
+
                 return [
                     'rank' => $index + 1,
                     'browser' => $browser['browser'],
@@ -64,7 +67,7 @@ class BrowsersTable extends BaseWidget
 
     protected function getPeriod(): Period
     {
-        return match($this->filter) {
+        return match ($this->filter) {
             '7days' => Period::days(7),
             '30days' => Period::days(30),
             '90days' => Period::days(90),

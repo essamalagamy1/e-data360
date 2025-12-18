@@ -2,32 +2,35 @@
 
 namespace App\Filament\Widgets\Analytics;
 
-use App\Services\AnalyticsService;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Analytics\Period;
 
 class VisitorsTimeChart extends ChartWidget
 {
     protected ?string $heading = 'الزوار ومشاهدات الصفحات';
+
     protected static ?int $sort = 2;
-    
+
     public ?string $filter = '7days';
 
     protected function getData(): array
     {
         try {
-            if (!config('analytics.property_id')) {
+            if (! config('analytics.property_id')) {
                 return $this->getEmptyData();
             }
 
             $period = $this->getPeriod();
-            $service = new AnalyticsService();
-            $data = $service->getVisitorsByDate($period);
-            
+            $cacheKey = "analytics.visitors_by_date.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}";
+
+            // Use cache-only access, fallback to empty array if cache miss
+            $data = Cache::get($cacheKey, []);
+
             $labels = [];
             $visitors = [];
             $pageViews = [];
-            
+
             foreach ($data as $item) {
                 $labels[] = date('d/m', strtotime($item['date']));
                 $visitors[] = $item['activeUsers'] ?? 0;
@@ -53,7 +56,7 @@ class VisitorsTimeChart extends ChartWidget
                 ],
                 'labels' => $labels,
             ];
-            
+
         } catch (\Exception $e) {
             return $this->getErrorData($e->getMessage());
         }
@@ -75,7 +78,7 @@ class VisitorsTimeChart extends ChartWidget
 
     protected function getPeriod(): Period
     {
-        return match($this->filter) {
+        return match ($this->filter) {
             '7days' => Period::days(7),
             '30days' => Period::days(30),
             '90days' => Period::days(90),
@@ -101,7 +104,7 @@ class VisitorsTimeChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'خطأ: ' . $message,
+                    'label' => 'خطأ: '.$message,
                     'data' => [0],
                 ],
             ],

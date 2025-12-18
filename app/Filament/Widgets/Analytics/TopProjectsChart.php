@@ -2,33 +2,37 @@
 
 namespace App\Filament\Widgets\Analytics;
 
-use App\Services\AnalyticsService;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Analytics\Period;
 
 class TopProjectsChart extends ChartWidget
 {
     protected ?string $heading = 'المشاريع الأكثر مشاهدة';
+
     protected static ?int $sort = 9;
-    protected int | string | array $columnSpan = 'full';
-    
+
+    protected int|string|array $columnSpan = 'full';
+
     public ?string $filter = '30days';
 
     protected function getData(): array
     {
         try {
-            if (!config('analytics.property_id')) {
+            if (! config('analytics.property_id')) {
                 return $this->getEmptyData();
             }
 
             $period = $this->getPeriod();
-            $service = new AnalyticsService();
-            $projects = $service->getTopProjects($period, 10);
-            
+            $cacheKey = "analytics.top_projects.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}.10";
+
+            // Use cache-only access, fallback to empty array if cache miss
+            $projects = Cache::get($cacheKey, []);
+
             if (empty($projects)) {
                 return $this->getNoProjectsData();
             }
-            
+
             $labels = [];
             $views = [];
             $colors = [
@@ -43,12 +47,12 @@ class TopProjectsChart extends ChartWidget
                 'rgba(34, 197, 94, 0.8)',    // Emerald
                 'rgba(147, 51, 234, 0.8)',   // Violet
             ];
-            
+
             foreach ($projects as $project) {
                 // Truncate long project names
                 $name = $project['project_name'];
                 if (mb_strlen($name) > 30) {
-                    $name = mb_substr($name, 0, 27) . '...';
+                    $name = mb_substr($name, 0, 27).'...';
                 }
                 $labels[] = $name;
                 $views[] = $project['views'];
@@ -60,7 +64,7 @@ class TopProjectsChart extends ChartWidget
                         'label' => 'المشاهدات',
                         'data' => $views,
                         'backgroundColor' => array_slice($colors, 0, count($views)),
-                        'borderColor' => array_map(function($color) {
+                        'borderColor' => array_map(function ($color) {
                             return str_replace('0.8', '1', $color);
                         }, array_slice($colors, 0, count($views))),
                         'borderWidth' => 2,
@@ -68,7 +72,7 @@ class TopProjectsChart extends ChartWidget
                 ],
                 'labels' => $labels,
             ];
-            
+
         } catch (\Exception $e) {
             return $this->getErrorData($e->getMessage());
         }
@@ -90,7 +94,7 @@ class TopProjectsChart extends ChartWidget
 
     protected function getPeriod(): Period
     {
-        return match($this->filter) {
+        return match ($this->filter) {
             '7days' => Period::days(7),
             '30days' => Period::days(30),
             '90days' => Period::days(90),

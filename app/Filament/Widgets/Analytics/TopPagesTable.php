@@ -2,17 +2,18 @@
 
 namespace App\Filament\Widgets\Analytics;
 
-use App\Services\AnalyticsService;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Analytics\Period;
 
 class TopPagesTable extends BaseWidget
 {
     protected static ?int $sort = 3;
-    protected int | string | array $columnSpan = 'full';
-    
+
+    protected int|string|array $columnSpan = 'full';
+
     public ?string $filter = '7days';
 
     public function table(Table $table): Table
@@ -44,13 +45,15 @@ class TopPagesTable extends BaseWidget
     public function getTableRecords(): \Illuminate\Support\Collection
     {
         try {
-            if (!config('analytics.property_id')) {
+            if (! config('analytics.property_id')) {
                 return collect([]);
             }
 
             $period = $this->getPeriod();
-            $service = new AnalyticsService();
-            $pages = $service->getMostVisitedPages($period, 10);
+            $cacheKey = "analytics.most_visited_pages.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}.10";
+
+            // Use cache-only access, fallback to empty array if cache miss
+            $pages = Cache::get($cacheKey, []);
 
             return collect($pages)->map(function ($page, $index) {
                 return [
@@ -67,7 +70,7 @@ class TopPagesTable extends BaseWidget
 
     protected function getPeriod(): Period
     {
-        return match($this->filter) {
+        return match ($this->filter) {
             '7days' => Period::days(7),
             '30days' => Period::days(30),
             '90days' => Period::days(90),

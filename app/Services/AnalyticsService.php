@@ -2,16 +2,16 @@
 
 namespace App\Services;
 
-use Spatie\Analytics\Facades\Analytics;
-use Spatie\Analytics\Period;
+use App\Models\Project;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
-use App\Models\Project;
+use Spatie\Analytics\Facades\Analytics;
+use Spatie\Analytics\Period;
 
 class AnalyticsService
 {
-    protected int $cacheMinutes = 30; // Cache for 30 minutes
+    protected int $cacheMinutes = 120; // Cache for 2 hours
+
     protected int $timeout = 10; // Timeout in seconds for API calls
 
     /**
@@ -24,22 +24,23 @@ class AnalyticsService
         try {
             return Cache::remember($cacheKey, $this->cacheMinutes * 60, function () use ($period) {
                 try {
-                    Log::info('Fetching analytics overview stats', [
-                        'start_date' => $period->startDate->format('Y-m-d'),
-                        'end_date' => $period->endDate->format('Y-m-d'),
-                        'property_id' => config('analytics.property_id'),
-                    ]);
-
-                    // Set timeout for Analytics API call
-                    set_time_limit($this->timeout);
+                    if (app()->environment('local')) {
+                        Log::info('Fetching analytics overview stats', [
+                            'start_date' => $period->startDate->format('Y-m-d'),
+                            'end_date' => $period->endDate->format('Y-m-d'),
+                            'property_id' => config('analytics.property_id'),
+                        ]);
+                    }
 
                     // Use the simple methods that work with GA4
                     $visitorsData = Analytics::fetchTotalVisitorsAndPageViews($period);
 
-                    Log::info('Analytics data received', [
-                        'count' => $visitorsData->count(),
-                        'data' => $visitorsData->toArray(),
-                    ]);
+                    if (app()->environment('local')) {
+                        Log::info('Analytics data received', [
+                            'count' => $visitorsData->count(),
+                            'data' => $visitorsData->toArray(),
+                        ]);
+                    }
 
                     // GA4 uses activeUsers and screenPageViews
                     $totalVisitors = $visitorsData->sum('activeUsers');
@@ -48,11 +49,13 @@ class AnalyticsService
                     // Calculate average pages per session
                     $avgPagesPerSession = $totalVisitors > 0 ? round($totalPageViews / $totalVisitors, 2) : 0;
 
-                    Log::info('Analytics stats calculated', [
-                        'total_visitors' => $totalVisitors,
-                        'total_page_views' => $totalPageViews,
-                        'avg_pages_per_session' => $avgPagesPerSession,
-                    ]);
+                    if (app()->environment('local')) {
+                        Log::info('Analytics stats calculated', [
+                            'total_visitors' => $totalVisitors,
+                            'total_page_views' => $totalPageViews,
+                            'avg_pages_per_session' => $avgPagesPerSession,
+                        ]);
+                    }
 
                     return [
                         'total_users' => $totalVisitors,
@@ -67,6 +70,7 @@ class AnalyticsService
                         'message' => $e->getMessage(),
                         'trace' => $e->getTraceAsString(),
                     ]);
+
                     return $this->getEmptyOverviewStats();
                 }
             });
@@ -75,6 +79,7 @@ class AnalyticsService
                 'cache_key' => $cacheKey,
                 'message' => $e->getMessage(),
             ]);
+
             return $this->getEmptyOverviewStats();
         }
     }
@@ -89,15 +94,16 @@ class AnalyticsService
         try {
             return Cache::remember($cacheKey, $this->cacheMinutes * 60, function () use ($period) {
                 try {
-                    set_time_limit($this->timeout);
                     return Analytics::fetchVisitorsAndPageViewsByDate($period)->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getVisitorsByDate error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -112,15 +118,16 @@ class AnalyticsService
         try {
             return Cache::remember($cacheKey, $this->cacheMinutes * 60, function () use ($period, $maxResults) {
                 try {
-                    set_time_limit($this->timeout);
                     return Analytics::fetchMostVisitedPages($period, $maxResults)->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getMostVisitedPages error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -135,15 +142,16 @@ class AnalyticsService
         try {
             return Cache::remember($cacheKey, $this->cacheMinutes * 60, function () use ($period, $maxResults) {
                 try {
-                    set_time_limit($this->timeout);
                     return Analytics::fetchTopReferrers($period, $maxResults)->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getTopReferrers error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -158,7 +166,6 @@ class AnalyticsService
         try {
             return Cache::remember($cacheKey, $this->cacheMinutes * 60, function () use ($period) {
                 try {
-                    set_time_limit($this->timeout);
                     $result = Analytics::get(
                         $period,
                         ['activeUsers'],
@@ -173,11 +180,13 @@ class AnalyticsService
                     })->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getTrafficSources error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -207,11 +216,13 @@ class AnalyticsService
                     })->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getDeviceCategories error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -243,11 +254,13 @@ class AnalyticsService
                         })->values()->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getBrowsers error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -279,11 +292,13 @@ class AnalyticsService
                         })->values()->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getCountries error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -315,11 +330,13 @@ class AnalyticsService
                         })->values()->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getCities error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -351,11 +368,13 @@ class AnalyticsService
                         })->values()->toArray();
                 } catch (\Exception $e) {
                     Log::error('Analytics getEvents error', ['message' => $e->getMessage()]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }
@@ -370,27 +389,30 @@ class AnalyticsService
         try {
             return Cache::remember($cacheKey, $this->cacheMinutes * 60, function () use ($period, $maxResults) {
                 try {
-                    set_time_limit($this->timeout);
+                    // Get all pages (reduced from 100 to 30 for performance)
+                    $pages = Analytics::fetchMostVisitedPages($period, 30);
 
-                    // Get all pages
-                    $pages = Analytics::fetchMostVisitedPages($period, 100);
-
-                    Log::info('TopProjects: Fetched pages', [
-                        'total_pages' => $pages->count(),
-                        'sample_data' => $pages->take(3)->toArray(),
-                    ]);
+                    if (app()->environment('local')) {
+                        Log::info('TopProjects: Fetched pages', [
+                            'total_pages' => $pages->count(),
+                            'sample_data' => $pages->take(3)->toArray(),
+                        ]);
+                    }
 
                     // Filter only project pages (URLs that contain /projects/)
                     $projectPages = $pages->filter(function ($page) {
                         $url = $page['fullPageUrl'] ?? '';
+
                         // Match various patterns: /projects/, domain.com/projects/
                         return str_contains($url, '/projects/');
                     });
 
-                    Log::info('TopProjects: Filtered project pages', [
-                        'project_pages_count' => $projectPages->count(),
-                        'project_urls' => $projectPages->pluck('fullPageUrl')->toArray(),
-                    ]);
+                    if (app()->environment('local')) {
+                        Log::info('TopProjects: Filtered project pages', [
+                            'project_pages_count' => $projectPages->count(),
+                            'project_urls' => $projectPages->pluck('fullPageUrl')->toArray(),
+                        ]);
+                    }
 
                     // Extract project slugs and get project details
                     $projectData = [];
@@ -401,13 +423,15 @@ class AnalyticsService
                         // Patterns: domain.com/projects/slug, domain.com/ar/projects/slug, etc.
                         preg_match('/\/projects\/([^\/? ]+)/', $url, $matches);
 
-                        if (!empty($matches[1])) {
+                        if (! empty($matches[1])) {
                             $slug = $matches[1];
 
-                            Log::info('TopProjects: Extracted slug', [
-                                'url' => $url,
-                                'slug' => $slug,
-                            ]);
+                            if (app()->environment('local')) {
+                                Log::info('TopProjects: Extracted slug', [
+                                    'url' => $url,
+                                    'slug' => $slug,
+                                ]);
+                            }
 
                             // Try to find the project
                             $project = Project::where('slug', $slug)->first();
@@ -429,11 +453,13 @@ class AnalyticsService
                                     ];
                                 }
 
-                                Log::info('TopProjects: Found project', [
-                                    'project_id' => $project->id,
-                                    'project_title' => $project->title,
-                                    'views' => $page['screenPageViews'] ?? 0,
-                                ]);
+                                if (app()->environment('local')) {
+                                    Log::info('TopProjects: Found project', [
+                                        'project_id' => $project->id,
+                                        'project_title' => $project->title,
+                                        'views' => $page['screenPageViews'] ?? 0,
+                                    ]);
+                                }
                             } else {
                                 Log::warning('TopProjects: Project not found in database', [
                                     'slug' => $slug,
@@ -447,10 +473,12 @@ class AnalyticsService
                         }
                     }
 
-                    Log::info('TopProjects: Final project data', [
-                        'count' => count($projectData),
-                        'projects' => $projectData,
-                    ]);
+                    if (app()->environment('local')) {
+                        Log::info('TopProjects: Final project data', [
+                            'count' => count($projectData),
+                            'projects' => $projectData,
+                        ]);
+                    }
 
                     // Sort by views and take top results
                     usort($projectData, function ($a, $b) {
@@ -463,11 +491,13 @@ class AnalyticsService
                         'message' => $e->getMessage(),
                         'trace' => $e->getTraceAsString(),
                     ]);
+
                     return [];
                 }
             });
         } catch (\Exception $e) {
             Log::error('Analytics cache error', ['cache_key' => $cacheKey, 'message' => $e->getMessage()]);
+
             return [];
         }
     }

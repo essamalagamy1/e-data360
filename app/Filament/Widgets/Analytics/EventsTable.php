@@ -2,16 +2,16 @@
 
 namespace App\Filament\Widgets\Analytics;
 
-use App\Services\AnalyticsService;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Analytics\Period;
 
 class EventsTable extends BaseWidget
 {
     protected static ?int $sort = 8;
-    
+
     public ?string $filter = '7days';
 
     public function table(Table $table): Table
@@ -37,13 +37,20 @@ class EventsTable extends BaseWidget
     public function getTableRecords(): \Illuminate\Support\Collection
     {
         try {
-            if (!config('analytics.property_id')) {
+            if (! config('analytics.property_id')) {
                 return collect([]);
             }
 
             $period = $this->getPeriod();
-            $service = new AnalyticsService();
-            $events = $service->getEvents($period, 15);
+            $cacheKey = "analytics.events.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}.15";
+
+            // Use cache-only access, fallback to empty array if cache miss
+            $events = Cache::get($cacheKey, function () use ($period) {
+                // Fallback: fetch with max 10 instead of 15 if cache miss
+                $key = "analytics.events.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}.10";
+
+                return Cache::get($key, []);
+            });
 
             return collect($events)->map(function ($event, $index) {
                 return [
@@ -59,7 +66,7 @@ class EventsTable extends BaseWidget
 
     protected function getPeriod(): Period
     {
-        return match($this->filter) {
+        return match ($this->filter) {
             '7days' => Period::days(7),
             '30days' => Period::days(30),
             '90days' => Period::days(90),
@@ -69,7 +76,7 @@ class EventsTable extends BaseWidget
 
     protected function translateEventName(string $eventName): string
     {
-        return match($eventName) {
+        return match ($eventName) {
             'page_view' => 'مشاهدة صفحة',
             'click' => 'نقرة',
             'scroll' => 'تمرير',

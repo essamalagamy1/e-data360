@@ -2,28 +2,31 @@
 
 namespace App\Filament\Widgets\Analytics;
 
-use App\Services\AnalyticsService;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Analytics\Period;
 
 class TrafficSourcesChart extends ChartWidget
 {
     protected ?string $heading = 'مصادر الزيارات';
+
     protected static ?int $sort = 4;
-    
+
     public ?string $filter = '7days';
 
     protected function getData(): array
     {
         try {
-            if (!config('analytics.property_id')) {
+            if (! config('analytics.property_id')) {
                 return $this->getEmptyData();
             }
 
             $period = $this->getPeriod();
-            $service = new AnalyticsService();
-            $sources = $service->getTrafficSources($period);
-            
+            $cacheKey = "analytics.traffic_sources.{$period->startDate->format('Y-m-d')}.{$period->endDate->format('Y-m-d')}";
+
+            // Use cache-only access, fallback to empty array if cache miss
+            $sources = Cache::get($cacheKey, []);
+
             $labels = [];
             $data = [];
             $colors = [
@@ -34,9 +37,9 @@ class TrafficSourcesChart extends ChartWidget
                 'Email' => 'rgb(236, 72, 153)',
                 'Paid Search' => 'rgb(234, 179, 8)',
             ];
-            
+
             $backgroundColors = [];
-            
+
             foreach ($sources as $source) {
                 $sourceName = $this->translateSource($source['source']);
                 $labels[] = $sourceName;
@@ -54,7 +57,7 @@ class TrafficSourcesChart extends ChartWidget
                 ],
                 'labels' => $labels,
             ];
-            
+
         } catch (\Exception $e) {
             return $this->getErrorData($e->getMessage());
         }
@@ -76,7 +79,7 @@ class TrafficSourcesChart extends ChartWidget
 
     protected function getPeriod(): Period
     {
-        return match($this->filter) {
+        return match ($this->filter) {
             '7days' => Period::days(7),
             '30days' => Period::days(30),
             '90days' => Period::days(90),
@@ -86,7 +89,7 @@ class TrafficSourcesChart extends ChartWidget
 
     protected function translateSource(string $source): string
     {
-        return match($source) {
+        return match ($source) {
             'Organic Search' => 'بحث عضوي',
             'Direct' => 'مباشر',
             'Social' => 'وسائل التواصل',
