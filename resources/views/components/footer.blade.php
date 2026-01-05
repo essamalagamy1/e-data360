@@ -121,6 +121,14 @@
                             <span>تواصل معنا</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('articles') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
+                                <i class="fas fa-newspaper text-sm"></i>
+                            </div>
+                            <span>المدونة</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             

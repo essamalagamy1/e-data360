@@ -61,6 +61,14 @@
                     </span>
 	                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 {{ request()->routeIs('portfolio') ? 'w-4/5' : 'w-0' }} h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
                 </a>
+                <a href="{{ route('articles') }}"
+                   class="group relative {{ request()->routeIs('articles*') ? 'text-blue-600 bg-gradient-to-r from-blue-50 to-cyan-50' : 'text-gray-700 hover:text-blue-600' }} font-bold transition-all duration-300 px-4 py-2 rounded-xl hover:bg-blue-50">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-newspaper group-hover:scale-110 transition-transform"></i>
+                        <span>المدونة</span>
+                    </span>
+	                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 {{ request()->routeIs('articles*') ? 'w-4/5' : 'w-0' }} h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
+                </a>
                 <a href="{{ route('contact') }}"
                    class="group relative {{ request()->routeIs('contact') ? 'text-blue-600 bg-gradient-to-r from-blue-50 to-cyan-50' : 'text-gray-700 hover:text-blue-600' }} font-bold transition-all duration-300 px-4 py-2 rounded-xl hover:bg-blue-50">
                     <span class="flex items-center gap-2">
@@ -107,6 +115,11 @@
                    class="group {{ request()->routeIs('portfolio') ? 'text-blue-600 bg-gradient-to-r from-blue-50 to-cyan-50' : 'text-gray-700 hover:text-blue-600' }} font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">
 	                <i class="fas fa-th-large text-lg group-hover:scale-110 transition-transform"></i>
 	                <span>المعرض</span>
+                </a>
+                <a href="{{ route('articles') }}"
+                   class="group {{ request()->routeIs('articles*') ? 'text-blue-600 bg-gradient-to-r from-blue-50 to-cyan-50' : 'text-gray-700 hover:text-blue-600' }} font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">
+	                <i class="fas fa-newspaper text-lg group-hover:scale-110 transition-transform"></i>
+	                <span>المدونة</span>
                 </a>
                 <a href="{{ route('contact') }}"
                    class="group {{ request()->routeIs('contact') ? 'text-blue-600 bg-gradient-to-r from-blue-50 to-cyan-50' : 'text-gray-700 hover:text-blue-600' }} font-bold transition-all duration-300 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 flex items-center gap-3">

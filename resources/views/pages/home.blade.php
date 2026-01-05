@@ -11,7 +11,7 @@
             <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
         </div>
         
-        <div class="container mx-auto px-6 relative z-10 md:pt-0 pb-2">
+        <div class="container mx-auto px-3 relative z-10 md:pt-0 pb-2">
             <div class="text-center text-white max-w-6xl mx-auto">
                 {{-- Badge --}}
                 @if($heroSection && $heroSection->badge_text)
@@ -97,7 +97,7 @@
             <div class="absolute -bottom-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-3xl"></div>
         </div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-3 relative z-10">
             <div class="text-center mb-20">
                 <div class="inline-block mb-4">
                     <span class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold px-4 py-2 rounded-full">خدماتنا المتميزة</span>
@@ -198,7 +198,7 @@
 
     {{-- Featured Projects --}}
     <section class="py-24 bg-white">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-3">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
                     مشاريع <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">مميزة</span>
@@ -292,7 +292,7 @@
         <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
         <div class="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-3 relative z-10">
             <div class="text-center mb-20">
                 <div class="inline-block mb-4">
                     <span class="bg-gradient-to-r from-cyan-400 to-blue-400 text-slate-900 text-sm font-bold px-5 py-2 rounded-full">
@@ -370,6 +370,103 @@
         </div>
     </section>
 
+    {{-- Latest Articles Section --}}
+    @if(isset($latestArticles) && $latestArticles->count() > 0)
+    <section class="py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 relative overflow-hidden">
+        {{-- Decorative Elements --}}
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-40">
+            <div class="absolute -top-40 -left-40 w-80 h-80 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-3 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4">
+                    <span class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold px-5 py-2 rounded-full">
+                        <i class="fas fa-newspaper ml-1"></i>
+                        أحدث المقالات
+                    </span>
+                </div>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6">
+                    مدونتنا
+                    <span class="relative inline-block">
+                        <span class="bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">ورؤى قيّمة</span>
+                    </span>
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    اكتشف آخر المقالات والنصائح في عالم البيانات والتحليلات
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                @foreach($latestArticles as $article)
+                <article class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4">
+                    {{-- Image --}}
+                    <div class="relative h-52 overflow-hidden">
+                        @if($article->featured_image)
+                        <img src="{{ Storage::url($article->featured_image) }}" 
+                             alt="{{ $article->title }}" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        @else
+                        <div class="w-full h-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center">
+                            <i class="fas fa-file-alt text-white text-5xl opacity-50"></i>
+                        </div>
+                        @endif
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+                        
+                        {{-- Date Badge --}}
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 text-center shadow-lg">
+                            <span class="block text-2xl font-black text-blue-600">{{ $article->published_at->format('d') }}</span>
+                            <span class="block text-xs text-gray-600">{{ $article->published_at->format('M') }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Content --}}
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                            @if($article->author)
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-user text-blue-500"></i>
+                                {{ $article->author }}
+                            </span>
+                            @endif
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-eye text-blue-500"></i>
+                                {{ number_format($article->views_count) }}
+                            </span>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                            {{ $article->title }}
+                        </h3>
+
+                        @if($article->excerpt)
+                        <p class="text-gray-600 mb-4 line-clamp-2">
+                            {{ $article->excerpt }}
+                        </p>
+                        @endif
+
+                        <a href="{{ route('articles.show', $article) }}" 
+                           class="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors">
+                            <span>اقرأ المزيد</span>
+                            <i class="fas fa-arrow-left transform group-hover:-translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
+                @endforeach
+            </div>
+
+            <div class="text-center">
+                <a href="{{ route('articles') }}" 
+                   class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-4 px-10 rounded-2xl hover:shadow-2xl hover:scale-105 transform transition-all duration-300">
+                    <i class="fas fa-newspaper"></i>
+                    <span>عرض جميع المقالات</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    @endif
+
     {{-- Testimonials - تصميم عصري متطور --}}
     <section class="py-32 bg-white relative overflow-hidden">
         {{-- Background Decoration --}}
@@ -378,7 +475,7 @@
             <div class="absolute bottom-10 right-10 w-64 h-64 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full blur-3xl"></div>
         </div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-3 relative z-10">
             <div class="text-center mb-20">
                 <div class="inline-block mb-4">
                     <span class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold px-5 py-2 rounded-full">
@@ -528,7 +625,7 @@
             <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mix-blend-screen filter blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
         </div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-3 relative z-10">
             <div class="max-w-5xl mx-auto text-center">
                 {{-- Badge --}}
                 <div class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 backdrop-blur-sm border border-cyan-500/30 rounded-full px-6 py-3 mb-8">
