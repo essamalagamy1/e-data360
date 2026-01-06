@@ -1,75 +1,68 @@
 <x-layouts.app>
-    {{-- Hero Section - معرض الأعمال --}}
-    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 min-h-[70vh] flex items-center justify-center overflow-hidden">
-        {{-- Grid Pattern Background --}}
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+    {{-- Hero Section - Full Width Image Style --}}
+    <section class="relative min-h-[30vh] flex items-center overflow-hidden" style="background: #0A1628;">
+                        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
 
-        {{-- Animated Gradient Orbs --}}
-        <div class="absolute inset-0 opacity-30">
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-        </div>
-        
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            {{-- Badge --}}
-            @if($heroSection && $heroSection->badge_text)
-            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-sm border border-purple-500/30 rounded-full px-6 py-2 mb-8">
-                @if($heroSection->badge_icon)
-                <i class="{{ $heroSection->badge_icon }} text-purple-400"></i>
-                @endif
-                <span class="text-sm font-medium text-purple-300">{{ $heroSection->badge_text }}</span>
-            </div>
-            @endif
+        <div class="container mx-auto px-6 relative z-10 py-20">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+                <div class="max-w-2xl">
+                    {{-- Breadcrumb --}}
+                    <div class="flex items-center gap-3 mb-6 text-gray-400 text-sm">
+                        <a href="{{ route('home') }}" class="hover:text-white transition">الرئيسية</a>
+                        <i class="fas fa-chevron-left text-xs"></i>
+                        <span style="color: #14B8A6;">أعمالنا</span>
+                    </div>
 
-            @if($heroSection)
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
-                <span class="block mb-4">{{ $heroSection->title_line1 }}</span>
-                <span class="block bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-                    {{ $heroSection->title_line2 }}
-                </span>
-            </h1>
-
-            @if($heroSection->subtitle)
-            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light mb-12">
-                {{ $heroSection->subtitle }}
-            </p>
-            @endif
-            @endif
-
-            {{-- Stats --}}
-            @if($stats && $stats->count() > 0)
-            <div class="grid grid-cols-2 md:grid-cols-{{ min($stats->count(), 4) }} gap-6 max-w-4xl mx-auto">
-                @foreach($stats as $stat)
-                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:border-{{ $stat->color_from }}/50 transition-all">
-                    <div class="text-3xl font-black bg-gradient-to-r from-{{ $stat->color_from }} to-{{ $stat->color_to }} bg-clip-text text-transparent">{{ $stat->number }}</div>
-                    <p class="text-gray-300 text-sm mt-1">{{ $stat->label }}</p>
+                    @if($heroSection)
+                    {{-- Dynamic title from database --}}
+                    <h1 class="text-4xl md:text-6xl font-black text-white mb-4">
+                        {{ $heroSection->title_line1 }}
+                        <span style="color: #14B8A6;">{{ $heroSection->title_line2 }}</span>
+                    </h1>
+                    @if($heroSection->subtitle)
+                    <p class="text-gray-400 text-lg">{{ $heroSection->subtitle }}</p>
+                    @endif
+                    @else
+                    <h1 class="text-4xl md:text-6xl font-black text-white mb-4">
+                        معرض <span style="color: #14B8A6;">أعمالنا</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg">استعرض مشاريعنا الناجحة</p>
+                    @endif
                 </div>
-                @endforeach
+
+                {{-- Stats - Dynamic from $stats --}}
+                @if($stats && $stats->count() > 0)
+                <div class="flex gap-8">
+                    @foreach($stats->take(2) as $stat)
+                    <div class="text-center">
+                        <div class="text-4xl font-black" style="color: #14B8A6;">{{ $stat->number }}</div>
+                        <div class="text-gray-500 text-sm">{{ $stat->label }}</div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
             </div>
-            @endif
         </div>
     </section>
 
-    {{-- Filter Section --}}
+    {{-- Filter Bar - Dynamic from $projectTypes --}}
     @if(isset($projectTypes) && $projectTypes->count() > 0)
-    <section class="py-8 bg-white border-b border-gray-200">
+    <section class="py-6 bg-white border-b border-gray-100 sticky top-20 z-40">
         <div class="container mx-auto px-6">
-            <div class="flex flex-wrap items-center justify-center gap-3">
-                {{-- All Projects Button --}}
+            <div class="flex flex-wrap items-center gap-3 justify-center">
+                {{-- All Projects - Dynamic filter --}}
                 <a href="{{ route('portfolio') }}" 
-                   class="group px-6 py-3 rounded-full font-semibold transition-all duration-300 {{ !$selectedType ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                    <i class="fas fa-th-large {{ !$selectedType ? 'ml-2' : 'ml-1 opacity-50' }}"></i>
-                    جميع المشاريع
+                   class="px-5 py-2.5 rounded-full font-semibold text-sm transition-all {{ !$selectedType ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
+                   style="{{ !$selectedType ? 'background: #0D9488;' : '' }}">
+                    الكل
                 </a>
                 
-                {{-- Type Filter Buttons --}}
+                {{-- Type Filters - Dynamic from database --}}
                 @foreach($projectTypes as $type)
                 <a href="{{ route('portfolio', ['type' => $type->slug]) }}" 
-                   class="group px-6 py-3 rounded-full font-semibold transition-all duration-300 {{ $selectedType === $type->slug ? 'text-white shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
-                   style="{{ $selectedType === $type->slug ? 'background: ' . $type->color . '; box-shadow: 0 10px 25px -5px ' . $type->color . '40;' : '' }}">
-                    @if($type->icon)
-                    <i class="{{ $type->icon }} {{ $selectedType === $type->slug ? 'ml-2' : 'ml-1 opacity-50' }}"></i>
-                    @endif
+                   class="px-5 py-2.5 rounded-full font-semibold text-sm transition-all {{ $selectedType === $type->slug ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
+                   style="{{ $selectedType === $type->slug ? 'background: ' . $type->color . ';' : '' }}">
+                    @if($type->icon)<i class="{{ $type->icon }} ml-1 text-xs"></i>@endif
                     {{ $type->name }}
                 </a>
                 @endforeach
@@ -78,90 +71,95 @@
     </section>
     @endif
 
-    {{-- Portfolio Grid --}}
-    <section class="py-24 bg-gray-50">
+    {{-- Projects Masonry Grid - Dynamic from $projects --}}
+    <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
             @if(isset($projects) && count($projects) > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach($projects as $project)
-                        <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
-                            <a href="{{ route('projects.show', $project) }}">
-                                <div class="relative overflow-hidden">
-                                    <img src="{{ Storage::url($project->main_image) }}" 
-                                         alt="{{ $project->title }}" 
-                                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                                        <div class="text-white text-center transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                                            <i class="fas fa-eye text-4xl mb-2"></i>
-                                            <p class="font-bold">عرض التفاصيل</p>
-                                        </div>
-                                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($projects as $index => $project)
+                {{-- Project Card - Dynamic from database --}}
+                <a href="{{ route('projects.show', $project) }}" 
+                   class="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+                    {{-- Image - Dynamic from database --}}
+                    <div class="relative overflow-hidden">
+                        <img src="{{ Storage::url($project->main_image) }}" 
+                             alt="{{ $project->title }}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        
+                        {{-- Overlay --}}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <div class="absolute bottom-6 left-6 right-6 text-white">
+                                <div class="flex items-center gap-2 text-sm mb-2">
+                                    <i class="fas fa-eye"></i>
+                                    <span>عرض المشروع</span>
                                 </div>
-                                <div class="p-6">
-                                    <h3 class="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
-                                        {{ $project->title }}
-                                    </h3>
-                                    <p class="text-gray-600 mb-4">{{ $project->short_description }}</p>
-                                    
-                                    {{-- Project Types Badges --}}
-                                    @if($project->types && $project->types->count() > 0)
-                                    <div class="flex flex-wrap gap-2 mb-4">
-                                        @foreach($project->types as $type)
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white"
-                                              style="background-color: {{ $type->color }};">
-                                            @if($type->icon)
-                                            <i class="{{ $type->icon }} ml-1 text-xs"></i>
-                                            @endif
-                                            {{ $type->name }}
-                                        </span>
-                                        @endforeach
-                                    </div>
-                                    @endif
-                                    
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-500">
-                                            <i class="fas fa-calendar-alt ml-1"></i>
-                                            {{ $project->created_at->format('Y-m-d') }}
-                                        </span>
-                                        <span class="text-blue-600 font-semibold group-hover:text-cyan-500 transition-colors">
-                                            اقرأ المزيد <i class="fas fa-arrow-left mr-1"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
-                    @endforeach
+                        
+                        {{-- Type Badges - Dynamic from database --}}
+                        @if($project->types && $project->types->count() > 0)
+                        <div class="absolute top-4 right-4 flex flex-wrap gap-2">
+                            @foreach($project->types->take(2) as $type)
+                            <span class="px-3 py-1 rounded-full text-xs font-bold text-white backdrop-blur-sm" style="background: {{ $type->color }};"> 
+                                {{ $type->name }}
+                            </span>
+                            @endforeach
+                        </div>
+                        @endif
+                    </div>
+
+                    {{-- Content --}}
+                    <div class="p-6">
+                        {{-- Dynamic title from database --}}
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
+                            {{ $project->title }}
+                        </h3>
+                        {{-- Dynamic description from database --}}
+                        <p class="text-gray-500 text-sm line-clamp-2">{{ $project->short_description }}</p>
+                        
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <span class="text-xs text-gray-400">
+                                {{ $project->created_at->format('Y/m/d') }}
+                            </span>
+                            <span class="text-sm font-semibold transition-all group-hover:gap-2 flex items-center gap-1" style="color: #0D9488;">
+                                التفاصيل
+                                <i class="fas fa-arrow-left text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+
+            {{-- Pagination --}}
+            <div class="mt-12">
+                {{ $projects->appends(request()->query())->links() }}
+            </div>
+            @else
+            {{-- Empty State --}}
+            <div class="text-center py-20">
+                <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style="background: rgba(13, 148, 136, 0.1);">
+                    <i class="fas fa-folder-open text-4xl" style="color: #0D9488;"></i>
                 </div>
-                
-                {{-- Pagination --}}
-                <div class="mt-12">
-                    {{ $projects->appends(request()->query())->links() }}
-                </div>
-                @else
-                <div class="flex flex-col items-center justify-center h-64">
-                    <p class="text-gray-600">لا يوجد مشاريع حاليا</p>
-                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">لا توجد مشاريع</h3>
+                <p class="text-gray-600">لم نعثر على مشاريع تطابق بحثك</p>
+            </div>
             @endif
         </div>
     </section>
 
     {{-- CTA Section --}}
-    <section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 py-24 overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-0 -right-4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-        </div>
-        
-        <div class="container mx-auto px-6 relative z-10 text-center text-white">
-            <h2 class="text-4xl md:text-5xl font-black mb-6">
-                هل أنت مستعد لمشروعك القادم؟
+    <section class="py-20" style="background: #0A1628;">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
+                هل لديك مشروع في ذهنك؟
             </h2>
-            <p class="text-xl mb-10 text-gray-200 max-w-2xl mx-auto">
-                دعنا نساعدك في إنشاء لوحة تحكم احترافية تناسب احتياجاتك
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+                دعنا نحوله إلى واقع - تواصل معنا للحصول على استشارة مجانية
             </p>
-            <a href="{{ route('request-design.create') }}" class="inline-block bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-4 px-8 rounded-full hover:shadow-2xl hover:scale-105 transform transition duration-300">
-                <i class="fas fa-rocket ml-2"></i>
-                اطلب تصميمك الآن
+            <a href="{{ route('request-design.create') }}" class="inline-flex items-center gap-2 text-white font-bold py-4 px-8 rounded-xl transition-all hover:opacity-90" style="background: #0D9488;">
+                <i class="fas fa-rocket"></i>
+                <span>ابدأ مشروعك</span>
             </a>
         </div>
     </section>
