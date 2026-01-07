@@ -1,10 +1,17 @@
 <x-layouts.app>
     {{-- Hero - Compact & Clean --}}
     <section class="relative py-20 overflow-hidden" style="background: #0A1628;">
+         <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-3xl mx-auto text-center">
+            <div class="max-w-3xl">
+                {{-- Breadcrumb --}}
+                <div class="flex items-center gap-3 mb-6 text-gray-400 text-sm">
+                    <a href="{{ route('home') }}" class="hover:text-white transition">الرئيسية</a>
+                    <i class="fas fa-chevron-left text-xs"></i>
+                    <span style="color: #14B8A6;">تواصل معنا</span>
+                </div>
+
                 @if($heroSection)
-                {{-- Dynamic title from database --}}
                 <h1 class="text-4xl md:text-5xl font-black text-white mb-4">
                     {{ $heroSection->title_line1 }}
                     <span style="color: #14B8A6;">{{ $heroSection->title_line2 }}</span>
@@ -18,6 +25,7 @@
                 </h1>
                 <p class="text-gray-400 text-lg">نسعد بتواصلك معنا وسنرد عليك في أقرب وقت</p>
                 @endif
+
             </div>
         </div>
     </section>
@@ -63,7 +71,7 @@
                                     <h3 class="font-bold text-gray-900 mb-1">واتساب</h3>
                                     {{-- Dynamic WhatsApp from database --}}
                                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}" class="text-gray-600 hover:underline">
-                                        تواصل مباشر
+                                        <span dir="ltr">{{ $companySettings->whatsapp_number }}</span>
                                     </a>
                                 </div>
                             </div>

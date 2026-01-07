@@ -1,7 +1,8 @@
 <x-layouts.app>
     {{-- Hero Section - Clean Split Layout --}}
     <section class="min-h-[85vh] flex items-center" style="background: #0A1628;">
-        <div class="container mx-auto px-6 py-20">
+             <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="container mx-auto px-6 py-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 {{-- Content Side --}}
                 <div class="text-white">
@@ -72,7 +73,8 @@
         </div>
     </section>
 
-    {{-- Services Section --}}
+    {{-- Services Section - Swiper Carousel --}}
+    @if(isset($services) && count($services) > 0)
     <section class="py-24 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -83,21 +85,37 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($services as $service)
-                <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-transparent hover:shadow-xl transition-all duration-300">
-                    <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background: rgba(13, 148, 136, 0.1);">
-                        <i class="{{ $service->icon }} text-2xl" style="color: #0D9488;"></i>
+            {{-- Swiper Services --}}
+            <div class="relative">
+                <div class="swiper services-swiper">
+                    <div class="swiper-wrapper pb-4">
+                        @foreach($services as $service)
+                        <div class="swiper-slide h-auto">
+                            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-transparent hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                                <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background: rgba(13, 148, 136, 0.1);">
+                                    <i class="{{ $service->icon }} text-2xl" style="color: #0D9488;"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $service->title }}</h3>
+                                <p class="text-gray-600 mb-6 line-clamp-3 flex-1">{!! Str::limit(strip_tags($service->description), 100) !!}</p>
+                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number ?? '') }}" 
+                                   class="inline-flex items-center gap-2 font-semibold transition-colors" style="color: #0D9488;">
+                                    <span>{{ $service->cta_text ?? 'اطلب الآن' }}</span>
+                                    <i class="fas fa-arrow-left text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $service->title }}</h3>
-                    <p class="text-gray-600 mb-6 line-clamp-3">{!! Str::limit(strip_tags($service->description), 100) !!}</p>
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number ?? '') }}" 
-                       class="inline-flex items-center gap-2 font-semibold transition-colors" style="color: #0D9488;">
-                        <span>{{ $service->cta_text ?? 'اطلب الآن' }}</span>
-                        <i class="fas fa-arrow-left text-sm"></i>
-                    </a>
+                    <div class="swiper-pagination mt-6"></div>
                 </div>
-                @endforeach
+                
+                {{-- Navigation Buttons --}}
+                <button class="services-prev absolute top-1/2 -translate-y-1/2 right-0 md:-right-5 z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="background: #0D9488;">
+                    <i class="fas fa-chevron-right text-white"></i>
+                </button>
+                <button class="services-next absolute top-1/2 -translate-y-1/2 left-0 md:-left-5 z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="background: #0D9488;">
+                    <i class="fas fa-chevron-left text-white"></i>
+                </button>
             </div>
 
             <div class="text-center mt-12">
@@ -108,6 +126,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- Featured Projects - Swiper Carousel --}}
     @if(isset($featuredProjects) && count($featuredProjects) > 0)
@@ -355,6 +374,26 @@
     {{-- Swiper Initialization Script --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Services Swiper
+            new Swiper('.services-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                loop: true,
+                autoHeight: false,
+                pagination: {
+                    el: '.services-swiper .swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.services-next',
+                    prevEl: '.services-prev',
+                },
+                breakpoints: {
+                    640: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 },
+                }
+            });
+
             // Projects Swiper
             new Swiper('.projects-swiper', {
                 slidesPerView: 1,

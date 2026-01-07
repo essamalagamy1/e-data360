@@ -113,6 +113,30 @@
             flex-direction: column;
         }
         
+        /* Equal height for service cards */
+        .services-swiper .swiper-slide {
+            height: auto !important;
+            display: flex !important;
+        }
+        
+        .services-swiper .swiper-slide > div {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Equal height for article cards */
+        .articles-swiper .swiper-slide {
+            height: auto !important;
+            display: flex !important;
+        }
+        
+        .articles-swiper .swiper-slide > article {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
         /* Custom Scrollbar Styling */
         /* For Webkit browsers (Chrome, Safari, Edge) */
         ::-webkit-scrollbar {

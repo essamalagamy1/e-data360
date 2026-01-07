@@ -1,6 +1,7 @@
 <x-layouts.app>
     {{-- Hero --}}
     <section class="relative py-20 overflow-hidden" style="background: #0A1628;">
+                     <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div>

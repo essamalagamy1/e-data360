@@ -86,7 +86,7 @@
                     <li>
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
                             <i class="fab fa-whatsapp text-green-500"></i>
-                            <span>واتساب</span>
+                            <span dir="ltr">{{ $companySettings->whatsapp_number }}</span>
                         </a>
                     </li>
                     @endif

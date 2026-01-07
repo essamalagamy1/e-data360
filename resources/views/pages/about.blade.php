@@ -1,6 +1,7 @@
 <x-layouts.app>
     {{-- Hero Section - Same as other pages --}}
     <section class="relative py-20 overflow-hidden" style="background: #0A1628;">
+             <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="max-w-3xl">
                 {{-- Breadcrumb --}}
@@ -25,17 +26,6 @@
                 <p class="text-gray-400 text-lg">تعرف على قصتنا ورؤيتنا</p>
                 @endif
 
-                {{-- Stats - Dynamic from $stats --}}
-                @if($stats && $stats->count() > 0)
-                <div class="flex flex-wrap gap-8 mt-8">
-                    @foreach($stats as $stat)
-                    <div>
-                        <div class="text-3xl font-black" style="color: #14B8A6;">{{ $stat->number }}</div>
-                        <div class="text-gray-500 text-sm">{{ $stat->label }}</div>
-                    </div>
-                    @endforeach
-                </div>
-                @endif
             </div>
         </div>
     </section>
