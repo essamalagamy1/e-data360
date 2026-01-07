@@ -1,4 +1,12 @@
 <x-layouts.app>
+    <style>
+        .prose h2 { font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem; }
+        .prose h3 { font-size: 1.25rem; font-weight: 600; color: #111827; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .prose p { color: #4B5563; line-height: 1.75; margin-bottom: 1rem; }
+        .prose ul { list-style-type: disc; padding-right: 1.5rem; margin-bottom: 1rem; }
+        .prose li { color: #4B5563; margin-bottom: 0.5rem; }
+    </style>
+
     {{-- Hero --}}
     <section class="relative py-16 overflow-hidden" style="background: #0A1628;">
         <div class="container mx-auto px-6 relative z-10">
@@ -15,39 +23,9 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <div class="max-w-3xl mx-auto">
-                @php
-                    $termsData = $companySettings?->terms_conditions ? json_decode($companySettings->terms_conditions, true) : null;
-                @endphp
-
-                @if($termsData)
-                    <div class="bg-gray-50 rounded-2xl p-8 mb-8 border border-gray-100">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                            <i class="fas fa-file-contract" style="color: #0D9488;"></i>
-                            مقدمة
-                        </h2>
-                        <p class="text-gray-600 leading-relaxed">
-                            {{ $termsData['intro'] ?? '' }}
-                        </p>
-                    </div>
-
-                    <div class="space-y-8">
-                        @foreach($termsData['sections'] ?? [] as $index => $section)
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $index + 1 }}. {{ $section['title'] }}</h3>
-                                @if(isset($section['content']))
-                                    <p class="text-gray-600 leading-relaxed {{ isset($section['list']) ? 'mb-4' : '' }}">
-                                        {{ $section['content'] }}
-                                    </p>
-                                @endif
-                                @if(isset($section['list']))
-                                    <ul class="list-disc list-inside text-gray-600 space-y-2 mr-4">
-                                        @foreach($section['list'] as $item)
-                                            <li>{{ $item }}</li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </div>
-                        @endforeach
+                @if($companySettings?->terms_conditions)
+                    <div class="prose prose-lg max-w-none" style="color: #374151;">
+                        {!! $companySettings->terms_conditions !!}
                     </div>
                 @else
                     {{-- Fallback content if no data in database --}}
@@ -75,7 +53,7 @@
                             <ul class="list-disc list-inside text-gray-600 space-y-2 mr-4">
                                 <li>يتم دفع 30% مقدماً قبل بدء العمل</li>
                                 <li>يتم دفع 50% اثناء العمل ومتابعة العميل في تقدم وقبل عملية تسليم المشروع</li>
-                                <li>يتم دفع 20% عند تسليم المشروع بشهر كامل من تاريخ التسليم لضمان ثقة العميل</li>
+                                <li>يتم دفع 20% عند تسليم المشروع</li>
                             </ul>
                         </div>
 

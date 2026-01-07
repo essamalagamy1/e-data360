@@ -1,4 +1,12 @@
 <x-layouts.app>
+    <style>
+        .prose h2 { font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem; }
+        .prose h3 { font-size: 1.25rem; font-weight: 600; color: #111827; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .prose p { color: #4B5563; line-height: 1.75; margin-bottom: 1rem; }
+        .prose ul { list-style-type: disc; padding-right: 1.5rem; margin-bottom: 1rem; }
+        .prose li { color: #4B5563; margin-bottom: 0.5rem; }
+    </style>
+
     {{-- Hero --}}
     <section class="relative py-16 overflow-hidden" style="background: #0A1628;">
         <div class="container mx-auto px-6 relative z-10">
@@ -15,39 +23,9 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <div class="max-w-3xl mx-auto prose prose-lg">
-                @php
-                    $privacyData = $companySettings?->privacy_policy ? json_decode($companySettings->privacy_policy, true) : null;
-                @endphp
-
-                @if($privacyData)
-                    <div class="bg-gray-50 rounded-2xl p-8 mb-8 border border-gray-100">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                            <i class="fas fa-shield-alt" style="color: #0D9488;"></i>
-                            مقدمة
-                        </h2>
-                        <p class="text-gray-600 leading-relaxed">
-                            {{ $privacyData['intro'] ?? '' }}
-                        </p>
-                    </div>
-
-                    <div class="space-y-8">
-                        @foreach($privacyData['sections'] ?? [] as $index => $section)
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $index + 1 }}. {{ $section['title'] }}</h3>
-                                @if(isset($section['content']))
-                                    <p class="text-gray-600 leading-relaxed {{ isset($section['list']) ? 'mb-4' : '' }}">
-                                        {{ $section['content'] }}
-                                    </p>
-                                @endif
-                                @if(isset($section['list']))
-                                    <ul class="list-disc list-inside text-gray-600 space-y-2 mr-4">
-                                        @foreach($section['list'] as $item)
-                                            <li>{{ $item }}</li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </div>
-                        @endforeach
+                @if($companySettings?->privacy_policy)
+                    <div class="prose prose-lg max-w-none" style="color: #374151;">
+                        {!! $companySettings->privacy_policy !!}
                     </div>
                 @else
                     {{-- Fallback content if no data in database --}}
