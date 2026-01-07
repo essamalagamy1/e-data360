@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('logo_path')->nullable();
             $table->string('logo_2_path')->nullable();
             $table->string('favicon_path')->nullable();
+            $table->longText('terms_conditions')->nullable();
+            $table->longText('privacy_policy')->nullable();
             $table->timestamps();
         });
     }

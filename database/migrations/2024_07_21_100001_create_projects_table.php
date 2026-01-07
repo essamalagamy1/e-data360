@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('video_url')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->string('status')->default('published'); // draft/published
+            $table->boolean('is_available_for_purchase')->default(false);
+            $table->decimal('price', 10, 2)->nullable();
             $table->timestamps();
         });
     }

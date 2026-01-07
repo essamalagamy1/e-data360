@@ -17,12 +17,15 @@ class CompanySettingsResource extends Resource
     protected static ?string $model = CompanySetting::class;
 
     protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-building-office';
+
     protected static ?string $modelLabel = 'إعدادات الشركة';
+
     protected static ?string $pluralModelLabel = 'إعدادات الشركة';
 
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
+            // معلومات الشركة
             Forms\Components\TextInput::make('company_name')->label('اسم الشركة')->required()->maxLength(255),
             Forms\Components\TextInput::make('main_email')->label('البريد الرئيسي')->email()->required()->maxLength(255),
             Forms\Components\TextInput::make('secondary_email')->label('بريد بديل')->email()->maxLength(255),
@@ -31,9 +34,21 @@ class CompanySettingsResource extends Resource
             Forms\Components\TextInput::make('whatsapp_number')->label('واتساب')->tel()->maxLength(255),
             Forms\Components\TextInput::make('location_text')->label('الموقع')->maxLength(255),
             Forms\Components\Textarea::make('about_short')->label('وصف مختصر')->columnSpanFull(),
+
+            // الشعارات
             Forms\Components\FileUpload::make('logo_path')->label('شعار الشركة')->image()->directory('logos'),
-            Forms\Components\FileUpload::make('favicon_path')->label('فونو بون')->image()->directory('logos'),
+            Forms\Components\FileUpload::make('favicon_path')->label('فافيكون')->image()->directory('logos'),
             Forms\Components\FileUpload::make('logo_2_path')->label('شعار 2')->image()->directory('logos'),
+
+            // الشروط والأحكام
+            Forms\Components\RichEditor::make('terms_conditions')
+                ->label('الشروط والأحكام')
+                ->columnSpanFull(),
+
+            // سياسة الخصوصية
+            Forms\Components\RichEditor::make('privacy_policy')
+                ->label('سياسة الخصوصية')
+                ->columnSpanFull(),
         ]);
     }
 

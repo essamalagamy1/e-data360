@@ -21,5 +21,7 @@ class CompanySetting extends Model
         'logo_path',
         'logo_2_path',
         'favicon_path',
+        'terms_conditions',
+        'privacy_policy',
     ];
 }
