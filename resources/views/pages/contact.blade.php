@@ -169,7 +169,8 @@
                                           placeholder="اكتب رسالتك هنا..."></textarea>
                             </div>
 
-                            <button type="submit" class="w-full text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2" style="background: #0D9488;">
+                            <button type="submit" class="w-full text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                            style="background: #0D9488;">
                                 <i class="fas fa-paper-plane"></i>
                                 <span>إرسال الرسالة</span>
                             </button>

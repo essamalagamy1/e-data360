@@ -11,6 +11,6 @@ class ContactController extends Controller
     {
         ContactMessage::create($request->validated());
 
-        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+        return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح');
     }
 }

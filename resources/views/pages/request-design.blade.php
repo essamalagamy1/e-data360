@@ -132,7 +132,7 @@
 
                     {{-- Submit --}}
                     <div class="p-8 bg-gray-50 border-t border-gray-100">
-                        <button type="submit" class="w-full text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2 text-lg" style="background: #0D9488;">
+                        <button type="submit" class="cursor-pointer w-full text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2 text-lg" style="background: #0D9488;">
                             <i class="fas fa-paper-plane"></i>
                             <span>إرسال الطلب</span>
                         </button>
