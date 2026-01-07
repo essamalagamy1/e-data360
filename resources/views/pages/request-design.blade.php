@@ -89,11 +89,12 @@
                                     <select name="project_type" required
                                             class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-teal-500 focus:ring-2 focus:ring-teal-100 focus:outline-none transition-all bg-white">
                                         <option value="">اختر نوع المشروع</option>
-                                        <option value="Excel">📊 لوحة تحكم Excel</option>
-                                        <option value="Power BI">📈 لوحة تحكم Power BI</option>
-                                        <option value="PowerPoint">📽️ عرض تقديمي</option>
-                                        <option value="Full analysis">🔍 تحليل بيانات شامل</option>
-                                        <option value="Other">⚙️ أخرى</option>
+                                        <option value="موقع ويب">🌐 موقع ويب</option>
+                                        <option value="تطبيق جوال">📱 تطبيق جوال (iOS/Android)</option>
+                                        <option value="متجر إلكتروني">🛒 متجر إلكتروني</option>
+                                        <option value="نظام إدارة">⚙️ نظام إدارة مخصص</option>
+                                        <option value="تصميم UI/UX">🎨 تصميم UI/UX</option>
+                                        <option value="أخرى">💡 أخرى</option>
                                     </select>
                                 </div>
                                 <div>

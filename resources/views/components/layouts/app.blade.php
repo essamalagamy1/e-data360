@@ -20,14 +20,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- SEO Meta Tags -->
-    <title>{{ $seo->meta_title ?? 'E-DATA 360 - تحليل البيانات الاحترافي | لوحات تحكم Excel و Power BI' }}</title>
-    <meta name="description" content="{{ $seo->meta_description ?? 'شركة E-DATA 360 متخصصة في تحليل البيانات وإنشاء لوحات التحكم الاحترافية باستخدام Excel و Power BI. أكثر من 150 عميل و 200 لوحة تحكم تم تسليمها.' }}">
-    <meta name="keywords" content="تحليل البيانات, لوحات تحكم, Excel, Power BI, KPI, تقارير, السعودية, E-DATA 360">
+    <title>{{ $seo->meta_title ?? 'E-DATA 360 | شركة تطوير مواقع وتطبيقات احترافية' }}</title>
+    <meta name="description" content="{{ $seo->meta_description ?? 'E-DATA 360 شريكك في التحول الرقمي. نطور مواقع ويب، تطبيقات جوال، وحلول برمجية متكاملة باستخدام أحدث التقنيات. +200 مشروع منجز.' }}">
+    <meta name="keywords" content="تطوير مواقع, تطبيقات جوال, برمجة, Laravel, React, تصميم UI UX, شركة برمجة, السعودية, E-DATA 360">
     <meta name="author" content="E-DATA 360">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{ $seo->meta_title ?? 'E-DATA 360 - تحليل البيانات الاحترافي' }}">
-    <meta property="og:description" content="{{ $seo->meta_description ?? 'شركة متخصصة في تحليل البيانات ولوحات التحكم الاحترافية' }}">
+    <meta property="og:title" content="{{ $seo->meta_title ?? 'E-DATA 360 | شركة تطوير مواقع وتطبيقات' }}">
+    <meta property="og:description" content="{{ $seo->meta_description ?? 'شريكك في التحول الرقمي - تطوير مواقع وتطبيقات احترافية' }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     

@@ -62,10 +62,10 @@
                         <li class="text-gray-400">{{ $service->title }}</li>
                         @endforeach
                     @else
-                        <li class="text-gray-400">تطوير البرمجيات</li>
-                        <li class="text-gray-400">تطبيقات الموبايل</li>
-                        <li class="text-gray-400">مواقع الويب</li>
-                        <li class="text-gray-400">تحليل البيانات</li>
+                        <li class="text-gray-400">تطوير الويب</li>
+                        <li class="text-gray-400">تطبيقات الجوال</li>
+                        <li class="text-gray-400">تصميم UI/UX</li>
+                        <li class="text-gray-400">الاستضافة والسيرفرات</li>
                     @endif
                 </ul>
             </div>
