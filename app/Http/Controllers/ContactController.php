@@ -9,8 +9,10 @@ class ContactController extends Controller
 {
     public function store(StoreContactMessageRequest $request)
     {
-        ContactMessage::create($request->validated());
+        $message = ContactMessage::create($request->validated());
 
-        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+        \App\Events\ContactMessageSent::dispatch($message);
+
+        return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح');
     }
 }

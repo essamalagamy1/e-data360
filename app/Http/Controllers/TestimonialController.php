@@ -36,7 +36,7 @@ class TestimonialController extends Controller
         ]);
 
         // Create testimonial with default values
-        Testimonial::create([
+        $testimonial = Testimonial::create([
             'client_name' => $validated['client_name'],
             'client_position' => $validated['client_position'],
             'client_company' => $validated['client_company'],
@@ -47,6 +47,8 @@ class TestimonialController extends Controller
             'is_verified' => false,
             'order' => 0,
         ]);
+
+        \App\Events\TestimonialSubmitted::dispatch($testimonial);
 
         return redirect()->route('testimonial.create')->with('success', 'شكراً لك! تم إرسال تقييمك بنجاح. سيتم مراجعته ونشره قريباً.');
     }

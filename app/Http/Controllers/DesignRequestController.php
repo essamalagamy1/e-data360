@@ -11,6 +11,7 @@ class DesignRequestController extends Controller
     public function create()
     {
         $seo = SeoSetting::where('page', 'request_design')->first();
+
         return view('pages.request-design', compact('seo'));
     }
 
@@ -23,7 +24,9 @@ class DesignRequestController extends Controller
             $data['attachment_path'] = $path;
         }
 
-        DesignRequest::create($data);
+        $designRequest = DesignRequest::create($data);
+
+        \App\Events\DesignRequestSubmitted::dispatch($designRequest);
 
         return redirect()->back()->with('success', 'Your request has been submitted successfully!');
     }
