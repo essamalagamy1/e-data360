@@ -4,8 +4,10 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DesignRequestController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +30,14 @@ Route::post('/add-testimonial', [TestimonialController::class, 'store'])->name('
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/articles/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
 
+// Careers/Jobs Routes
+Route::get('/careers', [JobApplicationController::class, 'index'])->name('careers');
+Route::post('/careers', [JobApplicationController::class, 'store'])->name('careers.store');
+
 // SEO Routes
-Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/sitemap-pages.xml', [App\Http\Controllers\SitemapController::class, 'pages'])->name('sitemap.pages');
-Route::get('/sitemap-projects.xml', [App\Http\Controllers\SitemapController::class, 'projects'])->name('sitemap.projects');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap-pages.xml', [SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('/sitemap-projects.xml', [SitemapController::class, 'projects'])->name('sitemap.projects');
 Route::get('/robots.txt', function () {
     $content = "User-agent: *\n";
     $content .= "Allow: /\n";

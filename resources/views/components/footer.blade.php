@@ -50,6 +50,7 @@
                     <li><a href="{{ route('portfolio') }}" class="text-gray-400 hover:text-white transition-colors">أعمالنا</a></li>
                     <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-white transition-colors">تواصل معنا</a></li>
                     <li><a href="{{ route('articles') }}" class="text-gray-400 hover:text-white transition-colors">المدونة</a></li>
+                    <li><a href="{{ route('careers') }}" class="text-gray-400 hover:text-white transition-colors">الوظائف</a></li>
                 </ul>
             </div>
             

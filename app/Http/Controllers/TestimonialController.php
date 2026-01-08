@@ -36,17 +36,28 @@ class TestimonialController extends Controller
         ]);
 
         // Create testimonial with default values
-        Testimonial::create([
+        $testimonial = Testimonial::create([
             'client_name' => $validated['client_name'],
             'client_position' => $validated['client_position'],
             'client_company' => $validated['client_company'],
-            'testimonial' => $validated['testimonial'],
+            'content' => $validated['testimonial'],
             'rating' => $validated['rating'],
-            'is_active' => true, // Requires admin approval
+            'is_active' => true,
             'is_featured' => true,
             'is_verified' => false,
             'order' => 0,
         ]);
+
+        // إرسال إشعار لجميع المسؤولين
+        $admins = \App\Models\User::where('is_admin', true)->get();
+        \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\NewTestimonial($testimonial));
+
+        // إرسال بريد إلكتروني للشركة
+        $companySettings = CompanySetting::first();
+        if ($companySettings && $companySettings->main_email) {
+            \Illuminate\Support\Facades\Notification::route('mail', $companySettings->main_email)
+                ->notify(new \App\Notifications\NewTestimonial($testimonial));
+        }
 
         return redirect()->route('testimonial.create')->with('success', 'شكراً لك! تم إرسال تقييمك بنجاح. سيتم مراجعته ونشره قريباً.');
     }
