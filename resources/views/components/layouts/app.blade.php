@@ -142,6 +142,11 @@
         }
     </style>
     {{-- {!! CookieConsent::styles() !!} --}}
+    <script>
+        window.ANALYTICS_SITE_KEY = '5PWJ7f6erPYATJFzHZBJ4hj6JWNDqWhY';
+        window.ANALYTICS_API_URL = 'https://analytics.nafezly.com/api/analytics/track';
+    </script>
+    <script async src="https://analytics.nafezly.com/js/analytics.js"></script>
 </head>
 <body class="font-sans antialiased" dir="rtl">
     <div class="min-h-screen bg-gray-50">
