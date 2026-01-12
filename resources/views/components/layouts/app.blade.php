@@ -143,7 +143,7 @@
     </style>
     {{-- {!! CookieConsent::styles() !!} --}}
     <script>
-        window.ANALYTICS_SITE_KEY = '5PWJ7f6erPYATJFzHZBJ4hj6JWNDqWhY';
+        window.ANALYTICS_SITE_KEY = 'UoA5RqUCM3AnoV7icu8b8MP5zYan1wOa';
         window.ANALYTICS_API_URL = 'https://analytics.nafezly.com/api/analytics/track';
     </script>
     <script async src="https://analytics.nafezly.com/js/analytics.js"></script>
