@@ -59,7 +59,7 @@ class ArticleSeeder extends Seeder
 
 <h2>الخلاصة</h2>
 <p>لا يوجد إطار عمل "أفضل" بشكل مطلق. الأفضل هو ما يناسب احتياجاتك وفريقك ورؤيتك المستقبلية.</p>',
-                'author' => 'فريق E-Data360',
+                'author' => 'فريق إشراق',
                 'is_featured' => true,
                 'is_published' => true,
                 'published_at' => now()->subDays(1),
@@ -114,7 +114,7 @@ class ArticleSeeder extends Seeder
 
 <h2>الخلاصة</h2>
 <p>كلا الخيارين ممتاز. React للمشاريع الكبيرة والفرق المتمرسة، Vue للبساطة والسرعة.</p>',
-                'author' => 'فريق E-Data360',
+                'author' => 'فريق إشراق',
                 'is_featured' => true,
                 'is_published' => true,
                 'published_at' => now()->subDays(3),
@@ -174,7 +174,7 @@ class ArticleSeeder extends Seeder
 
 <h2>الخلاصة</h2>
 <p>الممارسات الجيدة ليست ترفاً بل ضرورة. استثمر الوقت في التخطيط والاختبار، وستوفر الكثير لاحقاً.</p>',
-                'author' => 'فريق E-Data360',
+                'author' => 'فريق إشراق',
                 'is_featured' => false,
                 'is_published' => true,
                 'published_at' => now()->subDays(7),
@@ -238,7 +238,7 @@ class ArticleSeeder extends Seeder
 
 <h2>الخلاصة</h2>
 <p>SEO التقني أساس أي استراتيجية SEO ناجحة. ابدأ بالأساسيات وطور تدريجياً.</p>',
-                'author' => 'فريق E-Data360',
+                'author' => 'فريق إشراق',
                 'is_featured' => true,
                 'is_published' => true,
                 'published_at' => now()->subDays(5),
@@ -307,7 +307,7 @@ class ArticleSeeder extends Seeder
 
 <h2>الخلاصة</h2>
 <p>DevOps ليس مجرد أدوات، بل ثقافة وطريقة تفكير. ابدأ صغيراً وتطور تدريجياً.</p>',
-                'author' => 'فريق E-Data360',
+                'author' => 'فريق إشراق',
                 'is_featured' => false,
                 'is_published' => true,
                 'published_at' => now()->subDays(10),
@@ -370,7 +370,7 @@ class ArticleSeeder extends Seeder
 
 <h2>الخلاصة</h2>
 <p>UX استثمار وليس تكلفة. كل ريال تنفقه على UX يعود عليك أضعافاً.</p>',
-                'author' => 'فريق E-Data360',
+                'author' => 'فريق إشراق',
                 'is_featured' => true,
                 'is_published' => true,
                 'published_at' => now()->subDays(2),
