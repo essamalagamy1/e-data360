@@ -49,7 +49,7 @@
                 {{-- All Projects - Dynamic filter --}}
                 <a href="{{ route('portfolio') }}" 
                    class="px-5 py-2.5 rounded-full font-semibold text-sm transition-all {{ !$selectedType ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
-                   style="{{ !$selectedType ? 'background: {{ config('colors.primary') }};' : '' }}">
+                   style="{{ !$selectedType ? 'background: ' . config('colors.primary') . ';' : '' }}">
                     الكل
                 </a>
                 
