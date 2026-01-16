@@ -1,6 +1,6 @@
 <x-layouts.app :seo="$project">
     {{-- Hero Section --}}
-    <section class="relative py-20 overflow-hidden" style="background: #0A1628;">
+    <section class="relative py-20 overflow-hidden" style="background: {{ config('colors.bg_dark') }};">
                         <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
 
         <div class="container mx-auto px-6 relative z-10">
@@ -10,7 +10,7 @@
                 <i class="fas fa-chevron-left text-xs"></i>
                 <a href="{{ route('portfolio') }}" class="hover:text-white transition-colors">أعمالنا</a>
                 <i class="fas fa-chevron-left text-xs"></i>
-                <span style="color: #14B8A6;">{{ $project->title }}</span>
+                <span style="color: {{ config('colors.primary_light') }};">{{ $project->title }}</span>
             </nav>
 
             <div class="max-w-4xl">
@@ -39,7 +39,7 @@
                 {{-- Quick Info --}}
                 <div class="flex flex-wrap items-center gap-6 text-gray-400 text-sm">
                     <div class="flex items-center gap-2">
-                        <i class="fas fa-calendar-alt" style="color: #14B8A6;"></i>
+                        <i class="fas fa-calendar-alt" style="color: {{ config('colors.primary_light') }};"></i>
                         <span>{{ $project->created_at->format('Y-m-d') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
@@ -48,7 +48,7 @@
                     </div>
                     @if($project->projectImages && $project->projectImages->count() > 0)
                     <div class="flex items-center gap-2">
-                        <i class="fas fa-images" style="color: #14B8A6;"></i>
+                        <i class="fas fa-images" style="color: {{ config('colors.primary_light') }};"></i>
                         <span>{{ $project->projectImages->count() }} صورة</span>
                     </div>
                     @endif
@@ -83,7 +83,7 @@
                         {{-- Description --}}
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-1 h-8 rounded-full" style="background: #0D9488;"></div>
+                                <div class="w-1 h-8 rounded-full" style="background: {{ config('colors.primary') }};"></div>
                                 تفاصيل المشروع
                             </h2>
                             <div class="prose prose-lg max-w-none bg-gray-50 rounded-2xl p-8 border border-gray-100">
@@ -95,7 +95,7 @@
                         @if($project->projectImages && $project->projectImages->count() > 0)
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-1 h-8 rounded-full" style="background: #0D9488;"></div>
+                                <div class="w-1 h-8 rounded-full" style="background: {{ config('colors.primary') }};"></div>
                                 معرض الصور
                             </h2>
 
@@ -121,7 +121,7 @@
                         @if($project->video_url)
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-1 h-8 rounded-full" style="background: #0D9488;"></div>
+                                <div class="w-1 h-8 rounded-full" style="background: {{ config('colors.primary') }};"></div>
                                 فيديو المشروع
                             </h2>
                             <div class="rounded-2xl overflow-hidden shadow-xl">
@@ -169,9 +169,9 @@
                             @endif
 
                             {{-- Request Similar --}}
-                            <div class="rounded-2xl p-6 border border-gray-100" style="background: rgba(13, 148, 136, 0.05);">
+                            <div class="rounded-2xl p-6 border border-gray-100" style="background: {{ config('colors.primary_05') }};">
                                 <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                    <i class="fas fa-rocket" style="color: #0D9488;"></i>
+                                    <i class="fas fa-rocket" style="color: {{ config('colors.primary') }};"></i>
                                     هل أعجبك المشروع؟
                                 </h3>
                                 <p class="text-gray-600 mb-6 text-sm">
@@ -180,7 +180,7 @@
                                 <div class="space-y-3">
                                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number ?? '') }}?text={{ urlencode('مرحباً، أنا مهتم بطلب تصميم مشابه لمشروع: ' . $project->title) }}"
                                        class="flex items-center justify-center gap-2 w-full text-white font-bold py-3 px-6 rounded-xl hover:opacity-90 transition-all"
-                                       style="background: #0D9488;">
+                                       style="background: {{ config('colors.primary') }};">
                                         <i class="fas fa-paper-plane"></i>
                                         <span>اطلب تصميم مشابه</span>
                                     </a>
@@ -195,7 +195,7 @@
                             {{-- Share --}}
                             <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
                                 <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                    <i class="fas fa-share-alt" style="color: #0D9488;"></i>
+                                    <i class="fas fa-share-alt" style="color: {{ config('colors.primary') }};"></i>
                                     شارك المشروع
                                 </h3>
                                 <div class="flex gap-2">

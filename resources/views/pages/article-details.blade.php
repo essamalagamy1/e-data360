@@ -1,6 +1,6 @@
 <x-layouts.app>
     {{-- Article Hero --}}
-    <section class="relative py-20 overflow-hidden" style="background: #0A1628;">
+    <section class="relative py-20 overflow-hidden" style="background: {{ config('colors.bg_dark') }};">
         <div class="container mx-auto px-6 relative z-10">
             {{-- Breadcrumb --}}
             <nav class="flex items-center gap-3 text-sm text-gray-400 mb-6">
@@ -8,7 +8,7 @@
                 <i class="fas fa-chevron-left text-xs"></i>
                 <a href="{{ route('articles') }}" class="hover:text-white transition-colors">المدونة</a>
                 <i class="fas fa-chevron-left text-xs"></i>
-                <span style="color: #14B8A6;">{{ Str::limit($article->title, 30) }}</span>
+                <span style="color: {{ config('colors.primary_light') }};">{{ Str::limit($article->title, 30) }}</span>
             </nav>
 
             <div class="max-w-4xl">
@@ -16,18 +16,18 @@
                 <div class="flex flex-wrap items-center gap-6 mb-6 text-sm">
                     @if($article->author)
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background: #0D9488;">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background: {{ config('colors.primary') }};">
                             {{ mb_substr($article->author, 0, 1) }}
                         </div>
                         <span class="text-gray-300">{{ $article->author }}</span>
                     </div>
                     @endif
                     <div class="flex items-center gap-2 text-gray-400">
-                        <i class="fas fa-calendar" style="color: #14B8A6;"></i>
+                        <i class="fas fa-calendar" style="color: {{ config('colors.primary_light') }};"></i>
                         <span>{{ $article->published_at->format('d M, Y') }}</span>
                     </div>
                     <div class="flex items-center gap-2 text-gray-400">
-                        <i class="fas fa-eye" style="color: #14B8A6;"></i>
+                        <i class="fas fa-eye" style="color: {{ config('colors.primary_light') }};"></i>
                         <span>{{ number_format($article->views_count) }} مشاهدة</span>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
-                <span class="text-sm font-bold uppercase tracking-wider" style="color: #0D9488;">مقالات ذات صلة</span>
+                <span class="text-sm font-bold uppercase tracking-wider" style="color: {{ config('colors.primary') }};">مقالات ذات صلة</span>
                 <h2 class="text-3xl md:text-4xl font-black text-gray-900 mt-2">اقرأ المزيد</h2>
             </div>
 
@@ -145,7 +145,7 @@
                              alt="{{ $related->title }}" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
-                        <div class="w-full h-full flex items-center justify-center" style="background: #0A1628;">
+                        <div class="w-full h-full flex items-center justify-center" style="background: {{ config('colors.bg_dark') }};">
                             <i class="fas fa-file-alt text-white/30 text-4xl"></i>
                         </div>
                         @endif
@@ -158,7 +158,7 @@
                         <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-gray-600 transition-colors">
                             <a href="{{ route('articles.show', $related) }}">{{ $related->title }}</a>
                         </h3>
-                        <a href="{{ route('articles.show', $related) }}" class="inline-flex items-center gap-2 text-sm font-semibold" style="color: #0D9488;">
+                        <a href="{{ route('articles.show', $related) }}" class="inline-flex items-center gap-2 text-sm font-semibold" style="color: {{ config('colors.primary') }};">
                             <span>اقرأ المزيد</span>
                             <i class="fas fa-arrow-left text-xs"></i>
                         </a>
@@ -168,7 +168,7 @@
             </div>
 
             <div class="text-center mt-12">
-                <a href="{{ route('articles') }}" class="inline-flex items-center gap-2 text-white font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-all" style="background: #0D9488;">
+                <a href="{{ route('articles') }}" class="inline-flex items-center gap-2 text-white font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-all" style="background: {{ config('colors.primary') }};">
                     <i class="fas fa-newspaper"></i>
                     <span>جميع المقالات</span>
                 </a>
@@ -178,7 +178,7 @@
     @endif
 
     {{-- CTA Section --}}
-    <section class="py-20" style="background: #0A1628;">
+    <section class="py-20" style="background: {{ config('colors.bg_dark') }};">
         <div class="container mx-auto px-6">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-black text-white mb-6">
@@ -187,7 +187,7 @@
                 <p class="text-xl text-gray-400 mb-8">
                     فريقنا من الخبراء جاهز لمساعدتك
                 </p>
-                <a href="{{ route('request-design.create') }}" class="inline-flex items-center gap-2 text-white font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-all" style="background: #0D9488;">
+                <a href="{{ route('request-design.create') }}" class="inline-flex items-center gap-2 text-white font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-all" style="background: {{ config('colors.primary') }};">
                     <i class="fas fa-rocket"></i>
                     <span>ابدأ مشروعك الآن</span>
                 </a>

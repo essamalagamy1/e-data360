@@ -1,11 +1,11 @@
 <x-layouts.app>
     {{-- Hero --}}
-    <section class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, #0A1628 0%, #1a2942 100%);">
+    <section class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, {{ config('colors.bg_dark') }} 0%, #1a2942 100%);">
                  <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="max-w-3xl">
                 <h1 class="text-5xl font-black text-white mb-6">
-                    انضم إلى <span style="color: #14B8A6;">فريقنا</span>
+                    انضم إلى <span style="color: {{ config('colors.primary_light') }};">فريقنا</span>
                 </h1>
                 <p class="text-xl text-gray-300 leading-relaxed">
                     نبحث عن مواهب مبدعة لتطوير حلول برمجية مبتكرة. إذا كنت شغوفاً بالتكنولوجيا، انضم إلينا!
@@ -34,7 +34,7 @@
 
                 {{-- Form Card --}}
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div class="p-8 border-b border-gray-100" style="background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%);">
+                    <div class="p-8 border-b border-gray-100" style="background: linear-gradient(135deg, {{ config('colors.primary') }} 0%, {{ config('colors.primary_light') }} 100%);">
                         <h2 class="text-3xl font-bold text-white mb-2">قدّم طلبك الآن</h2>
                         <p class="text-teal-50">املأ النموذج أدناه وسنتواصل معك في أقرب وقت</p>
                     </div>
@@ -164,7 +164,7 @@
                         {{-- Submit Button --}}
                         <button type="submit" 
                                 class="w-full cursor-pointer text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                                style="background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%);">
+                                style="background: linear-gradient(135deg, {{ config('colors.primary') }} 0%, {{ config('colors.primary_light') }} 100%);">
                             <i class="fas fa-paper-plane"></i>
                             <span>إرسال الطلب</span>
                         </button>

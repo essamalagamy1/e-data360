@@ -1,14 +1,14 @@
 <x-layouts.app>
     {{-- Hero --}}
-    <section class="relative py-20 overflow-hidden" style="background: #0A1628;">
+    <section class="relative py-20 overflow-hidden" style="background: {{ config('colors.bg_dark') }};">
         <div class="container mx-auto px-6 relative z-10">
             <div class="max-w-3xl mx-auto text-center">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style="background: rgba(13, 148, 136, 0.2); border: 1px solid rgba(13, 148, 136, 0.3);">
-                    <i class="fas fa-star" style="color: #14B8A6;"></i>
-                    <span class="text-sm font-medium" style="color: #5EEAD4;">شاركنا تجربتك</span>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style="background: {{ config('colors.primary_20') }}; border: 1px solid {{ config('colors.primary_30') }};">
+                    <i class="fas fa-star" style="color: {{ config('colors.primary_light') }};"></i>
+                    <span class="text-sm font-medium" style="color: {{ config('colors.primary_lighter') }};">شاركنا تجربتك</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-black text-white mb-4">
-                    أضف <span style="color: #14B8A6;">تقييمك</span>
+                    أضف <span style="color: {{ config('colors.primary_light') }};">تقييمك</span>
                 </h1>
                 <p class="text-gray-400 text-lg">
                     رأيك يهمنا ويساعدنا على التحسين المستمر
@@ -80,7 +80,7 @@
                                       placeholder="شاركنا تجربتك..."></textarea>
                         </div>
 
-                        <button type="submit" class="w-full text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2" style="background: #0D9488;">
+                        <button type="submit" class="w-full text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2" style="background: {{ config('colors.primary') }};">
                             <i class="fas fa-paper-plane"></i>
                             <span>إرسال التقييم</span>
                         </button>

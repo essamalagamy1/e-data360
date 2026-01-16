@@ -8,11 +8,11 @@
     </style>
 
     {{-- Hero --}}
-    <section class="relative py-16 overflow-hidden" style="background: #0A1628;">
+    <section class="relative py-16 overflow-hidden" style="background: {{ config('colors.bg_dark') }};">
         <div class="container mx-auto px-6 relative z-10">
             <div class="max-w-3xl">
                 <h1 class="text-4xl font-black text-white mb-4">
-                    سياسة <span style="color: #14B8A6;">الخصوصية</span>
+                    سياسة <span style="color: {{ config('colors.primary_light') }};">الخصوصية</span>
                 </h1>
                 <p class="text-gray-400">آخر تحديث: {{ date('Y/m/d') }}</p>
             </div>
@@ -31,7 +31,7 @@
                     {{-- Fallback content if no data in database --}}
                     <div class="bg-gray-50 rounded-2xl p-8 mb-8 border border-gray-100">
                         <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                            <i class="fas fa-shield-alt" style="color: #0D9488;"></i>
+                            <i class="fas fa-shield-alt" style="color: {{ config('colors.primary') }};"></i>
                             مقدمة
                         </h2>
                         <p class="text-gray-600 leading-relaxed">
@@ -90,7 +90,7 @@
                             <h3 class="text-xl font-bold text-gray-900 mb-3">6. التواصل معنا</h3>
                             <p class="text-gray-600 leading-relaxed">
                                 للاستفسارات المتعلقة بهذه السياسة، يرجى التواصل معنا عبر صفحة 
-                                <a href="{{ route('contact') }}" style="color: #0D9488;">اتصل بنا</a>.
+                                <a href="{{ route('contact') }}" style="color: {{ config('colors.primary') }};">اتصل بنا</a>.
                             </p>
                         </div>
                     </div>

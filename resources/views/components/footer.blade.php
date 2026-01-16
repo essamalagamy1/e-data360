@@ -1,8 +1,8 @@
 @props(['companySettings', 'socialLinks'])
 
-<footer class="text-white" style="background: #0A1628;">
+<footer class="text-white" style="background: {{ config('colors.bg_dark') }};">
     {{-- Top Border --}}
-    <div class="h-1" style="background: #0D9488;"></div>
+    <div class="h-1" style="background: {{ config('colors.primary') }};"></div>
 
     <div class="container mx-auto px-6 py-16">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -15,10 +15,10 @@
                         <img class="h-12" src="{{ Storage::url($companySettings->logo_path) }}" alt="{{ $companySettings->company_name ?? 'E-DATA 360' }}">
                     @else
                         <div class="flex items-center gap-2">
-                            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: #0D9488;">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: {{ config('colors.primary') }};">
                                 <i class="fas fa-code text-white text-lg"></i>
                             </div>
-                            <span class="text-2xl font-black text-white">E-DATA<span style="color: #14B8A6;">360</span></span>
+                            <span class="text-2xl font-black text-white">E-DATA<span style="color: {{ config('colors.primary_light') }};">360</span></span>
                         </div>
                     @endif
                 </div>
@@ -30,11 +30,11 @@
                 {{-- Stats --}}
                 <div class="flex gap-6">
                     <div>
-                        <div class="text-2xl font-black" style="color: #14B8A6;">170+</div>
+                        <div class="text-2xl font-black" style="color: {{ config('colors.primary_light') }};">170+</div>
                         <div class="text-gray-500 text-sm">عميل</div>
                     </div>
                     <div>
-                        <div class="text-2xl font-black" style="color: #14B8A6;">5.0</div>
+                        <div class="text-2xl font-black" style="color: {{ config('colors.primary_light') }};">5.0</div>
                         <div class="text-gray-500 text-sm">تقييم</div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     @if(isset($companySettings) && $companySettings->main_email)
                     <li>
                         <a href="mailto:{{ $companySettings->main_email }}" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
-                            <i class="fas fa-envelope" style="color: #0D9488;"></i>
+                            <i class="fas fa-envelope" style="color: {{ config('colors.primary') }};"></i>
                             <span>{{ $companySettings->main_email }}</span>
                         </a>
                     </li>
@@ -120,14 +120,14 @@
         </div>
 
         {{-- CTA --}}
-        <div class="rounded-2xl p-8 mb-12 border border-white/10" style="background: rgba(13, 148, 136, 0.1);">
+        <div class="rounded-2xl p-8 mb-12 border border-white/10" style="background: {{ config('colors.primary_10') }};">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div>
                     <h3 class="text-2xl font-bold text-white mb-2">جاهز لبدء مشروعك؟</h3>
                     <p class="text-gray-400">احصل على استشارة مجانية</p>
                 </div>
                 <div class="flex gap-3">
-                    <a href="{{ route('request-design.create') }}" class="text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all" style="background: #0D9488;">
+                    <a href="{{ route('request-design.create') }}" class="text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all" style="background: {{ config('colors.primary') }};">
                         ابدأ الآن
                     </a>
                     <a href="{{ route('contact') }}" class="text-white font-bold py-3 px-6 rounded-lg border border-white/30 hover:bg-white/10 transition-all">
@@ -141,7 +141,7 @@
         <div class="pt-8 border-t border-white/10">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-gray-500 text-sm">
-                    © {{ date('Y') }} <span style="color: #14B8A6;">{{ $companySettings->company_name ?? 'E-DATA 360' }}</span> - جميع الحقوق محفوظة
+                    © {{ date('Y') }} <span style="color: {{ config('colors.primary_light') }};">{{ $companySettings->company_name ?? 'E-DATA 360' }}</span> - جميع الحقوق محفوظة
                 </p>
                 <div class="flex items-center gap-4 text-gray-500 text-sm">
                     <a href="{{ route('privacy') }}" class="hover:text-white transition-colors">سياسة الخصوصية</a>

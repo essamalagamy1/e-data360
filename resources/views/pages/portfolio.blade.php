@@ -1,41 +1,37 @@
 <x-layouts.app>
-    {{-- Hero Section - Full Width Image Style --}}
-    <section class="relative min-h-[30vh] flex items-center overflow-hidden" style="background: #0A1628;">
-                        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
-
+    {{-- Hero Section with Animations --}}
+    <section class="relative min-h-[30vh] flex items-center overflow-hidden" style="background: {{ config('colors.bg_dark') }};">
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="absolute top-10 right-10 w-3 h-3 rounded-full animate-float opacity-40" style="background: {{ config('colors.primary_light') }};"></div>
+        <div class="absolute bottom-10 left-20 w-4 h-4 rounded-full animate-float opacity-30" style="background: {{ config('colors.primary_lighter') }}; animation-delay: 1s;"></div>
         <div class="container mx-auto px-6 relative z-10 py-20">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
                 <div class="max-w-2xl">
-                    {{-- Breadcrumb --}}
-                    <div class="flex items-center gap-3 mb-6 text-gray-400 text-sm">
+                    <div class="flex items-center gap-3 mb-6 text-gray-400 text-sm hero-animate animate-fade-in-up" style="animation-delay: 0.1s;">
                         <a href="{{ route('home') }}" class="hover:text-white transition">الرئيسية</a>
                         <i class="fas fa-chevron-left text-xs"></i>
-                        <span style="color: #14B8A6;">أعمالنا</span>
+                        <span style="color: {{ config('colors.primary_light') }};">أعمالنا</span>
                     </div>
-
                     @if($heroSection)
-                    {{-- Dynamic title from database --}}
-                    <h1 class="text-4xl md:text-6xl font-black text-white mb-4">
+                    <h1 class="text-4xl md:text-6xl font-black text-white mb-4 hero-animate animate-fade-in-up" style="animation-delay: 0.2s;">
                         {{ $heroSection->title_line1 }}
-                        <span style="color: #14B8A6;">{{ $heroSection->title_line2 }}</span>
+                        <span class="gradient-text-animated">{{ $heroSection->title_line2 }}</span>
                     </h1>
                     @if($heroSection->subtitle)
-                    <p class="text-gray-400 text-lg">{{ $heroSection->subtitle }}</p>
+                    <p class="text-gray-400 text-lg hero-animate animate-fade-in-up" style="animation-delay: 0.3s;">{{ $heroSection->subtitle }}</p>
                     @endif
                     @else
-                    <h1 class="text-4xl md:text-6xl font-black text-white mb-4">
-                        معرض <span style="color: #14B8A6;">أعمالنا</span>
+                    <h1 class="text-4xl md:text-6xl font-black text-white mb-4 hero-animate animate-fade-in-up" style="animation-delay: 0.2s;">
+                        معرض <span class="gradient-text-animated">أعمالنا</span>
                     </h1>
-                    <p class="text-gray-400 text-lg">استعرض مشاريعنا الناجحة</p>
+                    <p class="text-gray-400 text-lg hero-animate animate-fade-in-up" style="animation-delay: 0.3s;">استعرض مشاريعنا الناجحة</p>
                     @endif
                 </div>
-
-                {{-- Stats - Dynamic from $stats --}}
                 @if($stats && $stats->count() > 0)
-                <div class="flex gap-8">
+                <div class="flex gap-8 hero-animate animate-fade-in-up" style="animation-delay: 0.4s;">
                     @foreach($stats->take(2) as $stat)
-                    <div class="text-center">
-                        <div class="text-4xl font-black" style="color: #14B8A6;">{{ $stat->number }}</div>
+                    <div class="text-center group">
+                        <div class="text-4xl font-black counter-number transition-transform group-hover:scale-110" style="color: {{ config('colors.primary_light') }};">{{ $stat->number }}</div>
                         <div class="text-gray-500 text-sm">{{ $stat->label }}</div>
                     </div>
                     @endforeach
@@ -53,7 +49,7 @@
                 {{-- All Projects - Dynamic filter --}}
                 <a href="{{ route('portfolio') }}" 
                    class="px-5 py-2.5 rounded-full font-semibold text-sm transition-all {{ !$selectedType ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
-                   style="{{ !$selectedType ? 'background: #0D9488;' : '' }}">
+                   style="{{ !$selectedType ? 'background: {{ config('colors.primary') }};' : '' }}">
                     الكل
                 </a>
                 
@@ -121,7 +117,7 @@
                             <span class="text-xs text-gray-400">
                                 {{ $project->created_at->format('Y/m/d') }}
                             </span>
-                            <span class="text-sm font-semibold transition-all group-hover:gap-2 flex items-center gap-1" style="color: #0D9488;">
+                            <span class="text-sm font-semibold transition-all group-hover:gap-2 flex items-center gap-1" style="color: {{ config('colors.primary') }};">
                                 التفاصيل
                                 <i class="fas fa-arrow-left text-xs"></i>
                             </span>
@@ -138,8 +134,8 @@
             @else
             {{-- Empty State --}}
             <div class="text-center py-20">
-                <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style="background: rgba(13, 148, 136, 0.1);">
-                    <i class="fas fa-folder-open text-4xl" style="color: #0D9488;"></i>
+                <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style="background: {{ config('colors.primary_10') }};">
+                    <i class="fas fa-folder-open text-4xl" style="color: {{ config('colors.primary') }};"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">لا توجد مشاريع</h3>
                 <p class="text-gray-600">لم نعثر على مشاريع تطابق بحثك</p>
@@ -149,7 +145,7 @@
     </section>
 
     {{-- CTA Section --}}
-    <section class="py-20" style="background: #0A1628;">
+    <section class="py-20" style="background: {{ config('colors.bg_dark') }};">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
                 هل لديك مشروع في ذهنك؟
@@ -157,7 +153,7 @@
             <p class="text-gray-400 mb-8 max-w-xl mx-auto">
                 دعنا نحوله إلى واقع - تواصل معنا للحصول على استشارة مجانية
             </p>
-            <a href="{{ route('request-design.create') }}" class="inline-flex items-center gap-2 text-white font-bold py-4 px-8 rounded-xl transition-all hover:opacity-90" style="background: #0D9488;">
+            <a href="{{ route('request-design.create') }}" class="inline-flex items-center gap-2 text-white font-bold py-4 px-8 rounded-xl transition-all hover:opacity-90" style="background: {{ config('colors.primary') }};">
                 <i class="fas fa-rocket"></i>
                 <span>ابدأ مشروعك</span>
             </a>

@@ -1,46 +1,36 @@
 <x-layouts.app>
-    {{-- Hero Section - Minimal & Modern --}}
-    <section class="relative min-h-[30vh] flex items-center overflow-hidden" style="background: #0A1628;">
-        {{-- Subtle Grid --}}
-                <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
-        
+    {{-- Hero Section with Animations --}}
+    <section class="relative min-h-[30vh] flex items-center overflow-hidden" style="background: {{ config('colors.bg_dark') }};">
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="absolute top-10 right-20 w-3 h-3 rounded-full animate-float opacity-40" style="background: {{ config('colors.primary_light') }};"></div>
+        <div class="absolute bottom-10 left-10 w-4 h-4 rounded-full animate-float opacity-30" style="background: {{ config('colors.primary_lighter') }}; animation-delay: 1s;"></div>
         <div class="container mx-auto px-6 relative z-10 py-20">
             <div class="max-w-4xl">
-                {{-- Breadcrumb Style --}}
-                <div class="flex items-center gap-3 mb-8 text-gray-400 text-sm">
+                <div class="flex items-center gap-3 mb-8 text-gray-400 text-sm hero-animate animate-fade-in-up" style="animation-delay: 0.1s;">
                     <a href="{{ route('home') }}" class="hover:text-white transition">الرئيسية</a>
                     <i class="fas fa-chevron-left text-xs"></i>
-                    <span style="color: #14B8A6;">خدماتنا</span>
+                    <span style="color: {{ config('colors.primary_light') }};">خدماتنا</span>
                 </div>
-
                 @if($heroSection)
-                {{-- Dynamic title from database --}}
-                <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight hero-animate animate-fade-in-up" style="animation-delay: 0.2s;">
                     {{ $heroSection->title_line1 }}
-                    <span style="color: #14B8A6;">{{ $heroSection->title_line2 }}</span>
+                    <span class="gradient-text-animated">{{ $heroSection->title_line2 }}</span>
                 </h1>
-
                 @if($heroSection->subtitle)
-                {{-- Dynamic subtitle from database --}}
-                <p class="text-xl text-gray-400 max-w-2xl leading-relaxed">
-                    {{ $heroSection->subtitle }}
-                </p>
+                <p class="text-xl text-gray-400 max-w-2xl leading-relaxed hero-animate animate-fade-in-up" style="animation-delay: 0.3s;">{{ $heroSection->subtitle }}</p>
                 @endif
                 @else
-                <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight hero-animate animate-fade-in-up" style="animation-delay: 0.2s;">
                     خدماتنا
-                    <span class="block mt-2" style="color: #14B8A6;">البرمجية</span>
+                    <span class="block mt-2 gradient-text-animated">البرمجية</span>
                 </h1>
-                <p class="text-xl text-gray-400 max-w-2xl leading-relaxed">
+                <p class="text-xl text-gray-400 max-w-2xl leading-relaxed hero-animate animate-fade-in-up" style="animation-delay: 0.3s;">
                     حلول تقنية متكاملة لتحويل أفكارك إلى منتجات رقمية ناجحة
                 </p>
                 @endif
-
             </div>
         </div>
-
-        {{-- Side Decoration --}}
-        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 rounded-full" style="background: linear-gradient(to bottom, transparent, #14B8A6, transparent);"></div>
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 rounded-full animate-pulse" style="background: linear-gradient(to bottom, transparent, {{ config('colors.primary_light') }}, transparent);"></div>
     </section>
 
     {{-- Services Grid - Bento Style --}}
@@ -49,7 +39,7 @@
             {{-- Section Header --}}
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
                 <div>
-                    <span class="text-sm font-bold tracking-wider uppercase" style="color: #0D9488;">ما نقدمه</span>
+                    <span class="text-sm font-bold tracking-wider uppercase" style="color: {{ config('colors.primary') }};">ما نقدمه</span>
                     <h2 class="text-4xl md:text-5xl font-black text-gray-900 mt-2">
                         خدمات متخصصة
                     </h2>
@@ -65,13 +55,13 @@
                 {{-- Service Card - Dynamic from database --}}
                 <div class="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 ">
                     {{-- Top Accent Line --}}
-                    <div class="absolute top-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" style="background: linear-gradient(to right, #0D9488, #14B8A6);"></div>
+                    <div class="absolute top-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" style="background: linear-gradient(to right, {{ config('colors.primary') }}, {{ config('colors.primary_light') }});"></div>
                     
                     <div class="p-8">
                         {{-- Icon --}}
-                        <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110" style="background: rgba(13, 148, 136, 0.1);">
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110" style="background: {{ config('colors.primary_10') }};">
                             {{-- Dynamic icon from database --}}
-                            <i class="{{ $service->icon }} text-2xl" style="color: #0D9488;"></i>
+                            <i class="{{ $service->icon }} text-2xl" style="color: {{ config('colors.primary') }};"></i>
                         </div>
 
                         {{-- Dynamic title from database --}}
@@ -89,7 +79,7 @@
                         <ul class="space-y-2 mb-8">
                             @foreach($service->features->take($index === 0 ? 5 : 3) as $feature)
                             <li class="flex items-center text-gray-700 text-sm">
-                                <span class="w-1.5 h-1.5 rounded-full mr-3" style="background: #0D9488;"></span>
+                                <span class="w-1.5 h-1.5 rounded-full mr-3" style="background: {{ config('colors.primary') }};"></span>
                                 {{ $feature->feature_text }}
                             </li>
                             @endforeach
@@ -98,7 +88,7 @@
 
                         {{-- CTA --}}
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number ?? '') }}" 
-                           class="inline-flex items-center gap-2 font-bold transition-all group-hover:gap-4" style="color: #0D9488;">
+                           class="inline-flex items-center gap-2 font-bold transition-all group-hover:gap-4" style="color: {{ config('colors.primary') }};">
                             <span>{{ $service->cta_text ?? 'اطلب الآن' }}</span>
                             <i class="fas fa-arrow-left text-sm"></i>
                         </a>
@@ -113,7 +103,7 @@
     <section class="py-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-20">
-                <span class="text-sm font-bold tracking-wider uppercase" style="color: #0D9488;">كيف نعمل</span>
+                <span class="text-sm font-bold tracking-wider uppercase" style="color: {{ config('colors.primary') }};">كيف نعمل</span>
                 <h2 class="text-4xl md:text-5xl font-black text-gray-900 mt-2">
                     خطوات بسيطة نحو النجاح
                 </h2>
@@ -123,12 +113,12 @@
             <div class="relative max-w-5xl mx-auto">
                 {{-- Connecting Line --}}
                 <div class="hidden md:block absolute top-16 left-0 right-0 h-0.5 bg-gray-200"></div>
-                <div class="hidden md:block absolute top-16 left-0 h-0.5 transition-all duration-1000" style="background: #0D9488; width: 100%;"></div>
+                <div class="hidden md:block absolute top-16 left-0 h-0.5 transition-all duration-1000" style="background: {{ config('colors.primary') }}; width: 100%;"></div>
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {{-- Step 1 --}}
                     <div class="relative text-center">
-                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: #0D9488;">
+                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: {{ config('colors.primary') }};">
                             1
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">التواصل</h3>
@@ -137,7 +127,7 @@
 
                     {{-- Step 2 --}}
                     <div class="relative text-center">
-                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: #0D9488;">
+                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: {{ config('colors.primary') }};">
                             2
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">الدراسة</h3>
@@ -146,7 +136,7 @@
 
                     {{-- Step 3 --}}
                     <div class="relative text-center">
-                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: #0D9488;">
+                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: {{ config('colors.primary') }};">
                             3
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">التنفيذ</h3>
@@ -155,7 +145,7 @@
 
                     {{-- Step 4 --}}
                     <div class="relative text-center">
-                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: #0D9488;">
+                        <div class="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center text-white font-bold text-lg relative z-10" style="background: {{ config('colors.primary') }};">
                             4
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">التسليم</h3>
@@ -170,7 +160,7 @@
     <section class="relative overflow-hidden">
         <div class="grid grid-cols-1 lg:grid-cols-2">
             {{-- Left Side - Content --}}
-            <div class="p-12 lg:p-20 flex items-center" style="background: #0A1628;">
+            <div class="p-12 lg:p-20 flex items-center" style="background: {{ config('colors.bg_dark') }};">
                 <div class="max-w-lg">
                     <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
                         جاهز لبدء مشروعك؟
@@ -179,7 +169,7 @@
                         تواصل معنا اليوم واحصل على استشارة مجانية لمناقشة احتياجاتك
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="{{ route('request-design.create') }}" class="inline-flex items-center justify-center gap-2 text-white font-bold py-4 px-8 rounded-xl transition-all hover:opacity-90" style="background: #0D9488;">
+                        <a href="{{ route('request-design.create') }}" class="inline-flex items-center justify-center gap-2 text-white font-bold py-4 px-8 rounded-xl transition-all hover:opacity-90" style="background: {{ config('colors.primary') }};">
                             <i class="fas fa-rocket"></i>
                             <span>ابدأ الآن</span>
                         </a>
@@ -192,7 +182,7 @@
             </div>
 
             {{-- Right Side - Visual --}}
-            <div class="p-12 lg:p-20 flex items-center justify-center min-h-[400px]" style="background: linear-gradient(135deg, #0D9488, #14B8A6);">
+            <div class="p-12 lg:p-20 flex items-center justify-center min-h-[400px]" style="background: linear-gradient(135deg, {{ config('colors.primary') }}, {{ config('colors.primary_light') }});">
                 <div class="text-center text-white">
                     <div class="text-8xl mb-6">
                         <i class="fas fa-code"></i>

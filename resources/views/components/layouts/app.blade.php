@@ -59,10 +59,297 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" />
 
     <style>
-        /* Additional inline styles for immediate rendering */
-        body {
-            font-family: 'Cairo', 'Inter', sans-serif;
+        /* ========== COLOR SYSTEM ========== */
+        /* Colors are loaded from config/colors.php - edit that file to change colors site-wide */
+:root {
+    /* Primary Colors - Deep Blue */
+    --color-primary: {{ config('colors.primary') }};
+    --color-primary-light: {{ config('colors.primary_light') }};
+    --color-primary-lighter: {{ config('colors.primary_lighter') }};
+    --color-primary-dark: {{ config('colors.primary_dark') }};
+    
+    /* Background Colors */
+    --color-bg-dark: {{ config('colors.bg_dark') }};
+    --color-bg-dark-lighter: {{ config('colors.bg_dark_lighter') }};
+    
+    /* Accent Colors */
+    --color-accent-green: {{ config('colors.accent_green') }};
+    --color-accent-red: {{ config('colors.accent_red') }};
+    --color-accent-yellow: {{ config('colors.accent_yellow') }};
+    --color-accent-blue: {{ config('colors.accent_blue') }};
+    
+    /* Gradient */
+    --gradient-primary: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
+    --gradient-dark: linear-gradient(135deg, var(--color-bg-dark), var(--color-bg-dark-lighter));
+    
+    /* Shadows */
+    --shadow-primary: 0 0 20px {{ config('colors.primary_30') }};
+    --shadow-primary-strong: 0 0 40px rgba(13, 27, 42, 0.5);
+    
+    /* Transparency variations */
+    --color-primary-10: {{ config('colors.primary_10') }};
+    --color-primary-15: {{ config('colors.primary_15') }};
+    --color-primary-20: {{ config('colors.primary_20') }};
+    --color-primary-30: {{ config('colors.primary_30') }};
+}
+        
+        /* ========== UTILITY CLASSES FOR COLORS ========== */
+        /* Use these classes instead of inline styles */
+        
+        /* Background Colors */
+        .bg-primary { background-color: var(--color-primary) !important; }
+        .bg-primary-light { background-color: var(--color-primary-light) !important; }
+        .bg-primary-lighter { background-color: var(--color-primary-lighter) !important; }
+        .bg-primary-dark { background-color: var(--color-primary-dark) !important; }
+        .bg-dark { background-color: var(--color-bg-dark) !important; }
+        .bg-dark-lighter { background-color: var(--color-bg-dark-lighter) !important; }
+        .bg-primary-10 { background-color: var(--color-primary-10) !important; }
+        .bg-primary-15 { background-color: var(--color-primary-15) !important; }
+        .bg-primary-20 { background-color: var(--color-primary-20) !important; }
+        
+        /* Text Colors */
+        .text-primary { color: var(--color-primary) !important; }
+        .text-primary-light { color: var(--color-primary-light) !important; }
+        .text-primary-lighter { color: var(--color-primary-lighter) !important; }
+        .text-primary-dark { color: var(--color-primary-dark) !important; }
+        
+        /* Border Colors */
+        .border-primary { border-color: var(--color-primary) !important; }
+        .border-primary-light { border-color: var(--color-primary-light) !important; }
+        
+        /* Gradient Backgrounds */
+        .bg-gradient-primary { background: var(--gradient-primary) !important; }
+        .bg-gradient-dark { background: var(--gradient-dark) !important; }
+
+/* Font setup */
+body {
+    font-family: 'Cairo', 'Inter', sans-serif;
+}
+
+        
+        /* ========== ANIMATIONS ========== */
+        
+        /* Fade In Up Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+        
+        /* Fade In Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Slide In from Right (for RTL) */
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* Pulse Glow Animation */
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: var(--shadow-primary);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: var(--shadow-primary-strong);
+                transform: scale(1.02);
+            }
+        }
+        
+        /* Scale In Animation */
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Bounce Animation */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Shimmer Animation for backgrounds */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        /* ========== ANIMATION CLASSES ========== */
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+        
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .animate-pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+        
+        .animate-bounce {
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        /* Delay Classes */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+        
+        /* Initial state for animated elements */
+        .animate-on-load {
+            opacity: 0;
+        }
+        
+        /* Reveal on Scroll Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Card Hover Animations */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Icon Animation on Hover */
+        .icon-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .icon-hover:hover i {
+            transform: scale(1.2);
+        }
+        
+        .icon-hover i {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Number Counter Animation */
+        .counter-number {
+            display: inline-block;
+        }
+        
+        /* Navbar Link Animation */
+        .nav-link-animated {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link-animated::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link-animated:hover::after {
+            width: 100%;
+        }
+        
+        /* Button Shine Effect */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-shine:hover::before {
+            left: 100%;
+        }
+        
+        /* Gradient Text Animation */
+        .gradient-text-animated {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light), var(--color-primary));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        /* ========== SWIPER CUSTOMIZATION ========== */
         
         /* Swiper RTL customization */
         .swiper-button-next, .swiper-button-prev {
@@ -80,13 +367,15 @@
         }
         
         .swiper-pagination-bullet {
-            background: #06b6d4 !important;
+            background: var(--color-primary-light) !important;
             opacity: 0.5;
+            transition: all 0.3s ease;
         }
         
         .swiper-pagination-bullet-active {
             opacity: 1 !important;
-            background: linear-gradient(to right, #2563eb, #06b6d4) !important;
+            background: var(--gradient-primary) !important;
+            transform: scale(1.2);
         }
         
         /* Equal height for testimonial cards */
@@ -137,6 +426,8 @@
             flex-direction: column;
         }
         
+        /* ========== SCROLLBAR ========== */
+        
         /* Custom Scrollbar Styling */
         /* For Webkit browsers (Chrome, Safari, Edge) */
         ::-webkit-scrollbar {
@@ -150,19 +441,19 @@
         }
         
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #06b6d4, #2563eb);
+            background: var(--gradient-primary);
             border-radius: 10px;
             border: 2px solid #f1f5f9;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #0891b2, #1d4ed8);
+            background: linear-gradient(180deg, var(--color-primary-dark), var(--color-primary));
         }
         
         /* For Firefox */
         * {
             scrollbar-width: thin;
-            scrollbar-color: #06b6d4 #f1f5f9;
+            scrollbar-color: var(--color-primary-light) #f1f5f9;
         }
     </style>
     {{-- {!! CookieConsent::styles() !!} --}}
@@ -185,7 +476,7 @@
     <!-- Fancybox JS -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
     
-    <!-- Scroll Reveal Script -->
+    <!-- Scroll Reveal & Animation Script -->
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
@@ -199,8 +490,8 @@
             }
         });
         
-        // Reveal on scroll
-        function reveal() {
+        // Enhanced Reveal on Scroll
+        function revealOnScroll() {
             const reveals = document.querySelectorAll('.reveal');
             reveals.forEach(element => {
                 const windowHeight = window.innerHeight;
@@ -211,10 +502,87 @@
                     element.classList.add('active');
                 }
             });
+            
+            // Reveal on scroll elements
+            const scrollReveals = document.querySelectorAll('.reveal-on-scroll, .reveal-scale');
+            scrollReveals.forEach((element, index) => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    // Add staggered delay based on index within visible viewport
+                    setTimeout(() => {
+                        element.classList.add('revealed');
+                    }, (index % 4) * 100);
+                }
+            });
         }
         
-        window.addEventListener('scroll', reveal);
-        reveal(); // Initial check
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+        
+        // Counter Animation for Statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                if (counter.dataset.animated === 'true') return;
+                
+                const rect = counter.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+                
+                if (isVisible) {
+                    counter.dataset.animated = 'true';
+                    const target = counter.innerText;
+                    const numericPart = parseFloat(target.replace(/[^0-9.]/g, ''));
+                    const suffix = target.replace(/[0-9.]/g, '');
+                    
+                    if (isNaN(numericPart)) return;
+                    
+                    const duration = 2000;
+                    const startTime = performance.now();
+                    
+                    function updateCounter(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // Easing function for smooth animation
+                        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                        const currentValue = Math.floor(numericPart * easeOutQuart);
+                        
+                        counter.innerText = currentValue + suffix;
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    }
+                    
+                    requestAnimationFrame(updateCounter);
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', animateCounters);
+        
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to hero elements
+            const heroElements = document.querySelectorAll('.hero-animate');
+            heroElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.style.animation = `fadeInUp 0.8s ease-out forwards`;
+                    el.style.animationDelay = `${index * 0.15}s`;
+                }, 100);
+            });
+            
+            // Initialize counter animation
+            setTimeout(animateCounters, 500);
+        });
         
         // Initialize Swiper for Testimonials
         window.addEventListener('load', function() {
