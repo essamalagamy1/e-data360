@@ -21,6 +21,7 @@ class DesignRequestObserver
                     'email' => $designRequest->email ?? 'N/A',
                     'phone' => $designRequest->phone ?? 'N/A',
                     'project_type' => $designRequest->project_type ?? 'N/A',
+                    'price' => $designRequest->budget_range ?? 'N/A',
                     'project_details' => $designRequest->details ?? 'N/A',
                 ]
             );
