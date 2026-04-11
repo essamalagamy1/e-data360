@@ -19,7 +19,7 @@ class DesignRequestObserver
                     'client_name' => $designRequest->full_name,
                     'company_name' => $designRequest->company_name ?? 'N/A',
                     'email' => $designRequest->email ?? 'N/A',
-                    'phone' => $designRequest->phone ?? 'N/A',
+                    'phone' => $this->phoneFormat($designRequest->phone) ?? 'N/A',
                     'project_type' => $designRequest->project_type ?? 'N/A',
                     'project_details' => $designRequest->details ?? 'N/A',
                 ]
@@ -31,4 +31,12 @@ class DesignRequestObserver
             ]);
         }
     }
+
+    public function phoneFormat($phone)
+    {
+        $phone = ltrim($phone, '+');
+       return $phone = ltrim($phone, '0');
+    }
+
+
 }
