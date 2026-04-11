@@ -9,6 +9,19 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
+use Tawhub\Laravel\Facades\Tawhub;
+
+
+Route::get('/test', function () {
+    return Tawhub::send_template('201002694325', 'b4ac9d13-ccbe-4f79-8a59-0ad90cdada65', [
+        'client_name' => 'Tawhub',
+        'company_name' => 'Tawhub',
+        'email' => 'test@com',
+        'phone' => '012222',
+        'project_type' => 'project type',
+        'project_details' => 'project details',
+    ]);
+});
 
 // Public Website Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -40,7 +53,7 @@ Route::get('/robots.txt', function () {
     $content .= "Allow: /\n";
     $content .= "Disallow: /admin\n";
     $content .= "Disallow: /api\n\n";
-    $content .= 'Sitemap: '.route('sitemap.index')."\n";
+    $content .= 'Sitemap: ' . route('sitemap.index') . "\n";
 
     return response($content)->header('Content-Type', 'text/plain');
 })->name('robots');

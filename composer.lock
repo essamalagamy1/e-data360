@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f66de5a9a15f1ab3b09223dbc77314d",
+    "content-hash": "005d9cef791cf8ebb8f18fba7e96e304",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -8948,6 +8948,56 @@
                 }
             ],
             "time": "2025-11-05T18:53:00+00:00"
+        },
+        {
+            "name": "tawhub/laravel-sdk",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/essamalagamy1/tawhub-laravel.git",
+                "reference": "e6709edb1a2edee01e01fd4d77db22d59861c8d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/essamalagamy1/tawhub-laravel/zipball/e6709edb1a2edee01e01fd4d77db22d59861c8d1",
+                "reference": "e6709edb1a2edee01e01fd4d77db22d59861c8d1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^10.0|^11.0|^12.0",
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^10.0|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Tawhub": "Tawhub\\Laravel\\Facades\\Tawhub"
+                    },
+                    "providers": [
+                        "Tawhub\\Laravel\\TawhubServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tawhub\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel package for TawHub WhatsApp API",
+            "support": {
+                "issues": "https://github.com/essamalagamy1/tawhub-laravel/issues",
+                "source": "https://github.com/essamalagamy1/tawhub-laravel/tree/v1.0.0"
+            },
+            "time": "2026-04-11T09:17:53+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

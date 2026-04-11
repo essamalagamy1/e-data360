@@ -24,7 +24,7 @@ class StoreDesignRequest extends FormRequest
         return [
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:255',
+            'phone' => 'required|numeric|max:255',
             'company_name' => 'nullable|string|max:255',
             'project_type' => 'required|string',
             'budget_range' => 'nullable|string|max:255',
