@@ -330,7 +330,7 @@
                     <img src="{{ asset('download.png') }}" alt="العمل الحر" class="h-8 object-contain">
                     <div class="flex flex-col text-right">
                         <span class="text-xs text-gray-400">رمز الوثيقة المعتمدة</span>
-                        <span class="text-sm font-bold text-gray-200" dir="ltr">FL-983214302</span>
+                        <span class="text-sm font-bold text-gray-200" dir="ltr">FL-9832*****</span>
                     </div>
                 </div>
 
