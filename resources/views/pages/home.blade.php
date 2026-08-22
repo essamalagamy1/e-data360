@@ -528,7 +528,7 @@
 
                                     {{-- Review Text --}}
                                     <p class="text-slate-700 text-base md:text-lg leading-relaxed mb-8 relative z-10 font-normal">
-                                        "{{ $testimonial->testimonial }}"
+                                        "{{ Str::limit($testimonial->testimonial, 80, '...') }}"
                                     </p>
                                 </div>
 
