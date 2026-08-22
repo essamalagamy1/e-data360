@@ -9,6 +9,50 @@ use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
+    public function index(Request $request)
+    {
+        $ratingFilter = $request->query('rating');
+
+        $query = Testimonial::where('is_active', true);
+
+        if ($ratingFilter && in_array($ratingFilter, ['1', '2', '3', '4', '5'])) {
+            $query->where('rating', (int)$ratingFilter);
+        }
+
+        $testimonials = $query->orderBy('order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12)
+            ->withQueryString();
+
+        // Calculate statistics for header summary
+        $allActive = Testimonial::where('is_active', true)->get();
+        $totalCount = $allActive->count();
+        $averageRating = $totalCount > 0 ? round($allActive->avg('rating'), 1) : 5.0;
+        $fiveStarCount = $allActive->where('rating', 5)->count();
+        $fourStarCount = $allActive->where('rating', 4)->count();
+        $threeStarCount = $allActive->where('rating', 3)->count();
+        $twoStarCount = $allActive->where('rating', 2)->count();
+        $oneStarCount = $allActive->where('rating', 1)->count();
+        $verifiedCount = $allActive->where('is_verified', true)->count();
+
+        return view('pages.testimonials', [
+            'testimonials' => $testimonials,
+            'companySettings' => CompanySetting::first(),
+            'socialLinks' => SocialLink::where('is_active', true)->get(),
+            'stats' => [
+                'total' => $totalCount,
+                'average' => number_format($averageRating, 1),
+                'fiveStar' => $fiveStarCount,
+                'fourStar' => $fourStarCount,
+                'threeStar' => $threeStarCount,
+                'twoStar' => $twoStarCount,
+                'oneStar' => $oneStarCount,
+                'verified' => $verifiedCount,
+            ],
+            'selectedRating' => $ratingFilter,
+        ]);
+    }
+
     public function create()
     {
         return view('pages.add-testimonial', [

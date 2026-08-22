@@ -113,6 +113,14 @@
                             <span>معرض الأعمال</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('testimonials.index') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
+                                <i class="fas fa-star text-sm text-amber-400"></i>
+                            </div>
+                            <span>آراء العملاء والتقييمات</span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a href="{{ route('contact') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
                             <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">

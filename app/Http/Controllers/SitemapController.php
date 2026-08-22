@@ -33,6 +33,7 @@ class SitemapController extends Controller
             ['loc' => route('services'), 'changefreq' => 'weekly', 'priority' => '0.9'],
             ['loc' => route('portfolio'), 'changefreq' => 'daily', 'priority' => '0.9'],
             ['loc' => route('contact'), 'changefreq' => 'monthly', 'priority' => '0.7'],
+            ['loc' => route('testimonials.index'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => route('request-design.create'), 'changefreq' => 'monthly', 'priority' => '0.8'],
         ];
 

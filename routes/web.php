@@ -37,6 +37,7 @@ Route::get('/contact-us', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/terms-conditions', [PageController::class, 'terms'])->name('terms');
+Route::get('/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
 Route::get('/add-testimonial', [TestimonialController::class, 'create'])->name('testimonial.create');
 Route::post('/add-testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
 

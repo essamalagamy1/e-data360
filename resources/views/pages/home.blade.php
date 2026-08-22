@@ -494,98 +494,107 @@
             </div>
 
             {{-- Testimonials Carousel --}}
-            <div class="relative max-w-7xl mx-auto px-12">
+            <div class="relative max-w-7xl mx-auto px-4 md:px-12">
                 <!-- Swiper Container -->
-                <div class="swiper testimonials-swiper">
+                <div class="swiper testimonials-swiper !py-4">
                     <div class="swiper-wrapper pb-12">
                         @foreach($testimonials as $testimonial)
-                        <div class="swiper-slide">
+                        <div class="swiper-slide h-auto">
                             {{-- Testimonial Card --}}
-                            <div class="group relative bg-gradient-to-br from-white to-blue-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-blue-100 overflow-hidden h-full">
-                                {{-- Quote Mark Background --}}
-                                <div class="absolute -top-6 -right-6 text-[120px] text-blue-100 font-serif leading-none opacity-50 pointer-events-none">"</div>
+                            <div class="group relative bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 border border-slate-100/80 overflow-hidden flex flex-col justify-between h-full">
+                                {{-- Top Gradient Glow Line --}}
+                                <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                                
+                                {{-- Quote Mark Background Watermark --}}
+                                <div class="absolute -top-4 -right-2 text-9xl font-serif text-blue-500/10 group-hover:text-blue-500/20 transition-colors pointer-events-none select-none">“</div>
 
-                                {{-- Rating Stars --}}
-                                <div class="flex gap-1 mb-4 relative z-10">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }} text-xl"></i>
-                                    @endfor
+                                <div>
+                                    {{-- Header: Rating & Badge --}}
+                                    <div class="flex items-center justify-between gap-3 mb-6 relative z-10">
+                                        <div class="flex items-center gap-1 bg-amber-50/80 border border-amber-200/60 px-3 py-1.5 rounded-full">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <i class="fas fa-star {{ $i <= $testimonial->rating ? 'text-amber-400' : 'text-slate-200' }} text-sm"></i>
+                                            @endfor
+                                            <span class="text-xs font-black text-amber-700 mr-1.5">{{ number_format($testimonial->rating, 1) }}</span>
+                                        </div>
+
+                                        @if($testimonial->badge_text)
+                                        <span class="text-white text-xs font-black px-3.5 py-1.5 rounded-full shadow-sm"
+                                              style="background: linear-gradient(135deg, {{ $testimonial->badge_color_from ?? '#2563eb' }}, {{ $testimonial->badge_color_to ?? '#06b6d4' }});">
+                                            {{ $testimonial->badge_text }}
+                                        </span>
+                                        @endif
+                                    </div>
+
+                                    {{-- Review Text --}}
+                                    <p class="text-slate-700 text-base md:text-lg leading-relaxed mb-8 relative z-10 font-normal">
+                                        "{{ $testimonial->testimonial }}"
+                                    </p>
                                 </div>
-
-                                {{-- Review Text --}}
-                                <p class="text-gray-700 text-lg leading-relaxed mb-6 relative z-10">
-                                    {{ $testimonial->testimonial }}
-                                </p>
 
                                 {{-- Reviewer Info --}}
-                                <div class="flex items-center gap-4 relative z-10">
-                                    {{-- @if($testimonial->client_avatar)
-                                    <img src="{{ Storage::url($testimonial->client_avatar) }}" alt="{{ $testimonial->client_name }}" class="w-16 h-16 rounded-full object-cover shadow-lg ring-4 ring-blue-100">
-                                    @else
-                                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-2xl shadow-lg ring-4 ring-blue-100">
-                                        {{ substr($testimonial->client_name, 0, 1) }}
-                                    </div>
-                                    @endif --}}
-                                    <div>
-                                        <h4 class="font-black text-gray-900 text-lg">{{ $testimonial->client_name }}</h4>
-                                        <p class="text-sm text-gray-600 font-medium">{{ $testimonial->client_position }}</p>
-                                        @if($testimonial->client_company)
-                                        <p class="text-xs text-gray-500">{{ $testimonial->client_company }}</p>
+                                <div class="pt-6 border-t border-slate-100 flex items-center justify-between relative z-10 mt-auto">
+                                    <div class="flex items-center gap-4">
+                                        @if($testimonial->client_avatar)
+                                            <img src="{{ Storage::url($testimonial->client_avatar) }}" alt="{{ $testimonial->client_name }}" class="w-14 h-14 rounded-2xl object-cover shadow-md ring-4 ring-blue-50 group-hover:scale-105 transition-transform">
+                                        @else
+                                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-md ring-4 ring-blue-50 group-hover:scale-105 transition-transform">
+                                                {{ mb_substr($testimonial->client_name, 0, 1) }}
+                                            </div>
                                         @endif
-                                        @if($testimonial->is_verified)
-                                        <div class="flex items-center gap-1 mt-1">
-                                            <i class="fas fa-check-circle text-blue-500 text-xs"></i>
-                                            <span class="text-xs text-blue-600 font-semibold">عميل موثق</span>
+                                        <div>
+                                            <h4 class="font-black text-slate-900 text-base md:text-lg group-hover:text-blue-600 transition-colors">{{ $testimonial->client_name }}</h4>
+                                            <p class="text-xs md:text-sm text-slate-500 font-semibold">{{ $testimonial->client_position }}</p>
+                                            @if($testimonial->client_company)
+                                                <p class="text-xs text-slate-400 mt-0.5">{{ $testimonial->client_company }}</p>
+                                            @endif
                                         </div>
-                                        @endif
                                     </div>
-                                </div>
 
-                                {{-- Badge --}}
-                                @if($testimonial->badge_text)
-                                <div class="absolute top-6 left-6 text-white text-xs font-bold px-3 py-1 rounded-full pointer-events-none"
-                                     style="background: linear-gradient(to right, {{ $testimonial->badge_color_from ?? '#2563eb' }}, {{ $testimonial->badge_color_to ?? '#06b6d4' }});">
-                                    {{ $testimonial->badge_text }}
+                                    @if($testimonial->is_verified)
+                                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200/60 shadow-sm" title="عميل موثق">
+                                        <i class="fas fa-check-circle text-emerald-500"></i>
+                                        <span class="hidden sm:inline">موثق</span>
+                                    </div>
+                                    @endif
                                 </div>
-                                @endif
                             </div>
                         </div>
                         @endforeach
                     </div>
                     
                     {{-- Pagination --}}
-                    <div class="swiper-pagination"></div>
+                    <div class="swiper-pagination !-bottom-2"></div>
                 </div>
                 
-                {{-- Navigation Buttons - Outside Swiper --}}
-                <button type="button" class="testimonials-swiper-button-next" 
-                        style="position: absolute !important; top: 50% !important; left: 0 !important; transform: translateY(-50%) !important; width: 56px !important; height: 56px !important; border-radius: 50% !important; background: linear-gradient(to right, #2563eb, #06b6d4) !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; z-index: 100 !important; border: none !important; outline: none !important; transition: transform 0.3s !important; opacity: 1 !important; visibility: visible !important;"
-                        onmouseover="this.style.transform='translateY(-50%) scale(1.1)'"
-                        onmouseout="this.style.transform='translateY(-50%) scale(1)'">
-                    <i class="fas fa-chevron-left text-white text-xl"></i>
+                {{-- Navigation Buttons --}}
+                <button type="button" aria-label="التقييم التالي" class="testimonials-swiper-button-next hidden sm:flex absolute -left-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white text-slate-800 shadow-xl hover:shadow-2xl border border-slate-100 items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-blue-600 hover:text-white z-20">
+                    <i class="fas fa-chevron-left text-lg"></i>
                 </button>
-                <button type="button" class="testimonials-swiper-button-prev"
-                        style="position: absolute !important; top: 50% !important; right: 0 !important; transform: translateY(-50%) !important; width: 56px !important; height: 56px !important; border-radius: 50% !important; background: linear-gradient(to right, #2563eb, #06b6d4) !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; z-index: 100 !important; border: none !important; outline: none !important; transition: transform 0.3s !important; opacity: 1 !important; visibility: visible !important;"
-                        onmouseover="this.style.transform='translateY(-50%) scale(1.1)'"
-                        onmouseout="this.style.transform='translateY(-50%) scale(1)'">
-                    <i class="fas fa-chevron-right text-white text-xl"></i>
+                <button type="button" aria-label="التقييم السابق" class="testimonials-swiper-button-prev hidden sm:flex absolute -right-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white text-slate-800 shadow-xl hover:shadow-2xl border border-slate-100 items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-blue-600 hover:text-white z-20">
+                    <i class="fas fa-chevron-right text-lg"></i>
                 </button>
             </div>
 
-            {{-- Add Review Button --}}
-            <div class="text-center mt-12">
-                <a href="{{ route('testimonial.create') }}"
-                   class="group inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-white font-black py-5 px-12 rounded-2xl hover:shadow-2xl hover:shadow-orange-500/50 transform hover:scale-105 transition-all duration-300 relative overflow-hidden">
-                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    <i class="fas fa-star relative z-10 text-2xl"></i>
-                    <span class="relative z-10 text-lg">شاركنا تجربتك - أضف تقييمك</span>
-                    <i class="fas fa-arrow-left relative z-10 transform group-hover:-translate-x-2 transition-transform"></i>
+            {{-- Action Buttons (Add Review & View All) --}}
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
+                <a href="{{ route('testimonials.index') }}"
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-slate-800 font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl border border-slate-200 hover:border-blue-300 hover:text-blue-600 transform hover:-translate-y-0.5 transition-all duration-300 text-base">
+                    <i class="fas fa-comments text-blue-500 text-lg"></i>
+                    <span>عرض جميع التعليقات ({{ \App\Models\Testimonial::where('is_active', true)->count() }})</span>
+                    <i class="fas fa-arrow-left text-xs opacity-60"></i>
                 </a>
-                <p class="text-gray-600 mt-4 text-sm">
-                    <i class="fas fa-info-circle ml-1"></i>
-                    رأيك يساعدنا على التحسين ويساعد الآخرين في اتخاذ القرار
-                </p>
+                <a href="{{ route('testimonial.create') }}"
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-black py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-cyan-500/30 transform hover:-translate-y-0.5 transition-all duration-300 text-base relative overflow-hidden group">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-600 via-cyan-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    <i class="fas fa-star relative z-10 text-amber-300 text-lg"></i>
+                    <span class="relative z-10">شاركنا تجربتك - أضف تقييمك</span>
+                </a>
             </div>
+            <p class="text-center text-slate-500 mt-4 text-sm font-medium">
+                <i class="fas fa-shield-alt text-emerald-500 ml-1"></i>
+                رأيك يساعدنا على التحسين ويساعد الآخرين في اتخاذ القرار
+            </p>
 
             {{-- Trust Indicators --}}
             <div class="max-w-4xl mx-auto mt-16">
