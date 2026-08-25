@@ -68,6 +68,18 @@
                     </div>
                     @endif
                 </div>
+
+                {{-- Direct Live Project Link Button --}}
+                @if($project->url)
+                <div class="mt-8">
+                    <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white font-black py-4 px-8 rounded-2xl shadow-xl shadow-cyan-500/20 hover:shadow-2xl hover:shadow-cyan-500/40 hover:scale-105 transform transition-all duration-300">
+                        <i class="fas fa-external-link-alt text-lg"></i>
+                        <span>معاينة المشروع المباشرة</span>
+                        <i class="fas fa-arrow-left text-sm opacity-75"></i>
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
     </section>
@@ -169,6 +181,26 @@
                     {{-- Sidebar --}}
                     <div class="lg:col-span-1">
                         <div class="sticky top-8 space-y-6">
+                            {{-- Live Project Link Card --}}
+                            @if($project->url)
+                            <div class="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-6 border-2 border-cyan-200 shadow-lg">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
+                                        <i class="fas fa-globe text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-black text-gray-900">رابط المشروع</h3>
+                                        <p class="text-sm text-gray-600">زيارة المعاينة المباشرة</p>
+                                    </div>
+                                </div>
+                                <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer"
+                                   class="group flex items-center justify-center gap-3 w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3.5 px-6 rounded-xl hover:shadow-xl hover:shadow-cyan-500/30 transform hover:scale-105 transition-all duration-300">
+                                    <i class="fas fa-external-link-alt group-hover:rotate-12 transition-transform"></i>
+                                    <span>زيارة الموقع الإلكتروني</span>
+                                </a>
+                            </div>
+                            @endif
+
                             {{-- Project Types Card --}}
                             @if($project->types && $project->types->count() > 0)
                             <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">

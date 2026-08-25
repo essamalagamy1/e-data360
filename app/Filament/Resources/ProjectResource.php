@@ -64,6 +64,13 @@ class ProjectResource extends Resource
                 ->downloadable()
                 ->openable()
                 ->helperText('الحد الأقصى: 100 ميجابايت'),
+            Forms\Components\TextInput::make('url')
+                ->label('رابط المشروع المباشر (اختياري)')
+                ->url()
+                ->nullable()
+                ->placeholder('https://example.com')
+                ->maxLength(255)
+                ->helperText('رابط المعاينة المباشرة للمشروع (إن وجد)'),
             Forms\Components\Toggle::make('is_featured')
                 ->label('عرض في الصفحة الرئيسية؟'),
             Forms\Components\Select::make('types')

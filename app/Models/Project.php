@@ -16,6 +16,7 @@ class Project extends Model
         'description',
         'main_image',
         'video_url',
+        'url',
         'is_featured',
         'status',
         'is_available_for_purchase',
