@@ -196,14 +196,14 @@
         </div>
     </section>
 
-    {{-- Featured Projects (02 - مختارات من أعمالنا) --}}
+    {{-- Featured Projects (02 - مختارات من أعمالنا - Hero Showcase Cards) --}}
     <section class="relative py-28 md:py-36 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden border-y border-slate-800/60">
-        {{-- Futuristic Tech Grid & Ambient Glow Background --}}
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-60 pointer-events-none"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
+        {{-- Ambient Lighting & Futuristic Mesh Background --}}
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/25 via-transparent to-transparent opacity-70 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_65%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
         {{-- Glowing Orbs --}}
-        <div class="absolute top-1/3 -left-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div class="container mx-auto px-4 sm:px-6 relative z-10">
@@ -225,9 +225,9 @@
                     ما صنعناه <span class="relative inline-block bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
                         مؤخرًا.
                         <svg class="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 10C50 5 150 5 198 10" stroke="url(#gradient-proj-02)" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M2 10C50 5 150 5 198 10" stroke="url(#gradient-proj-02-hero)" stroke-width="4" stroke-linecap="round"/>
                             <defs>
-                                <linearGradient id="gradient-proj-02" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <linearGradient id="gradient-proj-02-hero" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1"/>
                                     <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1"/>
                                     <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1"/>
@@ -244,13 +244,13 @@
             </div>
 
             @if(isset($featuredProjects) && count($featuredProjects) > 0)
-                {{-- Projects Swiper Carousel Container --}}
+                {{-- Projects Hero Showcase Swiper Container --}}
                 <div class="relative max-w-7xl mx-auto">
                     <!-- Swiper Navigation Controls Header -->
                     <div class="flex items-center justify-between mb-8 px-2">
                         <div class="flex items-center gap-3">
                             <span class="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></span>
-                            <span class="text-xs md:text-sm font-semibold text-slate-400">معرض المشاريع البارزة ({{ count($featuredProjects) }})</span>
+                            <span class="text-xs md:text-sm font-semibold text-slate-300">أبرز الأعمال المنجزة ({{ count($featuredProjects) }})</span>
                         </div>
                         <div class="flex items-center gap-3 z-20">
                             <button type="button" class="projects-swiper-button-prev w-12 h-12 rounded-2xl bg-slate-800/90 border border-slate-700/80 text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 hover:border-transparent transition-all duration-300 flex items-center justify-center shadow-lg cursor-pointer group" aria-label="المشروع السابق">
@@ -267,63 +267,90 @@
                         <div class="swiper-wrapper pb-12">
                             @foreach($featuredProjects as $project)
                             <div class="swiper-slide h-auto">
-                                {{-- Futuristic Project Showcase Card --}}
-                                <div class="group relative bg-slate-900/90 backdrop-blur-xl border border-slate-800/90 hover:border-cyan-500/50 rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/15 flex flex-col justify-between h-full transform hover:-translate-y-2">
-                                    {{-- Image Viewport --}}
-                                    <div class="relative w-full aspect-[16/10] overflow-hidden bg-slate-950">
+                                {{-- Luxurious Hero Showcase Card --}}
+                                <div class="group relative bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-2xl border border-slate-800/90 hover:border-cyan-500/50 rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/15 flex flex-col justify-between h-full transform hover:-translate-y-2">
+                                    
+                                    {{-- Image Viewport Area --}}
+                                    <div class="relative w-full h-72 sm:h-80 overflow-hidden bg-slate-950">
                                         <img src="{{ Storage::url($project->main_image) }}"
                                              alt="{{ $project->title }}"
                                              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100">
                                         
-                                        {{-- Image Gradient Overlay --}}
-                                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                                        {{-- Image Dark Vignette Overlay --}}
+                                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-90 group-hover:opacity-75 transition-opacity"></div>
 
-                                        {{-- Project Types Badges --}}
-                                        @if($project->types && $project->types->count() > 0)
-                                        <div class="absolute top-4 right-4 flex flex-wrap gap-2 z-10">
-                                            @foreach($project->types as $type)
-                                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold text-white backdrop-blur-md shadow-lg border border-white/10"
-                                                  style="background-color: {{ $type->color }}cc;">
-                                                @if($type->icon)
-                                                <i class="{{ $type->icon }} ml-1.5 text-xs"></i>
-                                                @endif
-                                                {{ $type->name }}
+                                        {{-- Top Badges Row --}}
+                                        <div class="absolute top-4 right-4 left-4 flex items-center justify-between gap-2 z-10">
+                                            {{-- Project Types --}}
+                                            @if($project->types && $project->types->count() > 0)
+                                            <div class="flex flex-wrap gap-2">
+                                                @foreach($project->types as $type)
+                                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold text-white backdrop-blur-md shadow-lg border border-white/10"
+                                                      style="background-color: {{ $type->color }}cc;">
+                                                    @if($type->icon)
+                                                    <i class="{{ $type->icon }} ml-1.5 text-xs"></i>
+                                                    @endif
+                                                    {{ $type->name }}
+                                                </span>
+                                                @endforeach
+                                            </div>
+                                            @endif
+
+                                            {{-- Available for purchase badge --}}
+                                            @if($project->is_available_for_purchase)
+                                            <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-500/90 text-white backdrop-blur-md shadow-lg border border-emerald-400/30 mr-auto">
+                                                <i class="fas fa-shopping-bag text-xs"></i>
+                                                <span>متاح للشراء</span>
                                             </span>
-                                            @endforeach
+                                            @endif
                                         </div>
-                                        @endif
 
-                                        {{-- Hover View Action Button Overlay --}}
-                                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-slate-950/40 backdrop-blur-[2px]">
+                                        {{-- Hover Action Quick Button --}}
+                                        <div class="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-slate-950/50 backdrop-blur-[3px]">
                                             <a href="{{ route('projects.show', $project) }}"
-                                               class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3 px-6 rounded-2xl shadow-xl shadow-cyan-500/30 transform hover:scale-105 transition-transform">
-                                                <span>استكشف العمل</span>
-                                                <i class="fas fa-arrow-left text-sm"></i>
+                                               class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-xl shadow-cyan-500/30 transform hover:scale-105 transition-transform text-sm">
+                                                <i class="fas fa-eye text-sm"></i>
+                                                <span>عرض التفاصيل</span>
                                             </a>
+                                            @if($project->url)
+                                            <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer"
+                                               class="inline-flex items-center gap-2 bg-white/20 hover:bg-white text-white hover:text-slate-900 font-bold py-3.5 px-5 rounded-2xl backdrop-blur-md border border-white/30 transform hover:scale-105 transition-all text-sm">
+                                                <i class="fas fa-external-link-alt text-sm"></i>
+                                                <span>الموقع</span>
+                                            </a>
+                                            @endif
                                         </div>
                                     </div>
 
-                                    {{-- Card Content --}}
-                                    <div class="p-6 md:p-7 flex flex-col flex-grow justify-between relative z-10">
+                                    {{-- Card Content Body --}}
+                                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between relative z-10">
                                         <div>
-                                            <h3 class="text-xl md:text-2xl font-black text-white group-hover:text-cyan-400 transition-colors mb-3 line-clamp-1">
+                                            <h3 class="text-2xl sm:text-3xl font-black text-white group-hover:text-cyan-400 transition-colors mb-3 line-clamp-1">
                                                 {{ $project->title }}
                                             </h3>
                                             @if($project->short_description)
-                                            <p class="text-slate-400 text-sm md:text-base leading-relaxed line-clamp-2 mb-6">
+                                            <p class="text-slate-300 text-base leading-relaxed line-clamp-2 mb-6">
                                                 {{ $project->short_description }}
                                             </p>
                                             @endif
                                         </div>
 
-                                        {{-- Footer Link --}}
-                                        <div class="pt-5 border-t border-slate-800/80 flex items-center justify-between mt-auto">
+                                        {{-- Actions Footer Bar --}}
+                                        <div class="pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4 mt-auto">
                                             <a href="{{ route('projects.show', $project) }}"
-                                               class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-bold text-sm transition-colors group/link">
-                                                <span>تفاصيل المشروع</span>
-                                                <i class="fas fa-arrow-left text-xs transform group-hover/link:-translate-x-1.5 transition-transform"></i>
+                                               class="group/btn inline-flex items-center gap-2 bg-slate-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 text-white font-bold py-3 px-6 rounded-xl border border-slate-700/80 hover:border-transparent transition-all duration-300 text-sm">
+                                                <span>استكشف المشروع</span>
+                                                <i class="fas fa-arrow-left text-xs transform group-hover/btn:-translate-x-1.5 transition-transform"></i>
                                             </a>
-                                            <span class="text-xs text-slate-500 font-mono">ED-{{ $project->id }}</span>
+
+                                            {{-- Direct Project Website Button if URL exists --}}
+                                            @if($project->url)
+                                            <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer"
+                                               class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-bold text-sm bg-cyan-950/40 hover:bg-cyan-950/70 border border-cyan-500/30 px-4 py-3 rounded-xl transition-all duration-300">
+                                                <i class="fas fa-external-link-alt text-xs"></i>
+                                                <span>زيارة الموقع</span>
+                                            </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
