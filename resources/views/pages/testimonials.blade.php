@@ -62,14 +62,6 @@
                         </div>
                         <p class="text-xs text-slate-300 font-semibold">تقييمات 5 نجوم ممتاز</p>
                     </div>
-
-                    {{-- Verified Clients --}}
-                    <div class="text-center sm:text-right">
-                        <div class="text-4xl font-black text-purple-300 mb-1">
-                            {{ $stats['verified'] }}
-                        </div>
-                        <p class="text-xs text-slate-300 font-semibold">عميل موثق ومعتمد</p>
-                    </div>
                 </div>
             </div>
         </div>
