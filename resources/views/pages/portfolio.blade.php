@@ -6,13 +6,6 @@
         <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
-            {{-- @if($heroSection && $heroSection->badge_text)
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-cyan-500/30 text-cyan-400 text-xs sm:text-sm font-bold shadow-lg motion-reveal">
-                <i class="{{ $heroSection->badge_icon ?? 'fas fa-chart-line' }}"></i>
-                <span>{{ $heroSection->badge_text }}</span>
-            </div>
-            @endif --}}
-
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight motion-reveal">
                 {{ $heroSection->title_line1 ?? 'معرض نماذج ولوحات التحكم' }} <br>
                 <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-300 bg-clip-text text-transparent">
