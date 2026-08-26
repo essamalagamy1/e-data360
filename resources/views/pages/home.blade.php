@@ -358,11 +358,11 @@
             <div class="swiper projects-swiper !overflow-visible pb-12">
                 <div class="swiper-wrapper">
                     @foreach($featuredProjects as $project)
-                    <div class="swiper-slide">
-                        <div class="rounded-3xl bg-slate-950 border border-slate-800 hover:border-cyan-500/40 transition-all overflow-hidden flex flex-col justify-between group shadow-xl">
+                    <div class="swiper-slide h-auto flex flex-col">
+                        <div class="h-full rounded-3xl bg-slate-950 border border-slate-800 hover:border-cyan-500/40 transition-all overflow-hidden flex flex-col justify-between group shadow-xl">
                             
                             {{-- Image Preview Area --}}
-                            <div class="relative h-60 w-full overflow-hidden bg-slate-900">
+                            <div class="relative h-56 sm:h-60 w-full overflow-hidden bg-slate-900 flex-shrink-0">
                                 @php
                                     $pImg = $project->main_image ?? $project->featured_image;
                                     $pImgUrl = $pImg ? Storage::url($pImg) : null;
@@ -387,15 +387,17 @@
                             </div>
 
                             {{-- Project Meta --}}
-                            <div class="p-6 space-y-4">
-                                <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
-                                    {{ $project->title }}
-                                </h3>
-                                <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 leading-relaxed">
-                                    {{ $project->short_description ?? $project->description }}
-                                </p>
+                            <div class="p-6 flex flex-col justify-between flex-grow">
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-400 transition-colors line-clamp-1 h-7 flex items-center">
+                                        {{ $project->title }}
+                                    </h3>
+                                    <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 h-10 sm:h-11 leading-relaxed mt-2">
+                                        {{ $project->short_description ?? Str::limit(strip_tags($project->description), 110) }}
+                                    </p>
+                                </div>
 
-                                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                                <div class="mt-4 pt-4 border-t border-slate-800/80 flex items-center justify-between">
                                     <a href="{{ route('projects.show', $project->slug) }}"
                                        class="text-xs sm:text-sm font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition-colors">
                                         <span>تفاصيل المشروع والنتائج</span>
@@ -447,8 +449,8 @@
             <div class="swiper testimonials-swiper !overflow-visible pb-12">
                 <div class="swiper-wrapper">
                     @foreach($testimonials as $testi)
-                    <div class="swiper-slide">
-                        <div class="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/30 transition-all flex flex-col justify-between shadow-xl">
+                    <div class="swiper-slide h-auto flex flex-col">
+                        <div class="h-full p-7 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/30 transition-all flex flex-col justify-between shadow-xl min-h-[260px]">
                             <div class="space-y-4">
                                 {{-- Stars --}}
                                 <div class="flex items-center gap-1 text-amber-400 text-sm">
@@ -457,20 +459,20 @@
                                     @endfor
                                 </div>
 
-                                {{-- Quote --}}
-                                <p class="text-sm sm:text-base text-slate-300 leading-relaxed italic">
-                                    "{{ $testi->testimonial ?? $testi->content }}"
+                                {{-- Quote with fixed clamped height --}}
+                                <p class="text-sm sm:text-base text-slate-300 leading-relaxed italic line-clamp-3 h-[4.5rem] sm:h-20 overflow-hidden">
+                                    "{{ Str::limit($testi->testimonial ?? $testi->content, 140) }}"
                                 </p>
                             </div>
 
                             {{-- Client Info --}}
-                            <div class="pt-6 border-t border-slate-800/80 flex items-center gap-3 mt-6">
-                                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-md">
+                            <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-md flex-shrink-0">
                                     {{ mb_substr($testi->client_name ?? 'ع', 0, 1) }}
                                 </div>
-                                <div>
-                                    <div class="text-sm font-bold text-white">{{ $testi->client_name }}</div>
-                                    <div class="text-xs text-slate-400">
+                                <div class="min-w-0">
+                                    <div class="text-sm font-bold text-white truncate">{{ $testi->client_name }}</div>
+                                    <div class="text-xs text-slate-400 truncate">
                                         {{ $testi->client_position ? $testi->client_position . ($testi->client_company ? ' - ' . $testi->client_company : '') : ($testi->client_company ?? $testi->company_name) }}
                                     </div>
                                 </div>
