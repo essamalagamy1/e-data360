@@ -157,16 +157,33 @@
                     <div class="flex items-center gap-2">
                         @if(isset($socialLinks) && count($socialLinks) > 0)
                             @foreach($socialLinks as $link)
+                                @php
+                                    $p = strtolower($link->platform ?? '');
+                                    $iconClass = match(true) {
+                                        str_contains($p, 'twitter') || str_contains($p, 'x') => 'fa-brands fa-x-twitter',
+                                        str_contains($p, 'linkedin') => 'fa-brands fa-linkedin-in',
+                                        str_contains($p, 'instagram') => 'fa-brands fa-instagram',
+                                        str_contains($p, 'facebook') => 'fa-brands fa-facebook-f',
+                                        str_contains($p, 'youtube') => 'fa-brands fa-youtube',
+                                        str_contains($p, 'whatsapp') => 'fa-brands fa-whatsapp',
+                                        str_contains($p, 'behance') => 'fa-brands fa-behance',
+                                        str_contains($p, 'github') => 'fa-brands fa-github',
+                                        str_contains($p, 'tiktok') => 'fa-brands fa-tiktok',
+                                        default => $link->icon ?? 'fa-solid fa-share-nodes',
+                                    };
+                                @endphp
                                 <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer"
-                                   class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all duration-300">
-                                    <i class="{{ $link->icon }}"></i>
+                                   title="{{ $link->platform }}"
+                                   aria-label="{{ $link->platform }}"
+                                   class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-sm transition-all duration-300 hover:scale-110 shadow-sm">
+                                    <i class="{{ $iconClass }}"></i>
                                 </a>
                             @endforeach
                         @else
-                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-x-twitter"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-youtube"></i></a>
+                            <a href="#" aria-label="X Twitter" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-sm transition-all"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-sm transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-sm transition-all"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" aria-label="YouTube" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-sm transition-all"><i class="fa-brands fa-youtube"></i></a>
                         @endif
                     </div>
                 </div>
