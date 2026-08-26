@@ -63,6 +63,13 @@ class TestimonialController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->filled('content') && !$request->filled('testimonial')) {
+            $request->merge(['testimonial' => $request->input('content')]);
+        }
+        if ($request->filled('company_name') && !$request->filled('client_company')) {
+            $request->merge(['client_company' => $request->input('company_name')]);
+        }
+
         $validated = $request->validate([
             'client_name' => 'required|string|max:255',
             'client_position' => 'nullable|string|max:255',

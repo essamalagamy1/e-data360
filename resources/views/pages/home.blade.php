@@ -3,7 +3,7 @@
     {{-- =========================================================================
          1. HERO SECTION - فخامة داكنة وتفاعل حي مع محاكاة لوحة البيانات
          ========================================================================= --}}
-    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-8 pb-20 overflow-hidden">
+    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-10 sm:pt-14 pb-20 overflow-hidden">
         {{-- Ambient Mesh Glow --}}
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-blue-600/20 via-cyan-500/20 to-indigo-600/15 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="absolute -top-24 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -15,7 +15,7 @@
             <div class="text-center max-w-4xl mx-auto space-y-6">
                 
                 {{-- Live Badge --}}
-                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 backdrop-blur-md shadow-lg shadow-cyan-500/10 motion-reveal">
+                {{-- <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 backdrop-blur-md shadow-lg shadow-cyan-500/10 motion-reveal">
                     <span class="beacon-dot w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
                     <span class="text-xs sm:text-sm font-bold text-cyan-300">
                         {{ $heroSection->badge_text ?? 'الحل الأسرع والأكثر دقة في تحليل البيانات ولوحات التحكم' }}
@@ -25,7 +25,7 @@
                     @else
                         <i class="fas fa-sparkles text-cyan-400 text-xs"></i>
                     @endif
-                </div>
+                </div> --}}
 
                 {{-- Hero Headline --}}
                 <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] text-slate-100 motion-reveal">
@@ -467,7 +467,7 @@
 
                                 {{-- Quote --}}
                                 <p class="text-sm sm:text-base text-slate-300 leading-relaxed italic">
-                                    "{{ $testi->content }}"
+                                    "{{ $testi->testimonial ?? $testi->content }}"
                                 </p>
                             </div>
 
@@ -478,7 +478,9 @@
                                 </div>
                                 <div>
                                     <div class="text-sm font-bold text-white">{{ $testi->client_name }}</div>
-                                    <div class="text-xs text-slate-400">{{ $testi->client_position ?? $testi->company_name }}</div>
+                                    <div class="text-xs text-slate-400">
+                                        {{ $testi->client_position ? $testi->client_position . ($testi->client_company ? ' - ' . $testi->client_company : '') : ($testi->client_company ?? $testi->company_name) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

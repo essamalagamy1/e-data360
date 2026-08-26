@@ -1,7 +1,7 @@
 <x-layouts.app>
     
     {{-- Hero Section --}}
-    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-12 pb-16 overflow-hidden">
+    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-10 sm:pt-14 pb-16 overflow-hidden">
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none"></div>
 
@@ -76,7 +76,7 @@
                             </div>
 
                             <p class="text-sm sm:text-base text-slate-300 leading-relaxed italic">
-                                "{{ $testi->content }}"
+                                "{{ $testi->testimonial ?? $testi->content }}"
                             </p>
                         </div>
 
@@ -86,7 +86,9 @@
                             </div>
                             <div>
                                 <div class="text-sm font-bold text-white">{{ $testi->client_name }}</div>
-                                <div class="text-xs text-slate-400">{{ $testi->client_position ?? $testi->company_name }}</div>
+                                <div class="text-xs text-slate-400">
+                                    {{ $testi->client_position ? $testi->client_position . ($testi->client_company ? ' - ' . $testi->client_company : '') : ($testi->client_company ?? $testi->company_name) }}
+                                </div>
                             </div>
                         </div>
                     </div>

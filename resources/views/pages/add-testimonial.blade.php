@@ -1,7 +1,7 @@
 <x-layouts.app>
     
     {{-- Hero Section --}}
-    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-12 pb-16 overflow-hidden">
+    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-10 sm:pt-14 pb-16 overflow-hidden">
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none"></div>
 
@@ -64,10 +64,10 @@
                         </div>
 
                         <div>
-                            <label for="company_name" class="block text-xs font-bold text-slate-300 mb-2">
+                            <label for="client_company" class="block text-xs font-bold text-slate-300 mb-2">
                                 اسم الشركة أو النشاط
                             </label>
-                            <input type="text" id="company_name" name="company_name" value="{{ old('company_name') }}"
+                            <input type="text" id="client_company" name="client_company" value="{{ old('client_company', old('company_name')) }}"
                                    class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none transition-colors text-sm"
                                    placeholder="اسم شركتك">
                         </div>
@@ -90,13 +90,13 @@
                     </div>
 
                     <div>
-                        <label for="content" class="block text-xs font-bold text-slate-300 mb-2">
+                        <label for="testimonial" class="block text-xs font-bold text-slate-300 mb-2">
                             رأيك وتجربتك بالتفصيل <span class="text-rose-400">*</span>
                         </label>
-                        <textarea id="content" name="content" rows="5" required
+                        <textarea id="testimonial" name="testimonial" rows="5" required
                                   class="w-full p-4 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none transition-colors text-sm leading-relaxed"
-                                  placeholder="كيف ساعدتك لوحات التحكم؟ ما رأيك في سرعة ودقة العمل وتواصل الفريق؟">{{ old('content') }}</textarea>
-                        @error('content')
+                                  placeholder="كيف ساعدتك لوحات التحكم؟ ما رأيك في سرعة ودقة العمل وتواصل الفريق؟">{{ old('testimonial', old('content')) }}</textarea>
+                        @error('testimonial')
                             <p class="text-rose-400 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>

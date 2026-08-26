@@ -41,8 +41,8 @@
 /* Base Body Styles */
 body {
     font-family: var(--font-sans);
-    color: #1E293B;
-    background-color: #F8FAFC;
+    color: #F1F5F9;
+    background-color: #071520;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -50,13 +50,13 @@ body {
 
 /* Selection Color */
 ::selection {
-    background: rgba(6, 182, 212, 0.25);
-    color: #0F172A;
+    background: rgba(6, 182, 212, 0.35);
+    color: #FFFFFF;
 }
 
 ::-moz-selection {
-    background: rgba(6, 182, 212, 0.25);
-    color: #0F172A;
+    background: rgba(6, 182, 212, 0.35);
+    color: #FFFFFF;
 }
 
 /* Custom Scrollbar */

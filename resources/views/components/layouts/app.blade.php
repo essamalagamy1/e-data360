@@ -129,7 +129,7 @@
     </script>
     <script async src="https://analytics.nafezly.com/js/analytics.js"></script>
 </head>
-<body class="font-sans antialiased text-slate-900 bg-slate-50 selection:bg-cyan-500/20 selection:text-cyan-900 flex flex-col min-h-screen" dir="rtl">
+<body class="font-sans antialiased text-slate-100 bg-[#071520] selection:bg-cyan-500/30 selection:text-white flex flex-col min-h-screen" dir="rtl">
     
     <!-- Top Navigation Bar -->
     <x-navbar :companySettings="$companySettings" />
