@@ -17,4 +17,14 @@ require __DIR__.'/../vendor/autoload.php';
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+if (isset($_GET['probe'])) {
+    header('Content-Type: application/json');
+    echo json_encode([
+        'time_before_handle_ms' => round((microtime(true) - LARAVEL_START) * 1000, 2),
+        'php_sapi' => PHP_SAPI,
+        'php_version' => PHP_VERSION,
+    ]);
+    exit;
+}
+
 $app->handleRequest(Request::capture());
