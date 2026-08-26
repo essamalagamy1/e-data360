@@ -88,6 +88,23 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- وثيقة العمل الحر المعتمدة --}}
+                <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 transition-all flex items-center justify-between gap-3 max-w-xs">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <img src="{{ asset('download.png') }}" alt="وثيقة العمل الحر" class="h-full w-auto object-contain">
+                        </div>
+                        <div>
+                            <span class="block text-[11px] text-slate-400 font-medium">وثيقة العمل الحر المعتمدة</span>
+                            <span class="block text-xs font-bold text-slate-200 font-num" dir="ltr">FL-9832*****</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1 text-emerald-400 text-[10px] font-bold bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20 flex-shrink-0">
+                        <i class="fas fa-certificate text-xs"></i>
+                        <span>موثق</span>
+                    </div>
+                </div>
             </div>
 
             {{-- Col 2: Quick Links (2 cols) --}}
