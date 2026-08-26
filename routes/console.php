@@ -12,6 +12,13 @@ Schedule::job(new FetchAnalyticsData)
     ->name('fetch-analytics-data')
     ->onOneServer();
 
+// Schedule Laravel Pulse Server Check
+Schedule::command('pulse:check')
+    ->everyMinute()
+    ->withoutOverlapping()
+    ->name('pulse-check')
+    ->onOneServer();
+
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');

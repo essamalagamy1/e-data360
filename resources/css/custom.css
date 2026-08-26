@@ -1,184 +1,159 @@
-/* EDATA 360 - Custom Styles */
+/* ==========================================================================
+   E-DATA360 Custom High-End Styling
+   ========================================================================== */
 
-/* Root Variables */
-:root {
-    --color-primary: #092635;
-    --color-secondary: #eb9a28;
-    --color-accent: #09d257;
-    --color-primary-light: #0a3d52;
-    --color-secondary-light: #f5b454;
-    --color-accent-light: #33ef87;
+/* Typography Helpers */
+.font-arabic-heading {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    font-weight: 800;
 }
 
-/* Custom Gradient Backgrounds */
-.bg-gradient-primary-dark {
-    background: linear-gradient(135deg, #092635 0%, #041419 100%);
+.font-num {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-.bg-gradient-primary-light {
-    background: linear-gradient(135deg, #0a3d52 0%, #092635 100%);
+/* Gradient Backgrounds */
+.bg-gradient-brand-dark {
+    background: radial-gradient(circle at 50% 0%, #0F2338 0%, #0A192F 60%, #071520 100%);
 }
 
-.bg-gradient-secondary-warm {
-    background: linear-gradient(135deg, #eb9a28 0%, #d68820 100%);
+.bg-gradient-hero-dark {
+    background: linear-gradient(135deg, #071520 0%, #0A192F 45%, #0B2545 100%);
 }
 
-.bg-gradient-accent-fresh {
-    background: linear-gradient(135deg, #09d257 0%, #07a846 100%);
+.bg-gradient-brand-light {
+    background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
 }
 
-.bg-gradient-hero-main {
-    background: linear-gradient(135deg, #092635 0%, #0a3d52 40%, #09d257 100%);
-}
-
-.bg-gradient-hero-alt {
-    background: linear-gradient(135deg, #092635 0%, #eb9a28 50%, #09d257 100%);
+.bg-gradient-card-hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(37, 99, 235, 0.04) 100%);
 }
 
 /* Text Gradients */
-.text-gradient-primary {
-    background: linear-gradient(135deg, #092635 0%, #0a3d52 100%);
+.text-gradient-cyan {
+    background: linear-gradient(135deg, #38BDF8 0%, #06B6D4 50%, #22D3EE 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
-.text-gradient-secondary {
-    background: linear-gradient(135deg, #eb9a28 0%, #f5b454 100%);
+.text-gradient-gold {
+    background: linear-gradient(135deg, #FDE047 0%, #F59E0B 50%, #D97706 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
-.text-gradient-accent {
-    background: linear-gradient(135deg, #09d257 0%, #33ef87 100%);
+.text-gradient-emerald {
+    background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #059669 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
-.text-gradient-hero {
-    background: linear-gradient(135deg, #eb9a28 0%, #09d257 100%);
+.text-gradient-silver {
+    background: linear-gradient(180deg, #FFFFFF 0%, #CBD5E1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
-/* Glassmorphism Effects */
-.glass-primary {
-    background: rgba(9, 38, 53, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+/* Glowing Elements */
+.glow-cyan {
+    box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.4);
 }
 
-.glass-secondary {
-    background: rgba(235, 154, 40, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(235, 154, 40, 0.2);
+.glow-amber {
+    box-shadow: 0 0 35px -5px rgba(217, 119, 6, 0.4);
 }
 
-.glass-accent {
-    background: rgba(9, 210, 87, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(9, 210, 87, 0.2);
+.glow-emerald {
+    box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.4);
 }
 
-/* Custom Shadows */
-.shadow-primary {
-    box-shadow: 0 10px 40px rgba(9, 38, 53, 0.3);
+/* Animated Border Glow */
+.border-glow-card {
+    position: relative;
+    border-radius: 1.25rem;
 }
 
-.shadow-secondary {
-    box-shadow: 0 10px 40px rgba(235, 154, 40, 0.3);
+.border-glow-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 1.3rem;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), transparent 60%, rgba(37, 99, 235, 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
 }
 
-.shadow-accent {
-    box-shadow: 0 10px 40px rgba(9, 210, 87, 0.3);
+/* Micro-Interactions */
+.hover-scale-subtle {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
 }
 
-.shadow-glow-primary {
-    box-shadow: 0 0 30px rgba(9, 38, 53, 0.5);
+.hover-scale-subtle:hover {
+    transform: translateY(-3px) scale(1.01);
 }
 
-.shadow-glow-secondary {
-    box-shadow: 0 0 30px rgba(235, 154, 40, 0.5);
+/* Testimonial & Project Swiper Styles */
+.swiper-button-next, .swiper-button-prev {
+    background: rgba(15, 35, 56, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 9999px !important;
+    color: #38BDF8 !important;
+    transition: all 0.2s ease !important;
 }
 
-.shadow-glow-accent {
-    box-shadow: 0 0 30px rgba(9, 210, 87, 0.5);
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    background: #06B6D4 !important;
+    color: #071520 !important;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5) !important;
 }
 
-/* Hover Effects */
-.hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 15px !important;
+    font-weight: 900 !important;
 }
 
-.hover-lift:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+.swiper-pagination-bullet {
+    background: #94A3B8 !important;
+    opacity: 0.4 !important;
+    width: 8px !important;
+    height: 8px !important;
+    transition: all 0.3s ease !important;
 }
 
-.hover-glow-secondary:hover {
-    box-shadow: 0 0 40px rgba(235, 154, 40, 0.6);
+.swiper-pagination-bullet-active {
+    width: 24px !important;
+    border-radius: 9999px !important;
+    background: #06B6D4 !important;
+    opacity: 1 !important;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.6) !important;
 }
 
-.hover-glow-accent:hover {
-    box-shadow: 0 0 40px rgba(9, 210, 87, 0.6);
+/* Pulse Beacon */
+.beacon-dot {
+    position: relative;
+    display: inline-flex;
 }
 
-/* Animated Backgrounds */
-.animated-gradient {
-    background: linear-gradient(135deg, #092635, #eb9a28, #09d257, #092635);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+.beacon-dot::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    animation: beaconPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
+@keyframes beaconPing {
+    75%, 100% {
+        transform: scale(2.4);
+        opacity: 0;
     }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Custom Borders */
-.border-gradient-primary {
-    border-image: linear-gradient(135deg, #092635, #0a3d52) 1;
-}
-
-.border-gradient-secondary {
-    border-image: linear-gradient(135deg, #eb9a28, #f5b454) 1;
-}
-
-.border-gradient-accent {
-    border-image: linear-gradient(135deg, #09d257, #33ef87) 1;
-}
-
-/* Utility Classes */
-.rtl-support {
-    direction: rtl;
-    text-align: right;
-}
-
-/* Smooth Scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Selection Color */
-::selection {
-    background-color: #eb9a28;
-    color: white;
-}
-
-::-moz-selection {
-    background-color: #eb9a28;
-    color: white;
 }

@@ -1,187 +1,117 @@
 <x-layouts.app>
+    
     {{-- Hero Section --}}
-    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 pt-32 pb-20 overflow-hidden">
-        {{-- Grid Pattern Background --}}
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-12 pb-16 overflow-hidden">
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none"></div>
 
-        {{-- Animated Gradient Orbs --}}
-        <div class="absolute inset-0 opacity-30">
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-        </div>
-
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center text-white max-w-4xl mx-auto">
-                <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full px-6 py-2 mb-8">
-                    <i class="fas fa-star text-yellow-400"></i>
-                    <span class="text-sm font-medium text-cyan-300">شاركنا رأيك</span>
-                </div>
-
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-                    <span class="block mb-4 bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent">
-                        أضف تقييمك
-                    </span>
-                    <span class="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                        عن خدماتنا
-                    </span>
-                </h1>
-
-                <p class="text-xl md:text-2xl text-gray-300 leading-relaxed">
-                    رأيك يهمنا! شاركنا تجربتك مع EDATA 360 وساعد الآخرين في اتخاذ القرار الصحيح
-                </p>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-5">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-amber-500/30 text-amber-400 text-xs sm:text-sm font-bold shadow-lg motion-reveal">
+                <i class="fas fa-star text-amber-400"></i>
+                <span>رأيك محل تقديرنا وفخرنا</span>
             </div>
+
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight motion-reveal">
+                أضف تقييمك وتجربتك مع <span class="bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-400 bg-clip-text text-transparent">E-DATA 360</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed motion-reveal">
+                يسعدنا مشاركة انطباعك حول دقة لوحات التحكم وسرعة التنفيذ لمساعدة رواد الأعمال الآخرين.
+            </p>
         </div>
     </section>
 
     {{-- Form Section --}}
-    <section class="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 relative overflow-hidden">
-        {{-- Decorative Elements --}}
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-40">
-            <div class="absolute -top-40 -left-40 w-80 h-80 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full blur-3xl"></div>
-            <div class="absolute -bottom-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-3xl"></div>
-        </div>
-
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-3xl mx-auto">
-                {{-- Success Message --}}
-                @if(session('success'))
-                <div class="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 rounded-2xl p-6 animate-fade-in">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-check text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-black text-green-900 mb-1">تم الإرسال بنجاح!</h3>
-                            <p class="text-green-700">{{ session('success') }}</p>
-                        </div>
+    <section class="py-16 bg-slate-900">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            @if(session('success'))
+                <div class="p-6 rounded-3xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 mb-10 flex items-start gap-4 shadow-xl">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-xl text-emerald-400">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-1">شكراً لتقييمك الكريم! 🎉</h4>
+                        <p class="text-sm text-emerald-200">{{ session('success') }}</p>
                     </div>
                 </div>
-                @endif
+            @endif
 
-                {{-- Form Card --}}
-                <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
-                    <form action="{{ route('testimonial.store') }}" method="POST" class="space-y-6">
-                        @csrf
+            <div class="p-8 sm:p-12 rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl">
+                <form action="{{ route('testimonial.store') }}" method="POST" class="space-y-6">
+                    @csrf
 
-                        {{-- Name Field --}}
+                    <div>
+                        <label for="client_name" class="block text-xs font-bold text-slate-300 mb-2">
+                            الاسم الكريم <span class="text-rose-400">*</span>
+                        </label>
+                        <input type="text" id="client_name" name="client_name" value="{{ old('client_name') }}" required
+                               class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none transition-colors text-sm"
+                               placeholder="أدخل اسمك الكريم">
+                        @error('client_name')
+                            <p class="text-rose-400 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <label for="client_name" class="block text-gray-900 font-bold mb-2 text-lg">
-                                <i class="fas fa-user text-blue-600 ml-2"></i>
-                                الاسم الكامل <span class="text-red-500">*</span>
+                            <label for="client_position" class="block text-xs font-bold text-slate-300 mb-2">
+                                المسمى الوظيفي
                             </label>
-                            <input type="text" 
-                                   id="client_name" 
-                                   name="client_name" 
-                                   value="{{ old('client_name') }}"
-                                   class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-lg"
-                                   placeholder="أدخل اسمك الكامل"
-                                   required>
-                            @error('client_name')
-                            <p class="text-red-500 text-sm mt-2"><i class="fas fa-exclamation-circle ml-1"></i>{{ $message }}</p>
-                            @enderror
+                            <input type="text" id="client_position" name="client_position" value="{{ old('client_position') }}"
+                                   class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none transition-colors text-sm"
+                                   placeholder="مثال: المدير التنفيذي / مدير العمليات">
                         </div>
 
-                        {{-- Position Field --}}
                         <div>
-                            <label for="client_position" class="block text-gray-900 font-bold mb-2 text-lg">
-                                <i class="fas fa-briefcase text-blue-600 ml-2"></i>
-                                المنصب الوظيفي <span class="text-red-500">*</span>
+                            <label for="company_name" class="block text-xs font-bold text-slate-300 mb-2">
+                                اسم الشركة أو النشاط
                             </label>
-                            <input type="text" 
-                                   id="client_position" 
-                                   name="client_position" 
-                                   value="{{ old('client_position') }}"
-                                   class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-lg"
-                                   placeholder="مثال: مدير تقنية المعلومات"
-                                   >
-                            @error('client_position')
-                            <p class="text-red-500 text-sm mt-2"><i class="fas fa-exclamation-circle ml-1"></i>{{ $message }}</p>
-                            @enderror
+                            <input type="text" id="company_name" name="company_name" value="{{ old('company_name') }}"
+                                   class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none transition-colors text-sm"
+                                   placeholder="اسم شركتك">
                         </div>
+                    </div>
 
-                        {{-- Company Field --}}
-                        <div>
-                            <label for="client_company" class="block text-gray-900 font-bold mb-2 text-lg">
-                                <i class="fas fa-building text-blue-600 ml-2"></i>
-                                اسم الشركة <span class="text-gray-400 text-sm">(اختياري)</span>
+                    {{-- Rating Stars Selector --}}
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-2">
+                            درجة التقييم <span class="text-rose-400">*</span>
+                        </label>
+                        <div class="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">
+                            @for($i = 5; $i >= 1; $i--)
+                            <label class="flex items-center gap-1.5 cursor-pointer text-sm text-slate-300 hover:text-amber-400 transition-colors">
+                                <input type="radio" name="rating" value="{{ $i }}" {{ old('rating', 5) == $i ? 'checked' : '' }} class="text-amber-500 focus:ring-amber-500 bg-slate-800 border-slate-700">
+                                <span>{{ $i }}</span>
+                                <i class="fas fa-star text-amber-400 text-xs"></i>
                             </label>
-                            <input type="text" 
-                                   id="client_company" 
-                                   name="client_company" 
-                                   value="{{ old('client_company') }}"
-                                   class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-lg"
-                                   placeholder="أدخل اسم شركتك">
-                            @error('client_company')
-                            <p class="text-red-500 text-sm mt-2"><i class="fas fa-exclamation-circle ml-1"></i>{{ $message }}</p>
-                            @enderror
+                            @endfor
                         </div>
+                    </div>
 
-                        {{-- Rating Field --}}
-                        <div>
-                            <label class="block text-gray-900 font-bold mb-3 text-lg">
-                                <i class="fas fa-star text-yellow-400 ml-2"></i>
-                                التقييم <span class="text-red-500">*</span>
-                            </label>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                                @for($i = 5; $i >= 1; $i--)
-                                <label class="cursor-pointer group">
-                                    <input type="radio" name="rating" value="{{ $i }}" class="hidden peer" {{ old('rating') == $i ? 'checked' : '' }} required>
-                                    <div class="flex items-center justify-center gap-1 px-3 py-3 border-2 border-gray-200 rounded-xl peer-checked:border-yellow-400 peer-checked:bg-yellow-50 transition-all hover:border-yellow-300">
-                                        @for($j = 1; $j <= $i; $j++)
-                                        <i class="fas fa-star text-yellow-400 text-base sm:text-lg"></i>
-                                        @endfor
-                                    </div>
-                                </label>
-                                @endfor
-                            </div>
-                            @error('rating')
-                            <p class="text-red-500 text-sm mt-2"><i class="fas fa-exclamation-circle ml-1"></i>{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div>
+                        <label for="content" class="block text-xs font-bold text-slate-300 mb-2">
+                            رأيك وتجربتك بالتفصيل <span class="text-rose-400">*</span>
+                        </label>
+                        <textarea id="content" name="content" rows="5" required
+                                  class="w-full p-4 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none transition-colors text-sm leading-relaxed"
+                                  placeholder="كيف ساعدتك لوحات التحكم؟ ما رأيك في سرعة ودقة العمل وتواصل الفريق؟">{{ old('content') }}</textarea>
+                        @error('content')
+                            <p class="text-rose-400 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                        {{-- Testimonial Field --}}
-                        <div>
-                            <label for="testimonial" class="block text-gray-900 font-bold mb-2 text-lg">
-                                <i class="fas fa-comment-dots text-blue-600 ml-2"></i>
-                                تقييمك <span class="text-red-500">*</span>
-                            </label>
-                            <textarea id="testimonial" 
-                                      name="testimonial" 
-                                      rows="6"
-                                      class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-lg resize-none"
-                                      placeholder="شاركنا تجربتك مع خدماتنا... ما الذي أعجبك؟ كيف ساعدناك؟"
-                                      required>{{ old('testimonial') }}</textarea>
-                            <p class="text-gray-500 text-sm mt-2">الحد الأدنى 10 أحرف</p>
-                            @error('testimonial')
-                            <p class="text-red-500 text-sm mt-2"><i class="fas fa-exclamation-circle ml-1"></i>{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        {{-- Submit Button --}}
-                        <div class="pt-4">
-                            <button type="submit" 
-                                    class="w-full bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-black py-5 px-8 rounded-2xl hover:shadow-2xl hover:shadow-cyan-500/50 transform hover:scale-105 transition-all duration-300 text-xl">
-                                <i class="fas fa-paper-plane ml-2"></i>
-                                إرسال التقييم
-                            </button>
-                        </div>
-
-                        <p class="text-center text-gray-500 text-sm">
-                            <i class="fas fa-info-circle ml-1"></i>
-                            سيتم مراجعة تقييمك قبل نشره على الموقع
-                        </p>
-                    </form>
-                </div>
-
-                {{-- Back Button --}}
-                <div class="text-center mt-8">
-                    <a href="{{ route('home') }}" 
-                       class="inline-flex items-center gap-2 text-blue-600 hover:text-cyan-500 font-bold transition-colors">
-                        <i class="fas fa-arrow-right"></i>
-                        العودة للصفحة الرئيسية
-                    </a>
-                </div>
+                    <div class="pt-4">
+                        <button type="submit"
+                                class="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-black text-sm shadow-xl shadow-amber-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-check-circle text-xs"></i>
+                            <span>نشر التقييم ومشاركته</span>
+                        </button>
+                    </div>
+                </form>
             </div>
+
         </div>
     </section>
+
 </x-layouts.app>

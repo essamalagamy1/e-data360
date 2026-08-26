@@ -1,374 +1,190 @@
-@props(['companySettings', 'socialLinks'])
+@props(['companySettings' => null, 'socialLinks' => null])
 
-<footer class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 text-white overflow-hidden">
-    {{-- Decorative Top Border with Animation --}}
-    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 animate-pulse"></div>
+@php
+    $companySettings = $companySettings ?? \App\Models\CompanySetting::first();
+    $socialLinks = $socialLinks ?? \App\Models\SocialLink::where('is_active', true)->get();
+    $footerServices = \App\Models\Service::where('is_active', true)->orderBy('order')->take(5)->get();
+    $rawWhatsapp = $companySettings->whatsapp_number ?? '+966501234567';
+    $cleanWhatsapp = preg_replace('/[^0-9]/', '', $rawWhatsapp);
+@endphp
 
-    {{-- Background Pattern --}}
-    <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(-45deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-    </div>
+<footer class="relative bg-slate-950 text-white overflow-hidden border-t border-slate-800/80">
+    {{-- Ambient Glow Orbs --}}
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    
+    {{-- Subtle Grid Background --}}
+    <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-    {{-- Floating Gradient Orbs --}}
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 relative z-10">
+        
+        {{-- Top Value CTA Bar --}}
+        <div class="mb-14 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-blue-950/70 border border-slate-800 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-2 text-center md:text-right">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    جاهزون لتحويل بياناتك إلى أرباح وقرارات دقيقة
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-black text-white">هل ترغب في لوحة تحكم تفاعلية مخصصة لعملك؟</h3>
+                <p class="text-sm text-slate-400 max-w-2xl">فريقنا من خبراء Power BI و Excel والتحليلات المتقدمة جاهز لتسليم مشروعك في 3-5 أيام عمل.</p>
+            </div>
+            <div class="flex-shrink-0 flex flex-wrap items-center gap-3">
+                <a href="{{ route('request-design.create') }}"
+                   class="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black text-sm shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-105 transition-all">
+                    طلب لوحة تحكم 🚀
+                </a>
+                <a href="https://wa.me/{{ $cleanWhatsapp }}"
+                   target="_blank"
+                   class="px-6 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-sm hover:scale-105 transition-all flex items-center gap-2">
+                    <i class="fab fa-whatsapp text-emerald-400 text-base"></i>
+                    <span>محادثة فورية</span>
+                </a>
+            </div>
+        </div>
 
-    <div class="container mx-auto px-6 py-20 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            {{-- Company Info --}}
-            <div class="space-y-6">
-                <div class="flex items-center mb-6">
-                    @if(isset($companySettings) && $companySettings->logo_2_path)
-                        <img class="h-14 hover:scale-110 transition-transform duration-300"
-                             src="{{ Storage::url($companySettings->logo_2_path) }}"
-                             alt="{{ $companySettings->company_name ?? 'E-DATA 360' }}">
-                    @elseif(isset($companySettings) && $companySettings->logo_path)
-                        <img class="h-14 hover:scale-110 transition-transform duration-300"
+        {{-- Main Footer Columns --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-slate-800/80">
+            
+            {{-- Col 1: Brand & About (4 cols) --}}
+            <div class="lg:col-span-4 space-y-6">
+                <div class="flex items-center gap-3">
+                    @if(isset($companySettings) && $companySettings->logo_path)
+                        <img class="h-10 w-auto object-contain"
                              src="{{ Storage::url($companySettings->logo_path) }}"
-                             alt="{{ $companySettings->company_name ?? 'EDATA 360' }}">
+                             alt="{{ $companySettings->company_name ?? 'E-DATA 360' }}">
                     @else
-                        <div class="flex items-center gap-2">
-                            <div class="relative">
-                                <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg blur-lg opacity-75"></div>
-                                <div class="relative bg-gradient-to-r from-cyan-500 to-blue-500 p-2 rounded-lg">
-                                    <i class="fas fa-chart-line text-white text-2xl"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-3xl font-black text-white block">E-DATA360</span>
-                                <span class="text-xl font-black bg-gradient-to-r from-cyan-400 to-blue-300 bg-clip-text text-transparent">360</span>
-                            </div>
+                        <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-600 text-white font-bold">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-2xl font-black text-white">E-DATA</span>
+                            <span class="text-2xl font-black text-cyan-400">360</span>
                         </div>
                     @endif
                 </div>
-                <p class="text-gray-300 leading-relaxed text-lg">
-                    {{ $companySettings->about_short ?? 'شريكك الموثوق في تحليل البيانات وإنشاء لوحات التحكم الاحترافية. نحول بياناتك إلى قرارات ذكية.' }}
+
+                <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+                    {{ $companySettings->about_short ?? 'شريكك الموثوق في تحويل البيانات المعقدة إلى لوحات تحكم ذكية وقابلة للتنفيذ. حلول Excel متقدمة وتقارير Power BI تفاعلية لإدارة أعمالك بأعلى كفاءة.' }}
                 </p>
 
-                {{-- Stats --}}
-                <div class="grid grid-cols-2 gap-4 pt-4">
-                    <div class="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-cyan-400/30 transition-all">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
-                                <i class="fas fa-users text-white text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="text-white font-black text-2xl">170+</p>
-                                <p class="text-gray-400 text-xs">عميل</p>
-                            </div>
+                {{-- Trust Stats Badges --}}
+                <div class="grid grid-cols-2 gap-3 pt-2 max-w-xs">
+                    <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-sm font-black">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <div class="text-base font-black text-white font-num">+150</div>
+                            <div class="text-[11px] text-slate-400">مشروع منجز</div>
                         </div>
                     </div>
-                    <div class="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-purple-400/30 transition-all">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-                                <i class="fas fa-star text-white text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="text-white font-black text-2xl">5.0</p>
-                                <p class="text-gray-400 text-xs">تقييم</p>
-                            </div>
+                    <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-sm font-black">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <div class="text-base font-black text-white font-num">4.9 / 5</div>
+                            <div class="text-[11px] text-slate-400">تقييم العملاء</div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            {{-- Quick Links --}}
-            <div>
-                <h3 class="text-2xl font-black text-white mb-8 relative inline-block">
-                    روابط سريعة
-                    <div class="absolute -bottom-2 left-0 w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
-                </h3>
-                <ul class="space-y-4">
-                    <li>
-                        <a href="{{ route('home') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-home text-sm"></i>
-                            </div>
-                            <span>الرئيسية</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('about') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-users text-sm"></i>
-                            </div>
-                            <span>من نحن</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('services') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-briefcase text-sm"></i>
-                            </div>
-                            <span>خدماتنا</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('portfolio') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-th-large text-sm"></i>
-                            </div>
-                            <span>معرض الأعمال</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('testimonials.index') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-star text-sm text-amber-400"></i>
-                            </div>
-                            <span>آراء العملاء والتقييمات</span>
-                        </a>
-                    </li>
-                    {{-- <li>
-                        <a href="{{ route('contact') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-envelope text-sm"></i>
-                            </div>
-                            <span>تواصل معنا</span>
-                        </a>
-                    </li> --}}
-                    <li>
-                        <a href="{{ route('articles') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-newspaper text-sm"></i>
-                            </div>
-                            <span>المدونة</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('careers.create') }}" class="group text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center gap-3 text-lg">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                <i class="fas fa-briefcase text-sm"></i>
-                            </div>
-                            <span>الوظائف</span>
-                        </a>
-                    </li>
+
+            {{-- Col 2: Quick Links (2 cols) --}}
+            <div class="lg:col-span-2 space-y-4">
+                <h4 class="text-sm font-black text-white uppercase tracking-wider">روابط سريعة</h4>
+                <ul class="space-y-2.5 text-sm text-slate-400">
+                    <li><a href="{{ route('home') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2"><i class="fas fa-angle-left text-xs opacity-50"></i><span>الرئيسية</span></a></li>
+                    <li><a href="{{ route('services') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2"><i class="fas fa-angle-left text-xs opacity-50"></i><span>خدماتنا</span></a></li>
+                    <li><a href="{{ route('portfolio') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2"><i class="fas fa-angle-left text-xs opacity-50"></i><span>معرض الأعمال</span></a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2"><i class="fas fa-angle-left text-xs opacity-50"></i><span>من نحن</span></a></li>
+                    <li><a href="{{ route('testimonials.index') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2"><i class="fas fa-angle-left text-xs opacity-50"></i><span>آراء العملاء</span></a></li>
+                    <li><a href="{{ route('articles') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2"><i class="fas fa-angle-left text-xs opacity-50"></i><span>المدونة</span></a></li>
                 </ul>
             </div>
-            
-            
-            {{-- Services --}}
-            <div>
-                <h3 class="text-2xl font-black text-white mb-8 relative inline-block">
-                    خدماتنا
-                    <div class="absolute -bottom-2 left-0 w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
-                </h3>
-                <ul class="space-y-4">
-                    @if(isset($footerServices) && $footerServices->count() > 0)
-                        @foreach($footerServices as $service)
-                        <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
-                            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-{{ $service->color_from }} to-{{ $service->color_to }} flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <i class="{{ $service->icon }} text-white"></i>
-                            </div>
-                            <span>{{ $service->title }}</span>
+
+            {{-- Col 3: Services (3 cols) --}}
+            <div class="lg:col-span-3 space-y-4">
+                <h4 class="text-sm font-black text-white uppercase tracking-wider">خدمات التحليل</h4>
+                <ul class="space-y-2.5 text-sm text-slate-400">
+                    @forelse($footerServices as $serv)
+                        <li>
+                            <a href="{{ route('services') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2">
+                                <i class="fas fa-chart-simple text-xs text-cyan-500/70"></i>
+                                <span>{{ $serv->title }}</span>
+                            </a>
                         </li>
-                        @endforeach
-                    @else
-                        {{-- Fallback if no services --}}
-                        <li class="group text-gray-300 flex items-center gap-3 text-lg hover:text-cyan-400 transition-colors cursor-pointer">
-                            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <i class="fas fa-chart-bar text-white"></i>
-                            </div>
-                            <span>خدماتنا المميزة</span>
-                        </li>
-                    @endif
+                    @empty
+                        <li><a href="{{ route('services') }}" class="hover:text-cyan-400 transition-colors">لوحات تحكم Excel الاحترافية</a></li>
+                        <li><a href="{{ route('services') }}" class="hover:text-cyan-400 transition-colors">لوحات تحكم Power BI التفاعلية</a></li>
+                        <li><a href="{{ route('services') }}" class="hover:text-cyan-400 transition-colors">تحليل البيانات المتقدم</a></li>
+                        <li><a href="{{ route('services') }}" class="hover:text-cyan-400 transition-colors">تتبع مؤشرات الأداء KPIs</a></li>
+                        <li><a href="{{ route('services') }}" class="hover:text-cyan-400 transition-colors">ذكاء الأعمال BI والحلول المخصصة</a></li>
+                    @endforelse
                 </ul>
             </div>
-            
-            
-            {{-- Contact Info --}}
-            <div>
-                <h3 class="text-2xl font-black text-white mb-8 relative inline-block">
-                    تواصل معنا
-                    <div class="absolute -bottom-2 left-0 w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
-                </h3>
-                <ul class="space-y-5">
-                    @if(isset($companySettings))
-                        @if($companySettings->main_email)
-                        <li class="group">
-                            <a href="mailto:{{ $companySettings->main_email }}" class="flex items-start gap-4 text-gray-300 hover:text-cyan-400 transition-all duration-300">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-envelope text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">البريد الإلكتروني</p>
-                                    <p class="font-bold text-lg">{{ $companySettings->main_email }}</p>
-                                </div>
-                            </a>
-                        </li>
-                        @endif
-                        {{-- @if($companySettings->phone_primary)
-                        <li class="group">
-                            <a href="tel:{{ $companySettings->phone_primary }}" class="flex items-start gap-4 text-gray-300 hover:text-cyan-400 transition-all duration-300">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-phone text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">الهاتف</p>
-                                    <p class="font-bold text-lg" dir="ltr">{{ $companySettings->phone_primary }}</p>
-                                </div>
-                            </a>
-                        </li>
-                        @endif --}}
-                        @if($companySettings->whatsapp_number)
-                        <li class="group">
-                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}" class="flex items-start gap-4 text-gray-300 hover:text-green-400 transition-all duration-300">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                                    <i class="fab fa-whatsapp text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">واتساب</p>
-                                    <p class="font-bold text-lg">تواصل مباشر</p>
-                                </div>
-                            </a>
-                        </li>
-                        @endif
-                    @else
-                        <li class="group">
-                            <a href="mailto:info@edata360.com" class="flex items-start gap-4 text-gray-300 hover:text-cyan-400 transition-all duration-300">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-envelope text-white text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500 mb-1">البريد الإلكتروني</p>
-                                    <p class="font-bold text-lg">info@edata360.com</p>
-                                </div>
-                            </a>
-                        </li>
+
+            {{-- Col 4: Contact & Social (3 cols) --}}
+            <div class="lg:col-span-3 space-y-4">
+                <h4 class="text-sm font-black text-white uppercase tracking-wider">معلومات التواصل</h4>
                 
+                <div class="space-y-3 text-sm text-slate-400">
+                    @if($companySettings && $companySettings->location_text)
+                    <div class="flex items-start gap-2.5">
+                        <i class="fas fa-location-dot text-cyan-400 mt-1 flex-shrink-0"></i>
+                        <span>{{ $companySettings->location_text }}</span>
+                    </div>
                     @endif
-                </ul>
-                
-                {{-- Social Media --}}
-                <div class="mt-8">
-                    <h4 class="text-white font-black text-lg mb-4 flex items-center gap-2">
-                        <i class="fas fa-share-alt text-cyan-400"></i>
-                        تابعنا على
-                    </h4>
-                    <div class="flex gap-3">
+
+                    @if($companySettings && $companySettings->main_email)
+                    <div class="flex items-center gap-2.5">
+                        <i class="fas fa-envelope text-cyan-400 flex-shrink-0"></i>
+                        <a href="mailto:{{ $companySettings->main_email }}" class="hover:text-cyan-300 font-num" dir="ltr">{{ $companySettings->main_email }}</a>
+                    </div>
+                    @endif
+
+                    @if($companySettings && $companySettings->whatsapp_number)
+                    <div class="flex items-center gap-2.5">
+                        <i class="fab fa-whatsapp text-emerald-400 flex-shrink-0"></i>
+                        <a href="https://wa.me/{{ $cleanWhatsapp }}" target="_blank" class="hover:text-emerald-300 font-num" dir="ltr">{{ $companySettings->whatsapp_number }}</a>
+                    </div>
+                    @endif
+                </div>
+
+                {{-- Social Icons --}}
+                <div class="pt-2">
+                    <span class="block text-xs font-semibold text-slate-500 mb-2.5">تابعنا على المنصات:</span>
+                    <div class="flex items-center gap-2">
                         @if(isset($socialLinks) && count($socialLinks) > 0)
                             @foreach($socialLinks as $link)
-                                <a href="{{ $link->url }}" target="_blank" 
-                                   class="group relative w-12 h-12 rounded-xl bg-white/10 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 border border-white/20 hover:border-cyan-400/50">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl opacity-0 group-hover:opacity-100 blur transition-opacity"></div>
-                                    @if(str_contains(strtolower($link->platform), 'twitter') || str_contains(strtolower($link->platform), 'x'))
-                                        <i class="fab fa-x-twitter text-white text-lg relative z-10"></i>
-                                    @elseif(str_contains(strtolower($link->platform), 'facebook'))
-                                        <i class="fab fa-facebook-f text-white text-lg relative z-10"></i>
-                                    @elseif(str_contains(strtolower($link->platform), 'instagram'))
-                                        <i class="fab fa-instagram text-white text-lg relative z-10"></i>
-                                    @elseif(str_contains(strtolower($link->platform), 'linkedin'))
-                                        <i class="fab fa-linkedin-in text-white text-lg relative z-10"></i>
-                                    @elseif(str_contains(strtolower($link->platform), 'youtube'))
-                                        <i class="fab fa-youtube text-white text-lg relative z-10"></i>
-                                    @elseif(str_contains(strtolower($link->platform), 'behance'))
-                                        <i class="fab fa-behance text-white text-lg relative z-10"></i>
-                                    @else
-                                        <i class="fas fa-link text-white text-lg relative z-10"></i>
-                                    @endif
+                                <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer"
+                                   class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all duration-300">
+                                    <i class="{{ $link->icon }}"></i>
                                 </a>
                             @endforeach
                         @else
-                            <a href="#" class="group relative w-12 h-12 rounded-xl bg-white/10 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 border border-white/20 hover:border-cyan-400/50">
-                                <i class="fab fa-x-twitter text-white text-lg"></i>
-                            </a>
-                            <a href="#" class="group relative w-12 h-12 rounded-xl bg-white/10 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-500 flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 border border-white/20 hover:border-purple-400/50">
-                                <i class="fab fa-linkedin-in text-white text-lg"></i>
-                            </a>
-                            <a href="#" class="group relative w-12 h-12 rounded-xl bg-white/10 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-500 flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 border border-white/20 hover:border-pink-400/50">
-                                <i class="fab fa-instagram text-white text-lg"></i>
-                            </a>
-                            <a href="https://wa.me/966XXXXXXXXX" target="_blank" class="group relative w-12 h-12 rounded-xl bg-white/10 hover:bg-gradient-to-r hover:from-green-600 hover:to-emerald-500 flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 border border-white/20 hover:border-green-400/50">
-                                <i class="fab fa-whatsapp text-white text-lg"></i>
-                            </a>
+                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 border border-slate-800 flex items-center justify-center text-xs transition-all"><i class="fab fa-youtube"></i></a>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
 
-        {{-- Divider --}}
-        <div class="mt-16 mb-8">
-            <div class="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-        </div>
-
-        {{-- CTA Section --}}
-        <div class="bg-gradient-to-r from-blue-600/10 via-cyan-500/10 to-purple-600/10 backdrop-blur-sm rounded-3xl p-8 border border-white/10 mb-12">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                    <h3 class="text-3xl font-black text-white mb-2 flex items-center gap-3">
-                        <i class="fas fa-rocket text-cyan-400"></i>
-                        جاهز للبدء؟
-                    </h3>
-                    <p class="text-gray-300 text-lg">احصل على استشارة مجانية واكتشف كيف يمكننا مساعدتك</p>
-                </div>
-                <div class="flex gap-4">
-                    <a href="{{ route('request-design.create') }}"
-                       class="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black py-4 px-8 rounded-xl hover:shadow-2xl hover:shadow-cyan-500/50 transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-2 whitespace-nowrap">
-                        <i class="fas fa-paper-plane group-hover:rotate-12 transition-transform"></i>
-                        <span>ابدأ الآن</span>
-                    </a>
-                    <a href="{{ route('contact') }}"
-                       class="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold py-4 px-8 rounded-xl hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center gap-2 whitespace-nowrap">
-                        <i class="fas fa-headset"></i>
-                        <span>تحدث معنا</span>
-                    </a>
-                </div>
+        {{-- Bottom Copyright Bar --}}
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div>
+                © {{ date('Y') }} <span class="text-slate-300 font-bold">E-DATA360</span>. جميع الحقوق محفوظة.
             </div>
-        </div>
-
-        {{-- Bottom Bar --}}
-        <div class="pt-8 border-t border-white/10">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                    <p class="text-gray-400 text-center md:text-right">
-                        © {{ date('Y') }}
-                        <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-black text-lg">
-                            {{ $companySettings->company_name }}
-                        </span>
-                        - جميع الحقوق محفوظة
-                    </p>
-                </div>
-
-                {{-- وثيقة العمل الحر --}}
-                <div class="flex items-center gap-3 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/10 hover:border-cyan-400/30 transition-all">
-                    <img src="{{ asset('download.png') }}" alt="العمل الحر" class="h-8 object-contain">
-                    <div class="flex flex-col text-right">
-                        <span class="text-xs text-gray-400">رمز الوثيقة المعتمدة</span>
-                        <span class="text-sm font-bold text-gray-200" dir="ltr">FL-9832*****</span>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-gray-400 text-sm">
-                    <a href="{{ route('privacy') }}" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
-                        <i class="fas fa-shield-alt text-cyan-400"></i>
-                        سياسة الخصوصية
-                    </a>
-                    <div class="hidden md:block w-px h-4 bg-white/20"></div>
-                    <a href="{{ route('terms') }}" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2">
-                        <i class="fas fa-file-contract text-cyan-400"></i>
-                        الشروط والأحكام
-                    </a>
-                    <div class="hidden md:block w-px h-4 bg-white/20"></div>
-                    <a onclick="showHideToggleCookiePreferencesModal()" class="hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2 cursor-pointer">
-                        <i class="fas fa-cookie-bite text-cyan-400"></i>
-                        إعدادات الكوكيز
-                    </a>
-                    <div class="hidden md:block w-px h-4 bg-white/20"></div>
-                    <div class="flex items-center gap-2 text-gray-500">
-                        <i class="fas fa-code text-cyan-400"></i>
-                        <span>صنع بـ</span>
-                        <i class="fas fa-heart text-red-500 animate-pulse"></i>
-                        <span>{{ $companySettings->company_name }}</span>
-                    </div>
-                </div>
+            <div class="flex items-center gap-6">
+                <a href="{{ route('privacy') }}" class="hover:text-slate-300 transition-colors">سياسة الخصوصية</a>
+                <span class="text-slate-700">•</span>
+                <a href="{{ route('terms') }}" class="hover:text-slate-300 transition-colors">الشروط والأحكام</a>
+                <span class="text-slate-700">•</span>
+                <a href="{{ route('careers.create') }}" class="hover:text-slate-300 transition-colors">الوظائف</a>
             </div>
         </div>
     </div>
-
-    {{-- Decorative Bottom Border --}}
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500"></div>
 </footer>

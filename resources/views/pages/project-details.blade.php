@@ -1,363 +1,191 @@
 <x-layouts.app :seo="$project">
-    {{-- Hero Section with Breadcrumb --}}
-    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 pt-32 pb-20 overflow-hidden">
-        {{-- Animated Background --}}
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-screen filter blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mix-blend-screen filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-        </div>
+    
+    {{-- Breadcrumb & Hero Header --}}
+    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-10 pb-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
             {{-- Breadcrumb --}}
-            <nav class="mb-8 flex items-center gap-2 text-sm text-gray-300">
-                <a href="{{ route('home') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-2">
+            <nav class="mb-8 flex items-center gap-2 text-xs sm:text-sm text-slate-400">
+                <a href="{{ route('home') }}" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                     <i class="fas fa-home"></i>
                     <span>الرئيسية</span>
                 </a>
-                <i class="fas fa-chevron-left text-xs"></i>
-                <a href="{{ route('portfolio') }}" class="hover:text-cyan-400 transition-colors">المعرض</a>
-                <i class="fas fa-chevron-left text-xs"></i>
-                <span class="text-white font-semibold">{{ $project->title }}</span>
+                <i class="fas fa-chevron-left text-[10px] opacity-60"></i>
+                <a href="{{ route('portfolio') }}" class="hover:text-cyan-400 transition-colors">معرض اللوحات</a>
+                <i class="fas fa-chevron-left text-[10px] opacity-60"></i>
+                <span class="text-cyan-400 font-bold truncate max-w-xs">{{ $project->title }}</span>
             </nav>
 
-            {{-- Title & Types --}}
-            <div class="max-w-5xl mx-auto text-center">
-                <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                    {{ $project->title }}
-                </h1>
-
-                @if($project->short_description)
-                <p class="text-xl md:text-2xl text-gray-300 leading-relaxed font-light mb-8 max-w-3xl mx-auto">
-                    {{ $project->short_description }}
-                </p>
-                @endif
-
-                {{-- Project Types Badges --}}
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                {{-- Types Badges --}}
                 @if($project->types && $project->types->count() > 0)
-                <div class="flex flex-wrap gap-3 justify-center mb-8">
+                <div class="flex flex-wrap gap-2 justify-center">
                     @foreach($project->types as $type)
-                    <a href="{{ route('portfolio', ['type' => $type->slug]) }}" 
-                       class="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                       style="background: linear-gradient(135deg, {{ $type->color }} 0%, {{ $type->color }}dd 100%);">
-                        @if($type->icon)
-                        <i class="{{ $type->icon }} text-sm"></i>
-                        @endif
-                        <span>{{ $type->name }}</span>
-                    </a>
+                    <span class="px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+                        @if($type->icon)<i class="{{ $type->icon }} ml-1"></i>@endif
+                        {{ $type->name }}
+                    </span>
                     @endforeach
                 </div>
                 @endif
 
-                {{-- Quick Info --}}
-                <div class="flex flex-wrap items-center justify-center gap-6 text-gray-300">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-calendar-alt text-cyan-400"></i>
-                        <span>{{ $project->created_at->format('Y-m-d') }}</span>
-                    </div>
-                    <div class="w-1 h-1 rounded-full bg-gray-500"></div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-check-circle text-green-400"></i>
-                        <span>مكتمل بنجاح</span>
-                    </div>
-                    @if($project->projectImages && $project->projectImages->count() > 0)
-                    <div class="w-1 h-1 rounded-full bg-gray-500"></div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-images text-purple-400"></i>
-                        <span>{{ $project->projectImages->count() }} صورة</span>
-                    </div>
-                    @endif
-                </div>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+                    {{ $project->title }}
+                </h1>
 
-                {{-- Direct Live Project Link Button --}}
-                @if($project->url)
-                <div class="mt-8">
-                    <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer"
-                       class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white font-black py-4 px-8 rounded-2xl shadow-xl shadow-cyan-500/20 hover:shadow-2xl hover:shadow-cyan-500/40 hover:scale-105 transform transition-all duration-300">
-                        <i class="fas fa-external-link-alt text-lg"></i>
-                        <span>معاينة المشروع المباشرة</span>
-                        <i class="fas fa-arrow-left text-sm opacity-75"></i>
-                    </a>
-                </div>
+                @if($project->short_description)
+                <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                    {{ $project->short_description }}
+                </p>
                 @endif
             </div>
+
         </div>
     </section>
 
-    {{-- Main Image --}}
-    <section class="py-16 bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <a href="{{ Storage::url($project->main_image) }}" 
-                   data-fancybox="project-gallery" 
+    {{-- Main Showcase & Body --}}
+    <section class="py-16 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            {{-- Main Featured Image (Zoomable) --}}
+            @php
+                $mainImg = $project->main_image ? Storage::url($project->main_image) : ($project->featured_image ? Storage::url($project->featured_image) : null);
+            @endphp
+            @if($mainImg)
+            <div class="max-w-5xl mx-auto mb-16">
+                <a href="{{ $mainImg }}"
+                   data-fancybox="project-gallery"
                    data-caption="{{ $project->title }}"
-                   class="block relative rounded-3xl overflow-hidden shadow-2xl group cursor-pointer transform hover:scale-[1.02] transition-transform duration-500">
-                    <img src="{{ Storage::url($project->main_image) }}"
+                   class="block relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 group cursor-pointer">
+                    <img src="{{ $mainImg }}"
                          alt="{{ $project->title }}"
-                         class="w-full h-auto object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                        <div class="bg-white/20 backdrop-blur-md rounded-full p-6 transform scale-75 group-hover:scale-100 transition-transform duration-500">
-                            <i class="fas fa-search-plus text-white text-4xl"></i>
+                         class="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                    <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="px-5 py-2.5 rounded-full bg-cyan-500 text-slate-950 font-black text-sm flex items-center gap-2 shadow-xl">
+                            <i class="fas fa-search-plus"></i>
+                            <span>انقر لتكبير اللوحة بدقة عالية</span>
                         </div>
                     </div>
                 </a>
             </div>
-        </div>
-    </section>
+            @endif
 
-    {{-- Content Section --}}
-    <section class="py-24 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <div class="grid lg:grid-cols-3 gap-12">
-                    {{-- Main Content --}}
-                    <div class="lg:col-span-2 space-y-12">
-                        {{-- Description --}}
-                        <div>
-                            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-1.5 h-10 bg-gradient-to-b from-blue-600 to-cyan-500 rounded-full"></div>
-                                <span class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">تفاصيل المشروع</span>
-                            </h2>
-                            <div class="prose prose-lg max-w-none">
-                                <div class="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 border border-gray-200">
-                                    {!! $project->description !!}
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Image Gallery --}}
-                        @if($project->projectImages && $project->projectImages->count() > 0)
-                        <div>
-                            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-1.5 h-10 bg-gradient-to-b from-purple-600 to-pink-500 rounded-full"></div>
-                                <span class="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">معرض الصور</span>
-                            </h2>
-
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                @foreach($project->projectImages as $image)
-                                <a href="{{ Storage::url($image->image_path) }}" 
-                                   data-fancybox="project-gallery" 
-                                   data-caption="{{ $image->caption ?? $project->title }}"
-                                   class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 cursor-pointer aspect-square">
-                                    <img src="{{ Storage::url($image->image_path) }}"
-                                         alt="{{ $image->caption }}"
-                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                    
-                                    {{-- Hover Overlay --}}
-                                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                                        <div class="text-white text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                            <i class="fas fa-search-plus text-3xl mb-2"></i>
-                                            @if($image->caption)
-                                            <p class="text-sm font-semibold px-4">{{ $image->caption }}</p>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </a>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-
-                        {{-- Video Section --}}
-                        @if($project->video_url)
-                        <div>
-                            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-1.5 h-10 bg-gradient-to-b from-orange-600 to-red-500 rounded-full"></div>
-                                <span class="bg-gradient-to-r from-orange-600 to-red-500 bg-clip-text text-transparent">فيديو المشروع</span>
-                            </h2>
-
-                            <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                                <div class="aspect-video">
-                                    <video controls class="w-full h-full">
-                                        <source src="{{ Storage::url($project->video_url) }}" type="video/mp4">
-                                        متصفحك لا يدعم تشغيل الفيديو.
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-
-                    {{-- Sidebar --}}
-                    <div class="lg:col-span-1">
-                        <div class="sticky top-8 space-y-6">
-                            {{-- Live Project Link Card --}}
-                            @if($project->url)
-                            <div class="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-6 border-2 border-cyan-200 shadow-lg">
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
-                                        <i class="fas fa-globe text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-black text-gray-900">رابط المشروع</h3>
-                                        <p class="text-sm text-gray-600">زيارة المعاينة المباشرة</p>
-                                    </div>
-                                </div>
-                                <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer"
-                                   class="group flex items-center justify-center gap-3 w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3.5 px-6 rounded-xl hover:shadow-xl hover:shadow-cyan-500/30 transform hover:scale-105 transition-all duration-300">
-                                    <i class="fas fa-external-link-alt group-hover:rotate-12 transition-transform"></i>
-                                    <span>زيارة الموقع الإلكتروني</span>
-                                </a>
-                            </div>
-                            @endif
-
-                            {{-- Project Types Card --}}
-                            @if($project->types && $project->types->count() > 0)
-                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
-                                <h3 class="text-xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                                    <i class="fas fa-layer-group text-purple-600"></i>
-                                    <span>تصنيفات المشروع</span>
-                                </h3>
-                                <div class="space-y-3">
-                                    @foreach($project->types as $type)
-                                    <a href="{{ route('portfolio', ['type' => $type->slug]) }}" 
-                                       class="group flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:shadow-md"
-                                       style="background: linear-gradient(135deg, {{ $type->color }}10 0%, white 100%); border: 2px solid {{ $type->color }}20;">
-                                        @if($type->icon)
-                                        <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                                             style="background: linear-gradient(135deg, {{ $type->color }} 0%, {{ $type->color }}dd 100%);">
-                                            <i class="{{ $type->icon }} text-white"></i>
-                                        </div>
-                                        @endif
-                                        <div class="flex-1 min-w-0">
-                                            <p class="font-bold text-sm truncate" style="color: {{ $type->color }};">{{ $type->name }}</p>
-                                            <p class="text-xs text-gray-600">عرض المزيد</p>
-                                        </div>
-                                        <i class="fas fa-arrow-left text-xs transition-transform duration-300 group-hover:-translate-x-1" style="color: {{ $type->color }};"></i>
-                                    </a>
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endif
-
-                            {{-- Purchase Availability --}}
-                            @if($project->is_available_for_purchase && $companySettings && $companySettings->whatsapp_number)
-                            <div class="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border-2 border-emerald-200 shadow-lg">
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center">
-                                        <i class="fas fa-shopping-cart text-white text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-black text-gray-900">متاح للشراء</h3>
-                                        <p class="text-sm text-gray-600">يمكنك شراء هذا المشروع الآن</p>
-                                    </div>
-                                </div>
-
-                                @if($project->price)
-                                <div class="bg-white rounded-xl p-4 mb-4 border border-emerald-200">
-                                    <div class="flex items-baseline justify-between">
-                                        <span class="text-gray-600 text-sm">السعر:</span>
-                                        <div class="flex items-baseline gap-1">
-                                            <span class="text-3xl font-black text-emerald-600">{{ number_format($project->price, 2) }}</span>
-                                            <span class="text-gray-600 font-semibold">ر.س</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-
-                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}?text={{ urlencode('مرحباً، أنا مهتم بشراء المشروع: ' . $project->title . "\n" . 'رابط المشروع: ' . request()->url()) }}"
-                                   target="_blank"
-                                   class="group flex items-center justify-center gap-3 w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold py-4 px-6 rounded-xl hover:shadow-xl hover:shadow-emerald-500/30 transform hover:scale-105 transition-all duration-300">
-                                    <i class="fab fa-whatsapp text-2xl group-hover:rotate-12 transition-transform"></i>
-                                    <span>اشتري عبر واتساب</span>
-                                </a>
-
-                                <p class="text-xs text-gray-600 text-center mt-3">
-                                    <i class="fas fa-shield-alt text-emerald-600 ml-1"></i>
-                                    سيتم التواصل معك مباشرة عبر واتساب
-                                </p>
-                            </div>
-                            @endif
-
-                            {{-- Quick Actions --}}
-                            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100">
-                                <h3 class="text-xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                                    <i class="fas fa-rocket text-blue-600"></i>
-                                    <span>هل أعجبك المشروع؟</span>
-                                </h3>
-                                <p class="text-gray-700 mb-6 text-sm leading-relaxed">
-                                    يمكننا مساعدتك في إنشاء مشروع مشابه يلبي احتياجاتك
-                                </p>
-                                <div class="space-y-3">
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $companySettings->whatsapp_number) }}?text={{ urlencode('مرحباً، أنا مهتم بطلب تصميم مشابه لمشروع: ' . $project->title . "\n" . 'رابط المشروع: ' . request()->url()) }}"
-                                       class="group flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transform hover:scale-105 transition-all duration-300">
-                                        <i class="fas fa-paper-plane group-hover:rotatse-12 transition-transform"></i>
-                                        <span>اطلب تصميم مشابه</span>
-                                    </a>
-                                    <a href="{{ route('portfolio') }}"
-                                       class="flex items-center justify-center gap-2 w-full bg-white text-gray-700 font-semibold py-3 px-6 rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:text-blue-600 transition-all duration-300">
-                                        <i class="fas fa-th-large"></i>
-                                        <span>عودة للمعرض</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            {{-- Share Section --}}
-                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
-                                <h3 class="text-xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                                    <i class="fas fa-share-alt text-green-600"></i>
-                                    <span>شارك المشروع</span>
-                                </h3>
-                                <div class="flex gap-2">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" 
-                                       target="_blank"
-                                       class="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($project->title) }}" 
-                                       target="_blank"
-                                       class="flex-1 flex items-center justify-center gap-2 bg-sky-500 text-white py-2.5 rounded-lg hover:bg-sky-600 transition-colors">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($project->title) }}" 
-                                       target="_blank"
-                                       class="flex-1 flex items-center justify-center gap-2 bg-blue-700 text-white py-2.5 rounded-lg hover:bg-blue-800 transition-colors">
-                                        <i class="fab fa-linkedin-in"></i>
-                                    </a>
-                                    <button onclick="navigator.clipboard.writeText('{{ request()->url() }}'); alert('تم نسخ الرابط!');"
-                                            class="flex-1 flex items-center justify-center gap-2 bg-gray-600 text-white py-2.5 rounded-lg hover:bg-gray-700 transition-colors">
-                                        <i class="fas fa-link"></i>
-                                    </button>
-                                </div>
-                            </div>
+            {{-- 2 Columns Grid: Details vs Sidebar --}}
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                {{-- Main Content (8 cols) --}}
+                <div class="lg:col-span-8 space-y-10">
+                    
+                    {{-- Description Card --}}
+                    <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 space-y-6">
+                        <h2 class="text-2xl font-black text-white flex items-center gap-3">
+                            <span class="w-2 h-6 rounded-full bg-cyan-500"></span>
+                            <span>نظرة عامة على المشروع ومخرجاته</span>
+                        </h2>
+                        <div class="text-slate-300 text-base sm:text-lg leading-relaxed prose prose-invert max-w-none">
+                            {!! $project->description !!}
                         </div>
                     </div>
+
+                    {{-- Image Gallery --}}
+                    @if($project->projectImages && $project->projectImages->count() > 0)
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fas fa-images text-cyan-400"></i>
+                            <span>لقطات إضافية من لوحة التحكم</span>
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            @foreach($project->projectImages as $img)
+                            <a href="{{ Storage::url($img->image_path) }}"
+                               data-fancybox="project-gallery"
+                               data-caption="{{ $img->caption ?? $project->title }}"
+                               class="group relative rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 aspect-video block bg-slate-950">
+                                <img src="{{ Storage::url($img->image_path) }}"
+                                     alt="{{ $img->caption }}"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                <div class="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <i class="fas fa-expand text-white text-lg"></i>
+                                </div>
+                            </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
+                    {{-- Video Demonstration --}}
+                    @if($project->video_url)
+                    <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 space-y-4">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fas fa-play text-amber-400"></i>
+                            <span>فيديو استعراض التفاعلية</span>
+                        </h3>
+                        <div class="aspect-video rounded-2xl overflow-hidden bg-black">
+                            <video controls class="w-full h-full">
+                                <source src="{{ Storage::url($project->video_url) }}" type="video/mp4">
+                                متصفحك لا يدعم تشغيل الفيديو.
+                            </video>
+                        </div>
+                    </div>
+                    @endif
+
                 </div>
+
+                {{-- Sidebar (4 cols) --}}
+                <div class="lg:col-span-4 space-y-6">
+                    
+                    {{-- Live Project Link --}}
+                    @if($project->url)
+                    <div class="p-6 rounded-3xl bg-slate-950 border border-cyan-500/30 shadow-xl space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-base">المعاينة المباشرة</h4>
+                                <p class="text-xs text-slate-400">تصفح اللوحة بشكل تفاعلي</p>
+                            </div>
+                        </div>
+                        <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-sm text-center shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-external-link-alt text-xs"></i>
+                            <span>فتح لوحة التحكم المباشرة</span>
+                        </a>
+                    </div>
+                    @endif
+
+                    {{-- Quick Order CTA --}}
+                    @php
+                        $rawWhatsapp = $companySettings->whatsapp_number ?? '+966501234567';
+                        $cleanWhatsapp = preg_replace('/[^0-9]/', '', $rawWhatsapp);
+                    @endphp
+                    <div class="p-6 rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 space-y-4">
+                        <h4 class="font-bold text-white text-base flex items-center gap-2">
+                            <i class="fas fa-sparkles text-amber-400"></i>
+                            <span>ترغب في لوحة مماثلة لعملك؟</span>
+                        </h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            نصمم لوحة تحكم مخصصة بالكامل لبيانات شركتك مع تسليم خلال 3 إلى 5 أيام وتدريب كامل لفريقك.
+                        </p>
+                        <a href="{{ route('request-design.create') }}"
+                           class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-black text-sm text-center shadow-lg shadow-amber-500/20 hover:scale-105 transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-rocket text-xs"></i>
+                            <span>طلب تصميم لوحة الآن</span>
+                        </a>
+                        <a href="https://wa.me/{{ $cleanWhatsapp }}?text={{ urlencode('مرحباً، أود الاستفسار عن تصميم لوحة تحكم مشابهة لمشروع: ' . $project->title) }}"
+                           target="_blank"
+                           class="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs text-center border border-slate-800 transition-all flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp text-emerald-400 text-sm"></i>
+                            <span>استفسار فوري عبر واتساب</span>
+                        </a>
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
     </section>
 
-    {{-- Fancybox Initialization --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Fancybox.bind('[data-fancybox="project-gallery"]', {
-                l10n: {
-                    CLOSE: 'إغلاق',
-                    NEXT: 'التالي',
-                    PREV: 'السابق',
-                    MODAL: 'يمكنك إغلاق هذا النموذج بالضغط على ESC',
-                    ERROR: 'حدث خطأ أثناء تحميل الصورة',
-                    IMAGE_ERROR: 'لم يتم العثور على الصورة',
-                    TOGGLE_ZOOM: 'تبديل مستوى التكبير',
-                    TOGGLE_THUMBS: 'تبديل الصور المصغرة',
-                    TOGGLE_SLIDESHOW: 'تبديل عرض الشرائح',
-                    TOGGLE_FULLSCREEN: 'تبديل ملء الشاشة',
-                    DOWNLOAD: 'تحميل'
-                },
-                Carousel: {
-                    infinite: true,
-                },
-                Toolbar: {
-                    display: {
-                        left: ['infobar'],
-                        middle: [],
-                        right: ['slideshow', 'thumbs', 'close'],
-                    },
-                },
-                Thumbs: {
-                    autoStart: false,
-                },
-            });
-        });
-    </script>
 </x-layouts.app>

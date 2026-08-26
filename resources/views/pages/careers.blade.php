@@ -1,111 +1,102 @@
 <x-layouts.app>
+    
     {{-- Hero Section --}}
-    <section class="relative bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 min-h-[50vh] flex items-center justify-center overflow-hidden">
-        {{-- Background Effects --}}
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-        
-        <div class="absolute inset-0 opacity-30">
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-        </div>
+    <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-12 pb-16 overflow-hidden">
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-500/15 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none"></div>
 
-        <div class="container mx-auto px-6 relative z-10 text-center">
-             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
-                <span class="block mb-4">انضم إلى</span>
-                <span class="block bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                    فريق المبدعين
-                </span>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-5">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-cyan-500/30 text-cyan-400 text-xs sm:text-sm font-bold shadow-lg motion-reveal">
+                <i class="fas fa-users-gear"></i>
+                <span>انضم إلى فريق الخبراء</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight motion-reveal">
+                انضم إلى فريق <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-300 bg-clip-text text-transparent">E-DATA 360</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
-                نبحث دوماً عن مواهب استثنائية لتشاركنا النجاح
+
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed motion-reveal">
+                نبحث باستمرار عن مهندسي بيانات ومحللي Power BI ومصممي لوحات تحكم محترفين لمشاركتنا صناعة النجاح.
             </p>
         </div>
     </section>
 
     {{-- Form Section --}}
-    <section class="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
-        <div class="container mx-auto px-6">
-             <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 shadow-2xl border border-gray-100">
-                <h2 class="text-3xl font-black text-gray-900 mb-8 text-center">قدّم طلبك الآن</h2>
-                
-                @if(session('success'))
-                     <div class="bg-green-50 border-r-4 border-green-500 text-green-700 p-4 rounded-xl mb-6 flex items-center gap-3">
-                        <i class="fas fa-check-circle text-2xl"></i>
-                        <p class="font-bold">{{ session('success') }}</p>
-                     </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="bg-red-50 border-r-4 border-red-500 text-red-700 p-4 rounded-xl mb-6">
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+    <section class="py-16 bg-slate-900">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            @if(session('success'))
+                <div class="p-6 rounded-3xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 mb-10 flex items-start gap-4 shadow-xl">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-xl text-emerald-400">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                @endif
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-1">تم استلام طلبك بنجاح! 🎉</h4>
+                        <p class="text-sm text-emerald-200">{{ session('success') }}</p>
+                    </div>
+                </div>
+            @endif
+
+            <div class="p-8 sm:p-12 rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl">
+                <h2 class="text-2xl font-black text-white mb-8">تقديم طلب الانضمام</h2>
 
                 <form action="{{ route('careers.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Name -->
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                             <label class="block text-gray-700 font-bold mb-2 flex items-center gap-2">
-                                <i class="fas fa-user text-blue-600"></i> الاسم الكامل
-                             </label>
-                             <input type="text" name="name" value="{{ old('name') }}" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition outline-none" required placeholder="الاسم ثلاثي">
+                            <label class="block text-xs font-bold text-slate-300 mb-2">الاسم الكامل <span class="text-rose-400">*</span></label>
+                            <input type="text" name="name" value="{{ old('name') }}" required
+                                   class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition-colors text-sm"
+                                   placeholder="الاسم ثلاثي">
                         </div>
-                        <!-- Email -->
+
                         <div>
-                             <label class="block text-gray-700 font-bold mb-2 flex items-center gap-2">
-                                <i class="fas fa-envelope text-blue-600"></i> البريد الإلكتروني
-                             </label>
-                             <input type="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition outline-none" required placeholder="example@gmail.com">
+                            <label class="block text-xs font-bold text-slate-300 mb-2">البريد الإلكتروني <span class="text-rose-400">*</span></label>
+                            <input type="email" name="email" value="{{ old('email') }}" required
+                                   class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition-colors text-sm text-left" dir="ltr"
+                                   placeholder="name@example.com">
                         </div>
-                         <!-- Phone -->
+
                         <div>
-                             <label class="block text-gray-700 font-bold mb-2 flex items-center gap-2">
-                                <i class="fas fa-phone text-blue-600"></i> رقم الهاتف
-                             </label>
-                             <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition outline-none" required placeholder="05xxxxxxxx">
+                            <label class="block text-xs font-bold text-slate-300 mb-2">رقم الجوال <span class="text-rose-400">*</span></label>
+                            <input type="tel" name="phone" value="{{ old('phone') }}" required
+                                   class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition-colors text-sm text-left" dir="ltr"
+                                   placeholder="+966 5X XXX XXXX">
                         </div>
-                        <!-- Experience -->
+
                         <div>
-                             <label class="block text-gray-700 font-bold mb-2 flex items-center gap-2">
-                                <i class="fas fa-briefcase text-blue-600"></i> سنوات الخبرة
-                             </label>
-                             <input type="number" name="years_of_experience" value="{{ old('years_of_experience') }}" min="0" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition outline-none" required>
+                            <label class="block text-xs font-bold text-slate-300 mb-2">سنوات الخبرة <span class="text-rose-400">*</span></label>
+                            <input type="number" name="years_of_experience" value="{{ old('years_of_experience') }}" min="0" required
+                                   class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition-colors text-sm"
+                                   placeholder="عدد السنوات">
                         </div>
                     </div>
 
-                    <!-- Specialization -->
                     <div>
-                         <label class="block text-gray-700 font-bold mb-2 flex items-center gap-2">
-                            <i class="fas fa-code text-blue-600"></i> التخصص الوظيفي
-                         </label>
-                         <input type="text" name="specialization" value="{{ old('specialization') }}" placeholder="مثال: مطور واجهات أمامية" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition outline-none" required>
+                        <label class="block text-xs font-bold text-slate-300 mb-2">التخصص ومجال الخبرة <span class="text-rose-400">*</span></label>
+                        <input type="text" name="specialization" value="{{ old('specialization') }}" required
+                               class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none transition-colors text-sm"
+                               placeholder="مثال: خبير تحليل بيانات Power BI / مصمم لوحات Excel / مهندس بيانات">
                     </div>
 
-                    <!-- CV Upload -->
                     <div>
-                         <label class="block text-gray-700 font-bold mb-2">السيرة الذاتية (PDF, DOC, DOCX)</label>
-                         <div class="relative border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-500 transition-colors bg-gray-50 group cursor-pointer" onclick="document.querySelector('input[name=cv]').click()">
-                            <input type="file" name="cv" class="hidden" required accept=".pdf,.doc,.docx" onchange="document.getElementById('file-name').textContent = this.files[0].name">
-                            <div class="text-gray-500 group-hover:text-blue-600 transition-colors">
-                                <i class="fas fa-cloud-upload-alt text-4xl mb-2"></i>
-                                <p class="font-medium">اضغط لرفع الملف أو اسحبه هنا</p>
-                                <p class="text-sm mt-1">الحد الأقصى: 5 ميجابايت</p>
-                                <p id="file-name" class="mt-2 text-green-600 font-semibold"></p>
-                            </div>
-                         </div>
+                        <label class="block text-xs font-bold text-slate-300 mb-2">السيرة الذاتية (PDF, DOCX) <span class="text-rose-400">*</span></label>
+                        <input type="file" name="cv" required accept=".pdf,.doc,.docx"
+                               class="w-full p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 text-xs file:ml-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-cyan-500/20 file:text-cyan-300 hover:file:bg-cyan-500/30 cursor-pointer">
                     </div>
 
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-4 rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition duration-300 flex justify-center items-center gap-2">
-                        <i class="fas fa-paper-plane"></i>
-                        إرسال الطلب
-                    </button>
+                    <div class="pt-4">
+                        <button type="submit"
+                                class="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-sm shadow-xl shadow-cyan-600/25 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-paper-plane text-xs"></i>
+                            <span>إرسال طلب التوظيف</span>
+                        </button>
+                    </div>
                 </form>
-             </div>
+            </div>
+
         </div>
     </section>
+
 </x-layouts.app>

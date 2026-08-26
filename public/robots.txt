@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /admin/*
+
+Sitemap: https://e-data360.test/sitemap.xml
+Sitemap: https://e-data360.test/sitemap-pages.xml
+Sitemap: https://e-data360.test/sitemap-projects.xml
