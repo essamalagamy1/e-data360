@@ -13,19 +13,6 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-4xl mx-auto space-y-6">
-                
-                {{-- Live Badge --}}
-                {{-- <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 backdrop-blur-md shadow-lg shadow-cyan-500/10 motion-reveal">
-                    <span class="beacon-dot w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
-                    <span class="text-xs sm:text-sm font-bold text-cyan-300">
-                        {{ $heroSection->badge_text ?? 'الحل الأسرع والأكثر دقة في تحليل البيانات ولوحات التحكم' }}
-                    </span>
-                    @if($heroSection && $heroSection->badge_icon)
-                        <i class="{{ $heroSection->badge_icon }} text-cyan-400 text-xs"></i>
-                    @else
-                        <i class="fas fa-sparkles text-cyan-400 text-xs"></i>
-                    @endif
-                </div> --}}
 
                 {{-- Hero Headline --}}
                 <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] text-slate-100 motion-reveal">
@@ -376,12 +363,17 @@
                             
                             {{-- Image Preview Area --}}
                             <div class="relative h-60 w-full overflow-hidden bg-slate-900">
-                                @if($project->featured_image)
-                                    <img src="{{ Storage::url($project->featured_image) }}"
+                                @php
+                                    $pImg = $project->main_image ?? $project->featured_image;
+                                    $pImgUrl = $pImg ? Storage::url($pImg) : null;
+                                @endphp
+                                @if($pImgUrl)
+                                    <img src="{{ $pImgUrl }}"
                                          alt="{{ $project->title }}"
+                                         loading="lazy"
                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 @else
-                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-950 text-slate-600">
+                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-950 text-cyan-500/40">
                                         <i class="fas fa-chart-pie text-5xl"></i>
                                     </div>
                                 @endif
