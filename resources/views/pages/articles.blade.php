@@ -39,8 +39,12 @@
                                          alt="{{ $art->title }}"
                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 @else
-                                    <div class="w-full h-full flex items-center justify-center bg-slate-900 text-slate-700">
-                                        <i class="fas fa-newspaper text-5xl"></i>
+                                    <div class="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/70 to-slate-950 flex flex-col items-center justify-center p-6 text-center border-b border-slate-800">
+                                        <div class="absolute inset-0 bg-[radial-gradient(rgba(6,182,212,0.15)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"></div>
+                                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shadow-lg mb-2 relative z-10 group-hover:scale-110 transition-transform">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-300 relative z-10">تحليل وتطوير الأعمال</span>
                                     </div>
                                 @endif
                             </div>

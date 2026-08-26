@@ -224,7 +224,7 @@
                             {{ $service->title }}
                         </h3>
                         <p class="text-sm text-slate-400 leading-relaxed mb-6">
-                            {{ $service->description ?? $service->short_description }}
+                            {{ strip_tags($service->description ?? $service->short_description) }}
                         </p>
 
                         {{-- Features List --}}
@@ -526,33 +526,46 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-motion-stagger>
                 @foreach($latestArticles as $art)
+                @php
+                    $artImg = $art->featured_image ? Storage::url($art->featured_image) : ($art->image ? Storage::url($art->image) : null);
+                @endphp
                 <article class="stagger-item rounded-3xl bg-slate-950 border border-slate-800 hover:border-cyan-500/40 transition-all overflow-hidden flex flex-col justify-between group shadow-xl">
                     <div>
-                        <div class="relative h-48 w-full overflow-hidden bg-slate-900">
-                            @if($art->image)
-                                <img src="{{ Storage::url($art->image) }}" alt="{{ $art->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="relative h-48 w-full overflow-hidden bg-slate-900 flex-shrink-0">
+                            @if($artImg)
+                                <img src="{{ $artImg }}" alt="{{ $art->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
-                                <div class="w-full h-full flex items-center justify-center bg-slate-900 text-slate-700">
-                                    <i class="fas fa-newspaper text-4xl"></i>
+                                <div class="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/70 to-slate-950 flex flex-col items-center justify-center p-6 text-center border-b border-slate-800">
+                                    {{-- Ambient Glow --}}
+                                    <div class="absolute inset-0 bg-[radial-gradient(rgba(6,182,212,0.15)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"></div>
+                                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shadow-lg mb-2 relative z-10 group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-300 relative z-10">تحليل وتطوير الأعمال</span>
                                 </div>
                             @endif
+
+                            {{-- Floating Tag --}}
+                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-slate-950/80 backdrop-blur-md text-cyan-300 text-[11px] font-bold border border-cyan-500/20">
+                                مقال تحليلي
+                            </span>
                         </div>
 
-                        <div class="p-6 space-y-3">
+                        <div class="p-6 space-y-3 flex-grow">
                             <div class="text-xs text-cyan-400 font-bold flex items-center gap-2">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span>{{ $art->published_at ? $art->published_at->format('Y-m-d') : 'مقال مميز' }}</span>
                             </div>
-                            <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors line-clamp-2">
+                            <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors line-clamp-2 h-14 flex items-center">
                                 {{ $art->title }}
                             </h3>
-                            <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 leading-relaxed">
-                                {{ $art->short_description ?? Str::limit(strip_tags($art->content), 100) }}
+                            <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 h-10 leading-relaxed">
+                                {{ $art->excerpt ?? $art->short_description ?? Str::limit(strip_tags($art->content), 100) }}
                             </p>
                         </div>
                     </div>
 
-                    <div class="px-6 pb-6 pt-2">
+                    <div class="px-6 pb-6 pt-2 mt-auto">
                         <a href="{{ route('articles.show', $art->slug) }}"
                            class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition-colors">
                             <span>اقرأ المقال بالكامل</span>

@@ -81,7 +81,7 @@
                                 {{ $project->title }}
                             </h3>
                             <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 leading-relaxed">
-                                {{ $project->short_description ?? $project->description }}
+                                {{ strip_tags($project->short_description ?? $project->description) }}
                             </p>
 
                             <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">

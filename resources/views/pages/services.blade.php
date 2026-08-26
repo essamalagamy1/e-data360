@@ -51,7 +51,7 @@
                             {{ $service->title }}
                         </h3>
                         <p class="text-sm text-slate-400 leading-relaxed mb-6">
-                            {{ $service->description ?? $service->short_description }}
+                            {{ strip_tags($service->description ?? $service->short_description) }}
                         </p>
 
                         {{-- Features checkmarks --}}
