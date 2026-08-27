@@ -29,7 +29,7 @@ class PageController extends Controller
         return view('pages.services', [
             'heroSection' => HeroSection::where('page', 'services')->where('is_active', true)->first(),
             'stats' => Stat::where('page', 'services')->where('is_active', true)->orderBy('order')->get(),
-            'services' => Service::where('is_active', true)->with('features')->orderBy('order')->get(),
+            'services' => Service::where('is_active', true)->with('features')->orderBy('order')->paginate(6)->withQueryString(),
             'companySettings' => CompanySetting::first(),
             'socialLinks' => SocialLink::where('is_active', true)->get(),
         ]);

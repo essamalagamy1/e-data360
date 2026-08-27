@@ -95,6 +95,11 @@
                     </div>
                     @endforeach
                 </div>
+
+                {{-- Pagination --}}
+                <div class="mt-12 flex justify-center">
+                    {{ $projects->links() }}
+                </div>
             @else
                 <div class="text-center py-20 text-slate-400 space-y-3">
                     <i class="fas fa-chart-pie text-5xl text-slate-600"></i>

@@ -24,7 +24,7 @@ class ProjectController extends Controller
             });
         }
         
-        $projects = $query->paginate(9);
+        $projects = $query->latest()->paginate(9)->withQueryString();
         $seo = SeoSetting::where('page', 'portfolio')->first();
         
         // Get all active project types for the filter
