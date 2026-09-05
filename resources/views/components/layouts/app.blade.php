@@ -21,81 +21,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#071520">
 
-    <!-- SEO Meta Tags -->
-    <title>{{ $seo->meta_title ?? 'E-DATA360 | تحليل البيانات ولوحات تحكم Excel و Power BI في السعودية' }}</title>
-    <meta name="description" content="{{ $seo->meta_description ?? 'شركة E-DATA360 الرائدة في السعودية لتحليل البيانات وتصميم لوحات تحكم تفاعلية متقدمة عبر Excel و Power BI للمنشآت والشركات بالرياض وكافة مناطق المملكة.' }}">
-    <meta name="keywords" content="تحليل البيانات السعودية, لوحات تحكم Excel الرياض, لوحات Power BI جدة, مؤشرات أداء المنشآت KPI, ذكاء الأعمال السعودية, تقارير هيئة الزكاة والضريبة, داشبورد تفاعلي, E-DATA360, إي داتا 360">
-    <meta name="author" content="E-DATA360">
-    <link rel="canonical" href="{{ url()->current() }}">
-    <link rel="alternate" hreflang="ar-SA" href="{{ url()->current() }}">
-    <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
-    
-    <!-- Saudi Arabia GEO Location Meta Tags -->
-    <meta name="geo.region" content="SA-01">
-    <meta name="geo.placename" content="الرياض، المملكة العربية السعودية">
-    <meta name="geo.position" content="24.7136;46.6753">
-    <meta name="ICBM" content="24.7136, 46.6753">
-    <meta name="language" content="Arabic">
-    <meta name="country" content="Saudi Arabia">
-    
-    <!-- Open Graph & Social Meta Tags -->
-    <meta property="og:site_name" content="E-DATA360">
-    <meta property="og:title" content="{{ $seo->meta_title ?? 'E-DATA360 | حلول تحليل البيانات ولوحات التحكم في السعودية' }}">
-    <meta property="og:description" content="{{ $seo->meta_description ?? 'نحول بيانات منشأتك إلى لوحات تحكم وقرارات استراتيجية تفاعلية بأسعار تنافسية وتسليم سريع في 3-5 أيام.' }}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:locale" content="ar_SA">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $seo->meta_title ?? 'E-DATA360 | تحليل البيانات ولوحات التحكم' }}">
-    <meta name="twitter:description" content="{{ $seo->meta_description ?? 'لوحات تحكم Excel و Power BI احترافية للشركات السعودية.' }}">
-    
-    <!-- Schema.org JSON-LD Structured Data for Saudi Local Business & Organization -->
-    @php
-        $schemaData = [
-            '@context' => 'https://schema.org',
-            '@type' => 'ProfessionalService',
-            'name' => 'E-DATA360',
-            'alternateName' => 'إي داتا 360 لتحليل البيانات',
-            'description' => 'شركة سعودية متخصصة في تحليل البيانات وهندسة لوحات التحكم التفاعلية عبر Excel و Power BI وذكاء الأعمال للمنشآت والشركات.',
-            'url' => url('/'),
-            'telephone' => $companySettings->phone_primary ?? '+966501234567',
-            'email' => $companySettings->main_email ?? 'info@e-data360.com',
-            'address' => [
-                '@type' => 'PostalAddress',
-                'streetAddress' => 'طريق الملك فهد',
-                'addressLocality' => 'الرياض',
-                'addressRegion' => 'منطقة الرياض',
-                'postalCode' => '12214',
-                'addressCountry' => 'SA',
-            ],
-            'geo' => [
-                '@type' => 'GeoCoordinates',
-                'latitude' => 24.7136,
-                'longitude' => 46.6753,
-            ],
-            'openingHoursSpecification' => [
-                '@type' => 'OpeningHoursSpecification',
-                'dayOfWeek' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-                'opens' => '09:00',
-                'closes' => '18:00',
-            ],
-            'priceRange' => 'SAR 320 - SAR 10000',
-            'currenciesAccepted' => 'SAR',
-            'paymentAccepted' => 'Bank Transfer, Mada, Apple Pay, Credit Card',
-            'areaServed' => [
-                ['@type' => 'Country', 'name' => 'Saudi Arabia'],
-                ['@type' => 'City', 'name' => 'الرياض'],
-                ['@type' => 'City', 'name' => 'جدة'],
-                ['@type' => 'City', 'name' => 'الدمام'],
-                ['@type' => 'City', 'name' => 'الخبر'],
-                ['@type' => 'City', 'name' => 'مكة المكرمة'],
-                ['@type' => 'City', 'name' => 'المدينة المنورة'],
-            ],
-        ];
-    @endphp
-    <script type="application/ld+json">
-    {!! json_encode($schemaData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
-    </script>
+    <!-- Dynamic SEO, Geo, Schema.org, Agent Discovery & WebMCP -->
+    <x-seo-meta :seo="$seo ?? null" />
     
     <!-- Favicon -->
     @if(isset($companySettings) && $companySettings->favicon_path)

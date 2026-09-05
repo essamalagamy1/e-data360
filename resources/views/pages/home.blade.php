@@ -458,12 +458,17 @@
                                         <i class="fas fa-star"></i>
                                     @endfor
                                 </div>
-
-                                {{-- Quote with fixed clamped height --}}
-                                <p class="text-sm sm:text-base text-slate-300 leading-relaxed italic line-clamp-3 h-[4.5rem] sm:h-20 overflow-hidden">
-                                    "{{ Str::limit($testi->testimonial ?? $testi->content, 140) }}"
-                                </p>
+                                @if($testi->source === 'google')
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                                        <i class="fab fa-google text-[10px]"></i> Google ✦
+                                    </span>
+                                @endif
                             </div>
+
+                            {{-- Quote with fixed clamped height --}}
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed italic line-clamp-3 h-[4.5rem] sm:h-20 overflow-hidden mt-2">
+                                "{{ Str::limit($testi->testimonial ?? $testi->content, 140) }}"
+                            </p>
 
                             {{-- Client Info --}}
                             <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-3">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Project;
 use App\Models\Service;
 use Illuminate\Http\Response;
@@ -15,7 +16,9 @@ class SitemapController extends Controller
     {
         $sitemaps = [
             ['loc' => route('sitemap.pages'), 'lastmod' => now()->toAtomString()],
-            ['loc' => route('sitemap.projects'), 'lastmod' => Project::latest('updated_at')->first()?->updated_at->toAtomString()],
+            ['loc' => route('sitemap.services'), 'lastmod' => Service::where('is_active', true)->latest('updated_at')->first()?->updated_at?->toAtomString() ?: now()->toAtomString()],
+            ['loc' => route('sitemap.projects'), 'lastmod' => Project::where('status', 'published')->latest('updated_at')->first()?->updated_at?->toAtomString() ?: now()->toAtomString()],
+            ['loc' => route('sitemap.articles'), 'lastmod' => Article::published()->latest('updated_at')->first()?->updated_at?->toAtomString() ?: now()->toAtomString()],
         ];
 
         return response()->view('sitemap.index', compact('sitemaps'))
@@ -30,12 +33,56 @@ class SitemapController extends Controller
         $pages = [
             ['loc' => route('home'), 'changefreq' => 'daily', 'priority' => '1.0'],
             ['loc' => route('about'), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => route('services'), 'changefreq' => 'weekly', 'priority' => '0.9'],
+            ['loc' => route('services'), 'changefreq' => 'daily', 'priority' => '0.9'],
             ['loc' => route('portfolio'), 'changefreq' => 'daily', 'priority' => '0.9'],
             ['loc' => route('contact'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => route('testimonials.index'), 'changefreq' => 'weekly', 'priority' => '0.8'],
-            ['loc' => route('request-design.create'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => route('careers.create'), 'changefreq' => 'monthly', 'priority' => '0.6'],
+            ['loc' => route('request-design.create'), 'changefreq' => 'weekly', 'priority' => '0.9'],
+            ['loc' => route('articles'), 'changefreq' => 'daily', 'priority' => '0.8'],
+            ['loc' => route('privacy'), 'changefreq' => 'yearly', 'priority' => '0.3'],
+            ['loc' => route('terms'), 'changefreq' => 'yearly', 'priority' => '0.3'],
         ];
+
+        return response()->view('sitemap.pages', compact('pages'))
+            ->header('Content-Type', 'text/xml');
+    }
+
+    /**
+     * Generate services sitemap
+     */
+    public function services()
+    {
+        $pages = Service::where('is_active', true)
+            ->orderBy('order')
+            ->get()
+            ->map(function ($service) {
+                return [
+                    'loc' => route('services') . '#' . ($service->slug ?: $service->id),
+                    'changefreq' => 'weekly',
+                    'priority' => '0.8',
+                ];
+            });
+
+        return response()->view('sitemap.pages', compact('pages'))
+            ->header('Content-Type', 'text/xml');
+    }
+
+    /**
+     * Generate articles sitemap
+     */
+    public function articles()
+    {
+        $pages = Article::published()
+            ->latest('published_at')
+            ->get()
+            ->map(function ($article) {
+                return [
+                    'loc' => route('articles.show', $article),
+                    'changefreq' => 'weekly',
+                    'priority' => '0.7',
+                ];
+            });
 
         return response()->view('sitemap.pages', compact('pages'))
             ->header('Content-Type', 'text/xml');
@@ -78,12 +125,14 @@ class SitemapController extends Controller
             ];
         }
 
-        foreach ($project->projectImages as $image) {
-            $images[] = [
-                'loc' => asset('storage/' . $image->image_path),
-                'title' => $image->caption ?? $project->title,
-                'caption' => $image->caption,
-            ];
+        if ($project->relationLoaded('projectImages') || method_exists($project, 'projectImages')) {
+            foreach ($project->projectImages as $image) {
+                $images[] = [
+                    'loc' => asset('storage/' . $image->image_path),
+                    'title' => $image->caption ?? $project->title,
+                    'caption' => $image->caption,
+                ];
+            }
         }
 
         return $images;

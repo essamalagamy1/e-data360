@@ -71,8 +71,13 @@
                                     @for($i=1; $i <= ($testi->rating ?? 5); $i++)
                                         <i class="fas fa-star"></i>
                                     @endfor
-                                </div>
-                                <span class="text-xs text-slate-500 font-num">مُوثّق</span>
+                                @if($testi->source === 'google')
+                                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                                        <i class="fab fa-google text-xs"></i> مراجعة Google موثقة ✦
+                                    </span>
+                                @else
+                                    <span class="text-xs text-slate-500 font-num">مُوثّق</span>
+                                @endif
                             </div>
 
                             <p class="text-sm sm:text-base text-slate-300 leading-relaxed italic">

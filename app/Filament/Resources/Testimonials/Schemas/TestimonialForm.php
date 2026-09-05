@@ -53,6 +53,16 @@ class TestimonialForm
                     ->required()
                     ->numeric()
                     ->default(0),
+                \Filament\Forms\Components\Select::make('source')
+                    ->label('مصدر التقييم')
+                    ->options([
+                        'local' => 'تقييم محلي مباشر',
+                        'google' => 'مراجعة موثقة من خرائط Google',
+                    ])
+                    ->default('local'),
+                TextInput::make('review_url')
+                    ->label('رابط المراجعة المباشر')
+                    ->url(),
                 Toggle::make('is_active')
                     ->label('نشط')
                     ->required(),
