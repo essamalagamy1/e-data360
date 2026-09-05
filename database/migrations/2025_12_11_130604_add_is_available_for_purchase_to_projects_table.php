@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->boolean('is_available_for_purchase')->default(false)->after('status');
-            $table->decimal('price', 10, 2)->nullable()->after('is_available_for_purchase');
+            if (!Schema::hasColumn('projects', 'is_available_for_purchase')) {
+                $table->boolean('is_available_for_purchase')->default(false)->after('status');
+            }
+            if (!Schema::hasColumn('projects', 'price')) {
+                $table->decimal('price', 10, 2)->nullable()->after('is_available_for_purchase');
+            }
         });
     }
 

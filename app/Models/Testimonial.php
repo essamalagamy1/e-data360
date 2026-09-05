@@ -20,6 +20,8 @@ class Testimonial extends Model
         'is_featured',
         'order',
         'is_active',
+        'source',
+        'review_url',
     ];
 
     protected $casts = [

@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('company_settings', function (Blueprint $table) {
-            $table->string('logo_2_path')->nullable()->after('logo_path');
-            $table->string('favicon_path')->nullable()->after('logo_2_path');
+            if (!Schema::hasColumn('company_settings', 'logo_2_path')) {
+                $table->string('logo_2_path')->nullable()->after('logo_path');
+            }
+            if (!Schema::hasColumn('company_settings', 'favicon_path')) {
+                $table->string('favicon_path')->nullable()->after('logo_2_path');
+            }
         });
     }
 

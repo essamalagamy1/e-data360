@@ -12,18 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('services', function (Blueprint $table) {
-            // icon already exists, so we skip it
-            $table->string('color_from')->default('blue-500')->after('icon');
-            $table->string('color_to')->default('cyan-500')->after('color_from');
-            $table->string('badge_icon')->nullable()->after('color_to');
-            $table->string('badge_color')->default('yellow-400')->after('badge_icon');
-            $table->string('price_starting')->nullable()->after('badge_color');
-            $table->string('price_label')->default('يبدأ من')->after('price_starting');
-            $table->string('duration')->nullable()->after('price_label');
-            $table->string('cta_text')->default('اطلب الآن')->after('duration');
-            $table->string('cta_link')->nullable()->after('cta_text');
-            $table->boolean('is_featured')->default(false)->after('cta_link');
-            $table->integer('order')->default(0)->after('is_featured');
+            if (!Schema::hasColumn('services', 'color_from')) $table->string('color_from')->default('blue-500')->after('icon');
+            if (!Schema::hasColumn('services', 'color_to')) $table->string('color_to')->default('cyan-500');
+            if (!Schema::hasColumn('services', 'badge_icon')) $table->string('badge_icon')->nullable();
+            if (!Schema::hasColumn('services', 'badge_color')) $table->string('badge_color')->default('yellow-400');
+            if (!Schema::hasColumn('services', 'price_starting')) $table->string('price_starting')->nullable();
+            if (!Schema::hasColumn('services', 'price_label')) $table->string('price_label')->default('يبدأ من');
+            if (!Schema::hasColumn('services', 'duration')) $table->string('duration')->nullable();
+            if (!Schema::hasColumn('services', 'cta_text')) $table->string('cta_text')->default('اطلب الآن');
+            if (!Schema::hasColumn('services', 'cta_link')) $table->string('cta_link')->nullable();
+            if (!Schema::hasColumn('services', 'is_featured')) $table->boolean('is_featured')->default(false);
+            if (!Schema::hasColumn('services', 'order')) $table->integer('order')->default(0);
         });
     }
 

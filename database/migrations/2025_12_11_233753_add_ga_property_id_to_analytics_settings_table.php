@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('analytics_settings', function (Blueprint $table) {
-            $table->string('ga_property_id')->nullable()->after('ga_measurement_id')->comment('Numeric Property ID for Data API');
+            if (!Schema::hasColumn('analytics_settings', 'ga_property_id')) {
+                $table->string('ga_property_id')->nullable()->after('ga_measurement_id')->comment('Numeric Property ID for Data API');
+            }
         });
     }
 
