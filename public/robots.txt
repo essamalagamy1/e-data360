@@ -1,8 +1,28 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /admin/*
+Disallow: /admin
+Disallow: /filament
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
-Sitemap: https://e-data360.test/sitemap.xml
-Sitemap: https://e-data360.test/sitemap-pages.xml
-Sitemap: https://e-data360.test/sitemap-projects.xml
+User-agent: GPTBot
+Allow: /
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+User-agent: ClaudeBot
+Allow: /
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+User-agent: PerplexityBot
+Allow: /
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+User-agent: Applebot-Extended
+Allow: /
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+Sitemap: https://e-data360.com/sitemap.xml
+Sitemap: https://e-data360.com/sitemap-services.xml
+Sitemap: https://e-data360.com/sitemap-projects.xml
+Sitemap: https://e-data360.com/sitemap-articles.xml
+Link: <https://e-data360.com/llms.txt>; rel="index"
+Link: <https://e-data360.com/.well-known/api-catalog>; rel="api-catalog"

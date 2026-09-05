@@ -38,6 +38,21 @@ class AgentDiscoveryMiddleware
         }
 
         // 2. Markdown content negotiation (Markdown for Agents)
+        // Do NOT override if the endpoint already returned markdown, JSON, XML, or is a well-known / file route
+        $contentType = $response->headers->get('Content-Type', '');
+        if (str_contains($contentType, 'text/markdown') || 
+            str_contains($contentType, 'application/json') || 
+            str_contains($contentType, 'text/plain') || 
+            str_contains($contentType, 'text/xml') || 
+            $request->is('.well-known*') || 
+            $request->is('auth.md') || 
+            $request->is('*.md') || 
+            $request->is('*.txt') || 
+            $request->is('*.json') || 
+            $request->is('*.xml')) {
+            return $response;
+        }
+
         $acceptHeader = $request->header('Accept', '');
         $userAgent = $request->header('User-Agent', '');
         $isAgentRequester = str_contains($acceptHeader, 'text/markdown') || 
@@ -52,6 +67,7 @@ class AgentDiscoveryMiddleware
                 'x-markdown-tokens' => (string) $tokenCount,
                 'Vary' => 'Accept, User-Agent',
                 'Link' => $response->headers->get('Link', ''),
+                'Content-Signal' => 'ai-train=no, search=yes, ai-input=no',
             ]);
         }
 
