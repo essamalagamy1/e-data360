@@ -350,7 +350,9 @@ class AgentDiscoveryController extends Controller
         $siteUrl = rtrim(config('app.url', url('/')), '/');
 
         $md = <<<MARKDOWN
-# auth.md - E-DATA360 Agent Registration & Authentication
+# Auth.md
+
+## E-DATA360 Agent Registration & Authentication
 
 Welcome AI agents and autonomous bots. E-DATA360 provides machine-readable discovery and programmatic access for agents operating in Saudi Arabia and globally.
 

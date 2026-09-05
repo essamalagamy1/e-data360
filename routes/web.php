@@ -74,22 +74,28 @@ Route::get('/sitemap-articles.xml', [SitemapController::class, 'articles'])->nam
 Route::get('/robots.txt', function () {
     $siteUrl = rtrim(config('app.url', url('/')), '/');
     
-    $content = "# robots.txt for E-DATA360 Analytics\n";
-    $content .= "User-agent: *\n";
+    $content = "User-agent: *\n";
     $content .= "Allow: /\n";
     $content .= "Disallow: /admin\n";
-    $content .= "Disallow: /filament\n\n";
+    $content .= "Disallow: /filament\n";
+    $content .= "Content-Signal: ai-train=no, search=yes, ai-input=no\n\n";
 
-    $content .= "# AI Agents & Web Crawlers Directives\n";
-    $content .= "User-agent: GPTBot\nAllow: /\n\n";
-    $content .= "User-agent: ClaudeBot\nAllow: /\n\n";
-    $content .= "User-agent: PerplexityBot\nAllow: /\n\n";
-    $content .= "User-agent: Applebot-Extended\nAllow: /\n\n";
+    $content .= "User-agent: GPTBot\n";
+    $content .= "Allow: /\n";
+    $content .= "Content-Signal: ai-train=no, search=yes, ai-input=no\n\n";
 
-    $content .= "# Content Signals (AI usage preferences)\n";
-    $content .= "Content-Signal: ai-train=no, search=yes, ai-input=yes\n\n";
+    $content .= "User-agent: ClaudeBot\n";
+    $content .= "Allow: /\n";
+    $content .= "Content-Signal: ai-train=no, search=yes, ai-input=no\n\n";
 
-    $content .= "# Sitemaps & LLM Discovery\n";
+    $content .= "User-agent: PerplexityBot\n";
+    $content .= "Allow: /\n";
+    $content .= "Content-Signal: ai-train=no, search=yes, ai-input=no\n\n";
+
+    $content .= "User-agent: Applebot-Extended\n";
+    $content .= "Allow: /\n";
+    $content .= "Content-Signal: ai-train=no, search=yes, ai-input=no\n\n";
+
     $content .= "Sitemap: {$siteUrl}/sitemap.xml\n";
     $content .= "Sitemap: {$siteUrl}/sitemap-services.xml\n";
     $content .= "Sitemap: {$siteUrl}/sitemap-projects.xml\n";
@@ -97,5 +103,8 @@ Route::get('/robots.txt', function () {
     $content .= "Link: <{$siteUrl}/llms.txt>; rel=\"index\"\n";
     $content .= "Link: <{$siteUrl}/.well-known/api-catalog>; rel=\"api-catalog\"\n";
 
-    return response($content)->header('Content-Type', 'text/plain; charset=utf-8');
+    return response($content, 200, [
+        'Content-Type' => 'text/plain; charset=utf-8',
+        'Content-Signal' => 'ai-train=no, search=yes, ai-input=no',
+    ]);
 })->name('robots');

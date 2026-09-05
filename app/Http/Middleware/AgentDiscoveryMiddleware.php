@@ -34,6 +34,7 @@ class AgentDiscoveryMiddleware
             ];
 
             $response->headers->set('Link', implode(', ', $linkHeaders));
+            $response->headers->set('Content-Signal', 'ai-train=no, search=yes, ai-input=no');
         }
 
         // 2. Markdown content negotiation (Markdown for Agents)
